@@ -1,30 +1,32 @@
-node {
+pipeline {
     def app
-
-    stage('Clone repository') {
-      
-
-        checkout scm
+    environment { 
+        registry = "aarondvail/test" 
+        registryCredential = 'DockerHub' 
+        dockerImage = '' 
     }
-
-    stage('Build image') {
-  
-       app = docker.build("aarondvail/test")
-    }
-
-    stage('Test image') {
-  
-
-        app.inside {
-            sh 'echo "Tests passed"'
+    agent any 
+    stages { 
+        stage('Clone repository') {
+            checkout scm
         }
-    }
-
-    stage('Push image') {
-        
-        docker.withRegistry('https://registry.hub.docker.com', 'git') {
-            app.push("${env.BUILD_NUMBER}")
-            app.push("latest")
+        stage('Build image') {
+            dockerImage = docker.build registry + ":$BUILD_NUMBER"
         }
+
+        stage('Deploy our image') { 
+            steps { 
+                script { 
+                    docker.withRegistry( '', registryCredential ) { 
+                        dockerImage.push() 
+                    }
+                } 
+            }
+        } 
+        stage('Cleaning up') { 
+            steps { 
+                sh "docker rmi $registry:$BUILD_NUMBER" 
+            }
+        } 
     }
 }
