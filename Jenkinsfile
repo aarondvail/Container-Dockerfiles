@@ -1,5 +1,4 @@
 pipeline {
-    def app
     environment { 
         registry = "aarondvail/test" 
         registryCredential = 'DockerHub' 
@@ -8,12 +7,17 @@ pipeline {
     agent any 
     stages { 
         stage('Clone repository') {
-            checkout scm
+            steps { 
+                git 'https://github.com/aarondvail/Container-Dockerfiles.git' 
+            }
         }
         stage('Build image') {
-            dockerImage = docker.build registry + ":$BUILD_NUMBER"
+            steps { 
+                script { 
+                    dockerImage = docker.build registry + ":$BUILD_NUMBER" 
+                }
+            } 
         }
-
         stage('Deploy our image') { 
             steps { 
                 script { 
