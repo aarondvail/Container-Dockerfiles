@@ -1,6 +1,6 @@
 pipeline {
     environment { 
-        registry = "aarondvail/test" 
+        registry = "aarondvail/$BRANCH_NAME" 
         registryCredential = 'DockerHub' 
         dockerImage = '' 
     }
@@ -14,7 +14,7 @@ pipeline {
         stage('Build image') {
             steps { 
                 script { 
-                    dockerImage = docker.build registry + ":$BUILD_NUMBER" 
+                    dockerImage = docker.build registry + ":$BUILD_NUMBER -f #WORKSPACE/$BRANCH_NAME.dockerfile" 
                     dockerImageLatest = docker.build registry + ":latest" 
                 }
             } 
