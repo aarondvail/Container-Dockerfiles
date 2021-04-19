@@ -14,7 +14,7 @@ pipeline {
         stage('Build image') {
             steps { 
                 script { 
-                    echo "dockerImage = docker.build registry + \":$BUILD_NUMBER -f $WORKSPACE/$BRANCH_NAME.dockerfile\"" 
+                    echo "dockerImage = docker.build registry + :$BUILD_NUMBER -f $WORKSPACE/$BRANCH_NAME.dockerfile" 
                     dockerImage = docker.build registry + ":$BUILD_NUMBER -f $WORKSPACE/$BRANCH_NAME.dockerfile" 
                     dockerImageLatest = docker.build registry + ":latest -f $WORKSPACE/$BRANCH_NAME.dockerfile" 
                 }
