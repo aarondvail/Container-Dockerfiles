@@ -15,7 +15,7 @@ pipeline {
             steps { 
                 script { 
                     def dockerfile = "${BRANCH_NAME}.dockerfile"
-                    echo "dockerImage = docker.build (\"${registry}:${BUILD_NUMBER}\", \"-f ${dockerfile}\")" 
+                    echo "dockerImage = docker.build (\"${registry}:${BUILD_NUMBER}\", \"-f ${dockerfile} .\")" 
                     dockerImage = docker.build ("${registry}:${BUILD_NUMBER}", "-f ${dockerfile} .") 
                     dockerImageLatest = docker.build ("${registry}:latest", "-f ${dockerfile} .") 
                 }
