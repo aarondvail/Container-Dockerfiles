@@ -17,7 +17,7 @@ RUN apt-get update -y && apt-get install -y --allow-unauthenticated build-essent
 RUN curl -L https://yt-dl.org/downloads/latest/youtube-dl -o /usr/local/bin/youtube-dl && chmod a+rx /usr/local/bin/youtube-dl 
 
 #Get youtube filelist
-touch /root/findYouTube.sh
+RUN touch /root/findYouTube.sh
 
 #Health Check
 HEALTHCHECK CMD curl --fail http://youtube.com/ || exit 1
