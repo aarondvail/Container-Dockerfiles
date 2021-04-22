@@ -23,4 +23,4 @@ RUN touch /root/findYouTube.sh
 HEALTHCHECK CMD curl --fail http://youtube.com/ || exit 1
 
 #Starting container
-ENTRYPOINT ["sh", "/root/findYouTube.sh"]
+ENTRYPOINT ["tail", "-f", "/dev/null"]
