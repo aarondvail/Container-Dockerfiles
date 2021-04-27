@@ -1,3 +1,5 @@
+#Setting ARCH type argument
+ARG ARCH=
 # Dockerfile YouTube-DL install (run from /port/docker/file)
 FROM debian
 
