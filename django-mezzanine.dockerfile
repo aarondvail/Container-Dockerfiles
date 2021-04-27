@@ -1,3 +1,5 @@
+#Setting ARCH type argument
+ARG ARCH=
 # Dockerfile DJango install (run from /port/docker/file)
 FROM python
 # Set the locale
