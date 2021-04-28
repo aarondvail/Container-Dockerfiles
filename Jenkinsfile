@@ -91,7 +91,6 @@ pipeline {
 //        } 
         stage('Cleaning up') { 
             steps { 
-                sh "docker rmi ${registry}:latest" 
                 sh "docker rmi ${registry}:${amd64tag}" 
                 sh "docker rmi ${registry}:${arm32v7tag}" 
                 sh "docker rmi ${registry}:${arm64v8tag}" 
