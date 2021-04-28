@@ -25,14 +25,11 @@ pipeline {
         //    } 
         //}
         stage('Build amd64 image') {
-            agent {
-                label 'amd64'
-            }
             steps { 
                 script { 
                     def dockerfile = "${BRANCH_NAME}.dockerfile"
-                    echo "dockerImage = docker.build (\"${registry}:${amd64tag}\", \"--build-arg ARCH=amd64/ -f ${dockerfile} .\")" 
-                    dockerImage = docker.build ("${registry}:${amd64tag}", "--build-arg ARCH=amd64/ -f ${dockerfile} .") 
+                    echo "dockerImage = sh (\"docker build -t ${registry}:${amd64tag} --build-arg ARCH=amd64/ -f ${dockerfile} .\")" 
+                    dockerImage = sh "docker build -t ${registry}:${amd64tag} --build-arg ARCH=amd64/ -f ${dockerfile} ." 
                     docker.withRegistry( '', registryCredential ) { 
                         dockerImage.push() 
                     }
@@ -40,9 +37,6 @@ pipeline {
             } 
         }
         stage('Build arm32v7 image') {
-            agent {
-                label 'arm'
-            }
             steps { 
                 script { 
                     def dockerfile = "${BRANCH_NAME}.dockerfile"
@@ -55,9 +49,6 @@ pipeline {
             } 
         }
         stage('Build arm64v8 image') {
-            agent {
-                label 'arm64'
-            }
             steps { 
                 script { 
                     def dockerfile = "${BRANCH_NAME}.dockerfile"
