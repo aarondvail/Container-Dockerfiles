@@ -3,6 +3,9 @@ pipeline {
         registry = "aarondvail/$BRANCH_NAME" 
         registryCredential = 'DockerHub' 
         dockerImage = '' 
+        amd64tag = "amd64-${BUILD_NUMBER}"
+        arm32v7tag = "arm32v7-${BUILD_NUMBER}"
+        arm64v8tag = "arm64v8-${BUILD_NUMBER}"
     }
     agent any 
     stages { 
@@ -11,29 +14,84 @@ pipeline {
                 git 'https://github.com/aarondvail/Container-Dockerfiles.git' 
             }
         }
-        stage('Build image') {
+        //stage('Build image') {
+        //    steps { 
+        //        script { 
+        //            def dockerfile = "${BRANCH_NAME}.dockerfile"
+        //            echo "dockerImage = docker.build (\"${registry}:${BUILD_NUMBER}\", \"-f ${dockerfile} .\")" 
+        //            dockerImage = docker.build ("${registry}:${BUILD_NUMBER}", "-f ${dockerfile} .") 
+        //            dockerImageLatest = docker.build ("${registry}:latest", "-f ${dockerfile} .") 
+        //        }
+        //    } 
+        //}
+        stage('Build amd64 image') {
             steps { 
                 script { 
                     def dockerfile = "${BRANCH_NAME}.dockerfile"
-                    echo "dockerImage = docker.build (\"${registry}:${BUILD_NUMBER}\", \"-f ${dockerfile} .\")" 
-                    dockerImage = docker.build ("${registry}:${BUILD_NUMBER}", "-f ${dockerfile} .") 
-                    dockerImageLatest = docker.build ("${registry}:latest", "-f ${dockerfile} .") 
+                    echo "dockerImage = docker.build (\"${registry}:${amd64tag}\", \"--build-arg ARCH=amd64/ -f ${dockerfile} .\")" 
+                    dockerImage = docker.build ("${registry}:${amd64tag}", "--build-arg ARCH=amd64/ -f ${dockerfile} .") 
+                    docker.withRegistry( '', registryCredential ) { 
+                        dockerImage.push() 
+                    }
                 }
             } 
         }
-        stage('Deploy our image') { 
+        stage('Build arm32v7 image') {
+            steps { 
+                script { 
+                    def dockerfile = "${BRANCH_NAME}.dockerfile"
+                    echo "dockerImage = docker.build (\"${registry}:${arm32v7tag}\", \"--build-arg ARCH=arm32v7/ -f ${dockerfile} .\")" 
+                    dockerImage = docker.build ("${registry}:${arm32v7tag}", "--build-arg ARCH=arm32v7/ -f ${dockerfile} .") 
+                    docker.withRegistry( '', registryCredential ) { 
+                        dockerImage.push() 
+                    }
+                }
+            } 
+        }
+        stage('Build arm64v8 image') {
+            steps { 
+                script { 
+                    def dockerfile = "${BRANCH_NAME}.dockerfile"
+                    echo "dockerImage = docker.build (\"${registry}:${arm64v8tag}\", \"--build-arg ARCH=arm64v8/ -f ${dockerfile} .\")" 
+                    dockerImage = docker.build ("${registry}:${arm64v8tag}", "--build-arg ARCH=arm64v8/ -f ${dockerfile} .") 
+                    docker.withRegistry( '', registryCredential ) { 
+                        dockerImage.push() 
+                    }
+                }
+            } 
+        }
+//        stage('Deploy our image') { 
+//            steps { 
+//                script { 
+//                    docker.withRegistry( '', registryCredential ) { 
+//                        dockerImage.push() 
+//                        dockerImageLatest.push() 
+//                    }
+//                } 
+//            }
+//        } 
+        stage('Create Manifest List') { 
+            steps { 
+                script {
+                    sh "docker manifest create ${registry}:latest --amend ${registry}:${amd64tag} --amend ${registry}:${arm32v7tag} --amend ${registry}:${arm64v8tag}"
+                } 
+            }
+        } 
+        stage('Deploy our Manifest') { 
             steps { 
                 script { 
                     docker.withRegistry( '', registryCredential ) { 
-                        dockerImage.push() 
-                        dockerImageLatest.push() 
+                        sh "docker manifest push ${registry}:latest" 
                     }
                 } 
             }
         } 
         stage('Cleaning up') { 
             steps { 
-                sh "docker rmi $registry:$BUILD_NUMBER" 
+                sh "docker rmi ${registry}:latest" 
+                sh "docker rmi ${registry}:${amd64tag}" 
+                sh "docker rmi ${registry}:${arm32v7tag}" 
+                sh "docker rmi ${registry}:${arm64v8tag}" 
                 //sh "docker rmi $registry:latest" 
                 deleteDir()
             }
