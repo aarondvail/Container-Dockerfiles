@@ -28,10 +28,10 @@ pipeline {
             steps { 
                 script { 
                     def dockerfile = "${BRANCH_NAME}.dockerfile"
-                    echo "dockerImage = sh (\"docker build -t ${registry}:${amd64tag} --build-arg ARCH=amd64/ -f ${dockerfile} .\")" 
-                    dockerImage = sh "docker build -t ${registry}:${amd64tag} --build-arg ARCH=amd64/ -f ${dockerfile} ." 
+                    echo "${registry}:${amd64tag} - ${dockerfile}" 
+                    sh "docker build -t ${registry}:${amd64tag} --build-arg ARCH=amd64/ -f ${dockerfile} ." 
                     docker.withRegistry( '', registryCredential ) { 
-                        dockerImage.push() 
+                        sh "docker push ${registry}:${amd64tag}"
                     }
                 }
             } 
@@ -40,10 +40,10 @@ pipeline {
             steps { 
                 script { 
                     def dockerfile = "${BRANCH_NAME}.dockerfile"
-                    echo "dockerImage = docker.build (\"${registry}:${arm32v7tag}\", \"--build-arg ARCH=arm32v7/ -f ${dockerfile} .\")" 
-                    dockerImage = docker.build ("${registry}:${arm32v7tag}", "--build-arg ARCH=arm32v7/ -f ${dockerfile} .") 
+                    echo "${registry}:${arm32v7tag} - ${dockerfile}" 
+                    sh "docker build -t ${registry}:${arm32v7tag} --build-arg ARCH=arm32v7/ -f ${dockerfile} ." 
                     docker.withRegistry( '', registryCredential ) { 
-                        dockerImage.push() 
+                        sh "docker push ${registry}:${arm32v7tag}"
                     }
                 }
             } 
@@ -52,10 +52,10 @@ pipeline {
             steps { 
                 script { 
                     def dockerfile = "${BRANCH_NAME}.dockerfile"
-                    echo "dockerImage = docker.build (\"${registry}:${arm64v8tag}\", \"--build-arg ARCH=arm64v8/ -f ${dockerfile} .\")" 
-                    dockerImage = docker.build ("${registry}:${arm64v8tag}", "--build-arg ARCH=arm64v8/ -f ${dockerfile} .") 
+                    echo "${registry}:${arm64v8tag} - ${dockerfile}" 
+                    sh "docker build -t ${registry}:${arm64v8tag} --build-arg ARCH=arm64v8/ -f ${dockerfile} ." 
                     docker.withRegistry( '', registryCredential ) { 
-                        dockerImage.push() 
+                        sh "docker push ${registry}:${arm64v8tag}" 
                     }
                 }
             } 
