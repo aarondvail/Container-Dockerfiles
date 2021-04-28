@@ -70,24 +70,25 @@ pipeline {
 //                } 
 //            }
 //        } 
-        stage('Create Manifest List') { 
+        stage('Create Manifest List and Deploy') { 
             steps { 
                 script {
                     docker.withRegistry( '', registryCredential ) { 
                         sh "docker manifest create ${registry}:latest --amend ${registry}:${amd64tag} --amend ${registry}:${arm32v7tag} --amend ${registry}:${arm64v8tag}"
+                        sh "docker manifest push ${registry}:latest"
                     }
                 } 
             }
         } 
-        stage('Deploy our Manifest') { 
-            steps { 
-                script { 
-                    docker.withRegistry( '', registryCredential ) { 
-                        sh "docker manifest push ${registry}:latest" 
-                    }
-                } 
-            }
-        } 
+//        stage('Deploy our Manifest') { 
+//            steps { 
+//                script { 
+//                    docker.withRegistry( '', registryCredential ) { 
+//                        sh "docker manifest push ${registry}:latest" 
+//                    }
+//                } 
+//            }
+//        } 
         stage('Cleaning up') { 
             steps { 
                 sh "docker rmi ${registry}:latest" 
