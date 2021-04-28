@@ -25,6 +25,9 @@ pipeline {
         //    } 
         //}
         stage('Build amd64 image') {
+            agent {
+                label 'amd64'
+            }
             steps { 
                 script { 
                     def dockerfile = "${BRANCH_NAME}.dockerfile"
@@ -37,6 +40,9 @@ pipeline {
             } 
         }
         stage('Build arm32v7 image') {
+            agent {
+                label 'arm'
+            }
             steps { 
                 script { 
                     def dockerfile = "${BRANCH_NAME}.dockerfile"
@@ -49,6 +55,9 @@ pipeline {
             } 
         }
         stage('Build arm64v8 image') {
+            agent {
+                label 'arm64'
+            }
             steps { 
                 script { 
                     def dockerfile = "${BRANCH_NAME}.dockerfile"
