@@ -1,5 +1,5 @@
 #Setting ARCH type argument
-ARG ARCH=
+ARG ARCH
 FROM alpine:3.12
 RUN apk --no-cache add dnsmasq
 EXPOSE 53 53/udp
