@@ -30,7 +30,7 @@ pipeline {
                     def dockerfile = "${BRANCH_NAME}.dockerfile"
                     echo "${registry}:${amd64tag} - ${dockerfile}" 
                     docker.withRegistry( '', registryCredential ) { 
-                        sh "docker buildx build --push --platform linux/arm/v7,linux/arm64/v8,linux/amd64 --tag ${registry}:latest -f ${dockerfile} ."
+                        sh "docker buildx build --platform linux/arm/v7,linux/arm64/v8,linux/amd64 --tag ${registry}:latest -f ${dockerfile} ."
                     }
                 }
             } 
