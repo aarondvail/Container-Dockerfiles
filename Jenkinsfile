@@ -73,7 +73,9 @@ pipeline {
         stage('Create Manifest List') { 
             steps { 
                 script {
-                    sh "docker manifest create ${registry}:latest --amend ${registry}:${amd64tag} --amend ${registry}:${arm32v7tag} --amend ${registry}:${arm64v8tag}"
+                    docker.withRegistry( '', registryCredential ) { 
+                        sh "docker manifest create ${registry}:latest --amend ${registry}:${amd64tag} --amend ${registry}:${arm32v7tag} --amend ${registry}:${arm64v8tag}"
+                    }
                 } 
             }
         } 
