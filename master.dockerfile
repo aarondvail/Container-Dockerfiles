@@ -17,17 +17,12 @@ ARG JENKINS_HOME=/var/jenkins_home
 ENV JENKINS_HOME $JENKINS_HOME
 ENV JENKINS_SLAVE_AGENT_PORT ${agent_port}
 
-# Install git lfs per https://github.com/git-lfs/git-lfs#from-binary
-# Avoid JENKINS-59569 - git LFS 2.7.1 fails clone with reference repository
-ARG GIT_LFS_VERSION=v2.11.0
-ENV GIT_LFS_VERSION $GIT_LFS_VERSION
-RUN curl -fsSLO https://github.com/git-lfs/git-lfs/releases/download/${GIT_LFS_VERSION}/git-lfs-linux-$(dpkg --print-architecture)-${GIT_LFS_VERSION}.tar.gz \
-  && curl -fsSLO https://github.com/git-lfs/git-lfs/releases/download/${GIT_LFS_VERSION}/sha256sums.asc \
-  && curl -L https://github.com/bk2204.gpg | gpg --no-tty --import \
-  && gpg -d sha256sums.asc | grep git-lfs-linux-$(dpkg --print-architecture)-${GIT_LFS_VERSION}.tar.gz | sha256sum -c \
-  && tar -zvxf git-lfs-linux-$(dpkg --print-architecture)-${GIT_LFS_VERSION}.tar.gz git-lfs \
-  && mv git-lfs /usr/bin/ \
-  && rm -rf git-lfs-linux-$(dpkg --print-architecture)-${GIT_LFS_VERSION}.tar.gz sha256sums.asc /root/.gnupg
+## removing for apt-get
+## Install git lfs per https://github.com/git-lfs/git-lfs#from-binary
+## Avoid JENKINS-59569 - git LFS 2.7.1 fails clone with reference repository
+#ARG GIT_LFS_VERSION=v2.11.0
+#ENV GIT_LFS_VERSION $GIT_LFS_VERSION
+#RUN curl -fsSLO https://github.com/git-lfs/git-lfs/releases/download/${GIT_LFS_VERSION}/git-lfs-linux-$(dpkg --print-architecture)-${GIT_LFS_VERSION}.tar.gz  && curl -fsSLO https://github.com/git-lfs/git-lfs/releases/download/${GIT_LFS_VERSION}/sha256sums.asc   && curl -L https://github.com/bk2204.gpg | gpg --no-tty --import   && gpg -d sha256sums.asc | grep git-lfs-linux-$(dpkg --print-architecture)-${GIT_LFS_VERSION}.tar.gz | sha256sum -c && tar -zvxf git-lfs-linux-$(dpkg --print-architecture)-${GIT_LFS_VERSION}.tar.gz git-lfs   && mv git-lfs /usr/bin/   && rm -rf git-lfs-linux-$(dpkg --print-architecture)-${GIT_LFS_VERSION}.tar.gz sha256sums.asc /root/.gnupg
 
 # Jenkins is run with user `jenkins`, uid = 1000
 # If you bind mount a volume from the host or a data container,
@@ -70,7 +65,7 @@ RUN curl -fsSL https://github.com/krallin/tini/releases/download/${TINI_VERSION}
 ## could use ADD but this one does not check Last-Modified header neither does it allow to control checksum
 ## see https://github.com/docker/docker/issues/8331
 #RUN curl -fsSL ${JENKINS_URL} -o /usr/share/jenkins/jenkins.war && echo "${JENKINS_SHA}  /usr/share/jenkins/jenkins.war" | sha256sum -c -
-RUN apt-get install -y jenkins python3 qemu
+RUN apt-get install -y jenkins python3 qemu git-lfs
 
 ENV JENKINS_UC https://updates.jenkins.io
 ENV JENKINS_UC_EXPERIMENTAL=https://updates.jenkins.io/experimental
