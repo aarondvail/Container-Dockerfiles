@@ -1,7 +1,7 @@
 #Setting ARCH type argument
 ARG ARCH
 # Placeholder for the specified arch that gets parsed in the publish-experimental.sh script. Using Buster-slim for now
-FROM buster-slim
+FROM debian:buster-slim
 
 RUN wget -q -O - https://pkg.jenkins.io/debian/jenkins.io.key | sudo apt-key add -
 RUN echo "deb https://pkg.jenkins.io/debian binary/" >> /etc/apt/sources.list
