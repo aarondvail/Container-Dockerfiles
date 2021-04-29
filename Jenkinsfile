@@ -55,10 +55,10 @@ pipeline {
                 script { 
                     def dockerfile = "${BRANCH_NAME}.dockerfile"
                     echo "${registry}:${arm32v7tag} - ${dockerfile}" 
-                    sh "docker build -t ${registry}:${arm32v7tag} --build-arg ARCH=arm32v7/ -f ${dockerfile} ." 
-                    docker.withRegistry( '', registryCredential ) { 
-                        sh "docker push ${registry}:${arm32v7tag}"
-                    }
+//                    sh "docker build -t ${registry}:${arm32v7tag} --build-arg ARCH=arm32v7/ -f ${dockerfile} ." 
+//                    docker.withRegistry( '', registryCredential ) { 
+//                        sh "docker push ${registry}:${arm32v7tag}"
+//                    }
                 }
             } 
         }
@@ -67,10 +67,10 @@ pipeline {
                 script { 
                     def dockerfile = "${BRANCH_NAME}.dockerfile"
                     echo "${registry}:${arm64v8tag} - ${dockerfile}" 
-                    sh "docker build -t ${registry}:${arm64v8tag} --build-arg ARCH=arm64v8/ -f ${dockerfile} ." 
-                    docker.withRegistry( '', registryCredential ) { 
-                        sh "docker push ${registry}:${arm64v8tag}" 
-                    }
+//                    sh "docker build -t ${registry}:${arm64v8tag} --build-arg ARCH=arm64v8/ -f ${dockerfile} ." 
+//                    docker.withRegistry( '', registryCredential ) { 
+//                        sh "docker push ${registry}:${arm64v8tag}" 
+//                    }
                 }
             } 
         }
@@ -88,7 +88,8 @@ pipeline {
             steps { 
                 script {
                     docker.withRegistry( '', registryCredential ) { 
-                        sh "docker manifest create ${registry}:latest --amend ${registry}:${amd64tag} --amend ${registry}:${arm32v7tag} --amend ${registry}:${arm64v8tag}"
+//                        sh "docker manifest create ${registry}:latest --amend ${registry}:${amd64tag} --amend ${registry}:${arm32v7tag} --amend ${registry}:${arm64v8tag}"
+                        sh "docker manifest create ${registry}:latest --amend ${registry}:${amd64tag}"
                         sh "docker manifest push ${registry}:latest"
                     }
                 } 
