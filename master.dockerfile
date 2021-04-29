@@ -3,9 +3,10 @@ ARG ARCH
 # Placeholder for the specified arch that gets parsed in the publish-experimental.sh script. Using Buster-slim for now
 FROM debian:buster-slim
 
+RUN apt-get update && apt-get upgrade -y && apt-get install -y git curl dpkg gpg tar wget && rm -rf /var/lib/apt/lists/*
 RUN wget -q -O - https://pkg.jenkins.io/debian/jenkins.io.key | sudo apt-key add -
 RUN echo "deb https://pkg.jenkins.io/debian binary/" >> /etc/apt/sources.list
-RUN apt-get update && apt-get upgrade -y && apt-get install -y git curl dpkg gpg tar && rm -rf /var/lib/apt/lists/*
+RUN apt-get update && apt-get upgrade -y
 
 ARG user=jenkins
 ARG group=jenkins
