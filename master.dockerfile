@@ -70,7 +70,7 @@ RUN curl -fsSL https://github.com/krallin/tini/releases/download/${TINI_VERSION}
 ## could use ADD but this one does not check Last-Modified header neither does it allow to control checksum
 ## see https://github.com/docker/docker/issues/8331
 #RUN curl -fsSL ${JENKINS_URL} -o /usr/share/jenkins/jenkins.war && echo "${JENKINS_SHA}  /usr/share/jenkins/jenkins.war" | sha256sum -c -
-RUN apt-get install -y jenkins python3.8 qemu
+RUN apt-get install -y jenkins python3 qemu
 
 ENV JENKINS_UC https://updates.jenkins.io
 ENV JENKINS_UC_EXPERIMENTAL=https://updates.jenkins.io/experimental
