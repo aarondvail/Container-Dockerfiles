@@ -12,7 +12,7 @@ pipeline {
         stage('Clone repository') {
             steps { 
                 git 'https://github.com/aarondvail/Container-Dockerfiles.git' 
-				sh "find . -name "*.sh" -exec chmod +x {} \;"
+				sh "find . -name \"*.sh\" -exec chmod +x {} ;"
             }
         }
 //        stage('Build image') {
