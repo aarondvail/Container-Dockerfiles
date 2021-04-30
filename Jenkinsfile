@@ -51,12 +51,12 @@ pipeline {
                 }
             } 
         }
-        stage('Build arm32v7 image') {
+        stage('Build arm/v7 image') {
             steps { 
                 script { 
                     def dockerfile = "${BRANCH_NAME}.dockerfile"
                     echo "${registry}:${arm32v7tag} - ${dockerfile}" 
-                    sh "docker build -t ${registry}:${arm32v7tag} --build-arg ARCH=arm32v7/ -f ${dockerfile} ." 
+                    sh "docker build -t ${registry}:${arm32v7tag} --build-arg ARCH=arm/v7/ -f ${dockerfile} ." 
                     docker.withRegistry( '', registryCredential ) { 
                         sh "docker push ${registry}:${arm32v7tag}"
                     }
