@@ -56,10 +56,10 @@ pipeline {
                 script { 
                     def dockerfile = "${BRANCH_NAME}.dockerfile"
                     echo "${registry}:${arm32v7tag} - ${dockerfile}" 
-//                    sh "docker build -t ${registry}:${arm32v7tag} --build-arg ARCH=arm32v7/ -f ${dockerfile} ." 
-//                    docker.withRegistry( '', registryCredential ) { 
-//                        sh "docker push ${registry}:${arm32v7tag}"
-//                    }
+                    sh "docker build -t ${registry}:${arm32v7tag} --build-arg ARCH=arm32v7/ -f ${dockerfile} ." 
+                    docker.withRegistry( '', registryCredential ) { 
+                        sh "docker push ${registry}:${arm32v7tag}"
+                    }
                 }
             } 
         }
