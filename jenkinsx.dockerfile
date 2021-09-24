@@ -7,7 +7,7 @@ RUN apt-get update && apt-get upgrade -y && apt-get install -y git curl dpkg gpg
 # Install Jenkins
 #RUN wget -q -O - https://pkg.jenkins.io/debian/jenkins.io.key | apt-key add - && echo "deb https://pkg.jenkins.io/debian binary/" >> /etc/apt/sources.list && apt-get update && apt-get upgrade -y && mkdir -p /usr/share/man/man1
 # Install JenkinsX
-RUN curl -L "https://github.com/jenkins-x/jx/releases/download/$(curl --silent "https://github.com/jenkins-x/jx/releases/latest" | sed 's#.*tag/\(.*\)\".*#\1#')/jx-linux-amd64.tar.gz" | tar xzv "jx" && sudo mv jx /usr/local/bin && jx version --short
+RUN curl -L "https://github.com/jenkins-x/jx/releases/download/$(curl --silent "https://github.com/jenkins-x/jx/releases/latest" | sed 's#.*tag/\(.*\)\".*#\1#')/jx-linux-amd64.tar.gz" | tar xzv "jx" && sudo mv jx /usr/local/bin && jx version
 
 ARG user=jenkins
 ARG group=jenkins
