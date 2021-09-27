@@ -11,8 +11,10 @@ pipeline {
     stages { 
         stage('Clone repository') {
             steps { 
-                git 'https://github.com/aarondvail/Container-Dockerfiles.git' 
-				sh "find . -name \"*.sh\" -exec chmod +x {} \\;"
+                withCredentials([usernamePassword(credentialsId: 'Github', usernameVariable: 'Username', passwordVariable: 'Password')]) {
+					git 'https://github.com/aarondvail/Container-Dockerfiles.git' 
+					sh "find . -name \"*.sh\" -exec chmod +x {} \\;"
+				}
             }
         }
 //        stage('Build image') {
