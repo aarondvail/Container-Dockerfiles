@@ -25,6 +25,25 @@ pipeline {
 //                }
 //            } 
 //        }
+        stage('Buildx Environment') {
+            steps { 
+                script { 
+                    def dockerfile = "${BRANCH_NAME}.dockerfile"
+                    echo "${registry}:${amd64tag} - ${dockerfile}" 
+//                    docker.withRegistry( '', registryCredential ) { 
+//                        sh "docker buildx create --use --name ${BRANCH_NAME} node-amd64"
+//                        sh "docker buildx create --append --name ${BRANCH_NAME} node-arm64"
+//                        sh "docker buildx create --append --name ${BRANCH_NAME} node-arm"
+                        sh "docker run --rm --privileged docker/binfmt:820fdd95a9972a5308930a2bdfb8573dd4447ad3"
+                        sh "cat /proc/sys/fs/binfmt_misc/qemu-aarch64"
+                        sh "docker buildx create --name mybuilder"
+                        sh "docker buildx use mybuilder"
+                        sh "docker buildx inspect --bootstrap"
+                        sh "docker buildx build --platform=linux/arm/v7,linux/arm/v6,linux/arm64,linux/386,linux/amd64 --tag ${registry}:latest -f ${dockerfile} ."
+//                    }
+                }
+            } 
+        }
         stage('Buildx image') {
             steps { 
                 script { 
@@ -34,7 +53,7 @@ pipeline {
 //                        sh "docker buildx create --use --name ${BRANCH_NAME} node-amd64"
 //                        sh "docker buildx create --append --name ${BRANCH_NAME} node-arm64"
 //                        sh "docker buildx create --append --name ${BRANCH_NAME} node-arm"
-                        sh "docker buildx build --platform=linux/arm/v7,linux/arm/v6,linux/arm64,linux/386,linux/amd64 --tag ${registry}:latest -f ${dockerfile} ."
+                        sh "docker buildx build --platform=linux/arm/v7,linux/arm/v6,linux/arm64,linux/386,linux/amd64 --tag ${registry}:latest -f ${dockerfile} . --push"
                     }
                 }
             } 
