@@ -85,14 +85,14 @@
 
   <meta name="viewport" content="width=device-width">
   
-  <title>docker/jenkins.sh at master · jenkinsci/docker</title>
+  <title>docker/install-plugins.sh at master · jenkinsci/docker</title>
     <meta name="description" content="Docker official jenkins repo. Contribute to jenkinsci/docker development by creating an account on GitHub.">
     <link rel="search" type="application/opensearchdescription+xml" href="/opensearch.xml" title="GitHub">
   <link rel="fluid-icon" href="https://github.com/fluidicon.png" title="GitHub">
   <meta property="fb:app_id" content="1401488693436528">
   <meta name="apple-itunes-app" content="app-id=1477376905" />
-    <meta name="twitter:image:src" content="https://repository-images.githubusercontent.com/21969270/25b81280-c039-11e9-9a7c-2c2222c231b5" /><meta name="twitter:site" content="@github" /><meta name="twitter:card" content="summary_large_image" /><meta name="twitter:title" content="docker/jenkins.sh at master · jenkinsci/docker" /><meta name="twitter:description" content="Docker official jenkins repo. Contribute to jenkinsci/docker development by creating an account on GitHub." />
-    <meta property="og:image" content="https://repository-images.githubusercontent.com/21969270/25b81280-c039-11e9-9a7c-2c2222c231b5" /><meta property="og:image:alt" content="Docker official jenkins repo. Contribute to jenkinsci/docker development by creating an account on GitHub." /><meta property="og:site_name" content="GitHub" /><meta property="og:type" content="object" /><meta property="og:title" content="docker/jenkins.sh at master · jenkinsci/docker" /><meta property="og:url" content="https://github.com/jenkinsci/docker" /><meta property="og:description" content="Docker official jenkins repo. Contribute to jenkinsci/docker development by creating an account on GitHub." />
+    <meta name="twitter:image:src" content="https://repository-images.githubusercontent.com/21969270/25b81280-c039-11e9-9a7c-2c2222c231b5" /><meta name="twitter:site" content="@github" /><meta name="twitter:card" content="summary_large_image" /><meta name="twitter:title" content="docker/install-plugins.sh at master · jenkinsci/docker" /><meta name="twitter:description" content="Docker official jenkins repo. Contribute to jenkinsci/docker development by creating an account on GitHub." />
+    <meta property="og:image" content="https://repository-images.githubusercontent.com/21969270/25b81280-c039-11e9-9a7c-2c2222c231b5" /><meta property="og:image:alt" content="Docker official jenkins repo. Contribute to jenkinsci/docker development by creating an account on GitHub." /><meta property="og:site_name" content="GitHub" /><meta property="og:type" content="object" /><meta property="og:title" content="docker/install-plugins.sh at master · jenkinsci/docker" /><meta property="og:url" content="https://github.com/jenkinsci/docker" /><meta property="og:description" content="Docker official jenkins repo. Contribute to jenkinsci/docker development by creating an account on GitHub." />
     
 
 
@@ -100,11 +100,11 @@
     
 
   <link rel="assets" href="https://github.githubassets.com/">
-    <link rel="shared-web-socket" href="wss://alive.github.com/_sockets/u/36673283/ws?session=eyJ2IjoiVjMiLCJ1IjozNjY3MzI4MywicyI6NzU4MTU3NDE0LCJjIjozMDU0OTk5NjE1LCJ0IjoxNjMyNzYyNDgyfQ==--d2c439eca2cd1d8138fa5954af4d7a2a961e9df61c610a2393a847ee896ab0aa" data-refresh-url="/_alive" data-session-id="70f59983080e56e5088aab3390e6c70d16aa6be7aeb3310b0dcef115c2519730">
+    <link rel="shared-web-socket" href="wss://alive.github.com/_sockets/u/36673283/ws?session=eyJ2IjoiVjMiLCJ1IjozNjY3MzI4MywicyI6NzU4MTU3NDE0LCJjIjozMzYzMDE4OTQ1LCJ0IjoxNjMyNzYyNzg0fQ==--224eb55eb7137f7e9f5303b9d2b005fbc5a7032e2bf6f9ef447410fc157838e8" data-refresh-url="/_alive" data-session-id="70f59983080e56e5088aab3390e6c70d16aa6be7aeb3310b0dcef115c2519730">
     <link rel="shared-web-socket-src" href="/socket-worker-0af8a29d.js">
   <link rel="sudo-modal" href="/sessions/sudo_modal">
 
-  <meta name="request-id" content="771D:6F4D:1D4998F:30FD3F7:6151FA72" data-pjax-transient="true" /><meta name="html-safe-nonce" content="d4cc0e21ee8ff01dcdbf0e8f92b692aca64fcb97247502afcfc7ddbe682923db" data-pjax-transient="true" /><meta name="visitor-payload" content="eyJyZWZlcnJlciI6Imh0dHBzOi8vZ2l0aHViLmNvbS9qZW5raW5zY2kvZG9ja2VyIiwicmVxdWVzdF9pZCI6Ijc3MUQ6NkY0RDoxRDQ5OThGOjMwRkQzRjc6NjE1MUZBNzIiLCJ2aXNpdG9yX2lkIjoiNzk0MjEwOTgyODY1NzE1NzMzNSIsInJlZ2lvbl9lZGdlIjoiaWFkIiwicmVnaW9uX3JlbmRlciI6ImlhZCJ9" data-pjax-transient="true" /><meta name="visitor-hmac" content="bb83d6e7f4cfee542278711a0db71e4fb709b7d566d2a9a623fbb78f75a5bc43" data-pjax-transient="true" />
+  <meta name="request-id" content="771D:6F4D:1D4F6F4:31073D9:6151FB9B" data-pjax-transient="true" /><meta name="html-safe-nonce" content="d4cc0e21ee8ff01dcdbf0e8f92b692aca64fcb97247502afcfc7ddbe682923db" data-pjax-transient="true" /><meta name="visitor-payload" content="eyJyZWZlcnJlciI6Imh0dHBzOi8vZ2l0aHViLmNvbS9qZW5raW5zY2kvZG9ja2VyIiwicmVxdWVzdF9pZCI6Ijc3MUQ6NkY0RDoxRDRGNkY0OjMxMDczRDk6NjE1MUZCOUIiLCJ2aXNpdG9yX2lkIjoiNzk0MjEwOTgyODY1NzE1NzMzNSIsInJlZ2lvbl9lZGdlIjoiaWFkIiwicmVnaW9uX3JlbmRlciI6ImlhZCJ9" data-pjax-transient="true" /><meta name="visitor-hmac" content="82d782fdf683eeddd5504df86599ebce5b8f7c8211091a376ff2e25f9b5208fa" data-pjax-transient="true" />
 
     <meta name="hovercard-subject-tag" content="repository:21969270" data-pjax-transient>
 
@@ -143,7 +143,7 @@
 
       <meta name="expected-hostname" content="github.com">
 
-      <meta name="js-proxy-site-detection-payload" content="N2VjMWQ3ZDBhMTUxMzU4YjkzZmEzN2NiMzYyMjU5ODQ4ODBiNmY2NTZjNGNlNWQxZTZiMjJjYjExZGZmM2U3Ynx7InJlbW90ZV9hZGRyZXNzIjoiMjQuMzUuMjcuMjEiLCJyZXF1ZXN0X2lkIjoiNzcxRDo2RjREOjFENDk5OEY6MzBGRDNGNzo2MTUxRkE3MiIsInRpbWVzdGFtcCI6MTYzMjc2MjQ4MiwiaG9zdCI6ImdpdGh1Yi5jb20ifQ==">
+      <meta name="js-proxy-site-detection-payload" content="MjM5NWJmNTAwZmE2MGVkZjQ3ZmMzYTAxNmE5YWJhZjU1N2E2ZWJmZDVkZTdmMjViNWIwMDVkN2JjMDU2M2I4Znx7InJlbW90ZV9hZGRyZXNzIjoiMjQuMzUuMjcuMjEiLCJyZXF1ZXN0X2lkIjoiNzcxRDo2RjREOjFENEY2RjQ6MzEwNzNEOTo2MTUxRkI5QiIsInRpbWVzdGFtcCI6MTYzMjc2Mjc4NCwiaG9zdCI6ImdpdGh1Yi5jb20ifQ==">
       <meta name="keyboard-shortcuts-preference" content="all">
 
     <meta name="enabled-features" content="BRANCH_PROTECTION_RULE_WEBHOOK,MARKETPLACE_PENDING_INSTALLATIONS,FILE_UPLOAD_CURSOR_POSITION">
@@ -161,7 +161,7 @@
 
 
 
-    <link rel="canonical" href="https://github.com/jenkinsci/docker/blob/master/jenkins.sh" data-pjax-transient>
+    <link rel="canonical" href="https://github.com/jenkinsci/docker/blob/master/install-plugins.sh" data-pjax-transient>
 
 
   <meta name="browser-stats-url" content="https://api.github.com/_private/browser/stats">
@@ -201,7 +201,7 @@
   href="https://github.com/"
   data-hotkey="g d"
   aria-label="Homepage "
-  data-hydro-click="{&quot;event_type&quot;:&quot;analytics.event&quot;,&quot;payload&quot;:{&quot;category&quot;:&quot;Header&quot;,&quot;action&quot;:&quot;go to dashboard&quot;,&quot;label&quot;:&quot;icon:logo&quot;,&quot;originating_url&quot;:&quot;https://github.com/jenkinsci/docker/blob/master/jenkins.sh&quot;,&quot;user_id&quot;:36673283}}" data-hydro-click-hmac="35b21036edd341e6b38bbaecf656bd028db293095e05c24d2f98f5ee8fcf1c21"
+  data-hydro-click="{&quot;event_type&quot;:&quot;analytics.event&quot;,&quot;payload&quot;:{&quot;category&quot;:&quot;Header&quot;,&quot;action&quot;:&quot;go to dashboard&quot;,&quot;label&quot;:&quot;icon:logo&quot;,&quot;originating_url&quot;:&quot;https://github.com/jenkinsci/docker/blob/master/install-plugins.sh&quot;,&quot;user_id&quot;:36673283}}" data-hydro-click-hmac="b0212e0b0c6b88f57bafc7f154d03d818582b83dd5cb95a90314218019457eb2"
 >
   <svg height="32" aria-hidden="true" viewBox="0 0 16 16" version="1.1" width="32" data-view-component="true" class="octicon octicon-mark-github v-align-middle">
     <path fill-rule="evenodd" d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z"></path>
@@ -251,7 +251,7 @@
           spellcheck="false"
           autocomplete="off"
         >
-        <input type="hidden" value="S2bqb/4MBMdGK203//dzfYquZdFVjJCSPQhMMjNAKIcY6mOX+dtEPHPlgNRUJa8pHOEHMN3peojJdvETBL8A3w==" data-csrf="true" class="js-data-jump-to-suggestions-path-csrf" />
+        <input type="hidden" value="Hvu/MxUfEZ3rHycnbrnwZG4GQG+VRShM5Lk5uAICT8ZNdzbLEshRZt7RysTFayww+Ekijh0gwlYQx4SZNf1nng==" data-csrf="true" class="js-data-jump-to-suggestions-path-csrf" />
         <input type="hidden" class="js-site-search-type-field" name="type" >
             <svg xmlns="http://www.w3.org/2000/svg" width="22" height="20" aria-hidden="true" class="mr-1 header-search-key-slash"><path fill="none" stroke="#979A9C" opacity=".4" d="M3.5.5h12c1.7 0 3 1.3 3 3v13c0 1.7-1.3 3-3 3h-12c-1.7 0-3-1.3-3-3v-13c0-1.7 1.3-3 3-3z"></path><path fill="#979A9C" d="M11.8 6L8 15.1h-.9L10.8 6h1z"></path></svg>
 
@@ -455,7 +455,7 @@
     <a class="js-selected-navigation-item Header-link d-block d-md-none py-2 py-md-3 border-top border-md-top-0 border-white-fade" data-ga-click="Header, click, Nav menu - item:workspaces context:user" data-selected-links="/codespaces /codespaces" href="/codespaces">
       Codespaces
 </a>
-      <a class="js-selected-navigation-item Header-link d-block d-md-none py-2 py-md-3 border-top border-md-top-0 border-white-fade" data-ga-click="Header, click, Nav menu - item:Sponsors" data-hydro-click="{&quot;event_type&quot;:&quot;sponsors.button_click&quot;,&quot;payload&quot;:{&quot;button&quot;:&quot;HEADER_SPONSORS_DASHBOARD&quot;,&quot;sponsorable_login&quot;:&quot;aarondvail&quot;,&quot;originating_url&quot;:&quot;https://github.com/jenkinsci/docker/blob/master/jenkins.sh&quot;,&quot;user_id&quot;:36673283}}" data-hydro-click-hmac="9c4ace4c691d98880068d2ce38ff759d863e2753034991fd8199b61167b8eed9" data-selected-links=" /sponsors/accounts" href="/sponsors/accounts">Sponsors</a>
+      <a class="js-selected-navigation-item Header-link d-block d-md-none py-2 py-md-3 border-top border-md-top-0 border-white-fade" data-ga-click="Header, click, Nav menu - item:Sponsors" data-hydro-click="{&quot;event_type&quot;:&quot;sponsors.button_click&quot;,&quot;payload&quot;:{&quot;button&quot;:&quot;HEADER_SPONSORS_DASHBOARD&quot;,&quot;sponsorable_login&quot;:&quot;aarondvail&quot;,&quot;originating_url&quot;:&quot;https://github.com/jenkinsci/docker/blob/master/install-plugins.sh&quot;,&quot;user_id&quot;:36673283}}" data-hydro-click-hmac="6634365d51aa58565f1a0c4b5dc0f57174084a4385c16379b616bb37302777f5" data-selected-links=" /sponsors/accounts" href="/sponsors/accounts">Sponsors</a>
 
     <a class="Header-link d-block d-md-none mr-0 mr-md-3 py-2 py-md-3 border-top border-md-top-0 border-white-fade" href="/settings/profile">
       Settings
@@ -464,12 +464,12 @@
       <img class="avatar avatar-user" loading="lazy" decoding="async" src="https://avatars.githubusercontent.com/u/36673283?s=40&amp;v=4" width="20" height="20" alt="@aarondvail" />
       aarondvail
 </a>
-    <!-- '"` --><!-- </textarea></xmp> --></option></form><form action="/logout" accept-charset="UTF-8" method="post"><input type="hidden" name="authenticity_token" value="Uk7FFbzr/k2Q7dv1/spV0OJsmACefB5bZM15RnNoWzuYQJCtQ3w6tpDGwUjnLfB8e2qlP9iww3POWFGorPYHkg==" />
+    <!-- '"` --><!-- </textarea></xmp> --></option></form><form action="/logout" accept-charset="UTF-8" method="post"><input type="hidden" name="authenticity_token" value="oqiJq2wiAFr83zX9CfFTIhx5zoUy/yPqwXQQ65GE7Z5optwTk7XEofz0L0AQFvaOhX/zunQz/sJr4TgFThqxNw==" />
       <button
         type="submit"
         class="Header-link mr-0 mr-md-3 py-2 py-md-3 border-top border-md-top-0 border-white-fade d-md-none btn-link d-block width-full text-left"
         style="padding-left: 2px;"
-        data-hydro-click="{&quot;event_type&quot;:&quot;analytics.event&quot;,&quot;payload&quot;:{&quot;category&quot;:&quot;Header&quot;,&quot;action&quot;:&quot;sign out&quot;,&quot;label&quot;:&quot;icon:logout&quot;,&quot;originating_url&quot;:&quot;https://github.com/jenkinsci/docker/blob/master/jenkins.sh&quot;,&quot;user_id&quot;:36673283}}" data-hydro-click-hmac="1bb7be58d130a165e7e63b1a31bc373bd8b7569df55e8c83bb9c9a59e4530e15"
+        data-hydro-click="{&quot;event_type&quot;:&quot;analytics.event&quot;,&quot;payload&quot;:{&quot;category&quot;:&quot;Header&quot;,&quot;action&quot;:&quot;sign out&quot;,&quot;label&quot;:&quot;icon:logout&quot;,&quot;originating_url&quot;:&quot;https://github.com/jenkinsci/docker/blob/master/install-plugins.sh&quot;,&quot;user_id&quot;:36673283}}" data-hydro-click-hmac="81f5171f30ae6a2174677e858ba27e2f064a72d3bef74b2766dd92692d7187b6"
       >
         <svg aria-hidden="true" height="16" viewBox="0 0 16 16" version="1.1" width="16" data-view-component="true" class="octicon octicon-sign-out v-align-middle">
     <path fill-rule="evenodd" d="M2 2.75C2 1.784 2.784 1 3.75 1h2.5a.75.75 0 010 1.5h-2.5a.25.25 0 00-.25.25v10.5c0 .138.112.25.25.25h2.5a.75.75 0 010 1.5h-2.5A1.75 1.75 0 012 13.25V2.75zm10.44 4.5H6.75a.75.75 0 000 1.5h5.69l-1.97 1.97a.75.75 0 101.06 1.06l3.25-3.25a.75.75 0 000-1.06l-3.25-3.25a.75.75 0 10-1.06 1.06l1.97 1.97z"></path>
@@ -486,7 +486,7 @@
   href="https://github.com/"
   data-hotkey="g d"
   aria-label="Homepage "
-  data-hydro-click="{&quot;event_type&quot;:&quot;analytics.event&quot;,&quot;payload&quot;:{&quot;category&quot;:&quot;Header&quot;,&quot;action&quot;:&quot;go to dashboard&quot;,&quot;label&quot;:&quot;icon:logo&quot;,&quot;originating_url&quot;:&quot;https://github.com/jenkinsci/docker/blob/master/jenkins.sh&quot;,&quot;user_id&quot;:36673283}}" data-hydro-click-hmac="35b21036edd341e6b38bbaecf656bd028db293095e05c24d2f98f5ee8fcf1c21"
+  data-hydro-click="{&quot;event_type&quot;:&quot;analytics.event&quot;,&quot;payload&quot;:{&quot;category&quot;:&quot;Header&quot;,&quot;action&quot;:&quot;go to dashboard&quot;,&quot;label&quot;:&quot;icon:logo&quot;,&quot;originating_url&quot;:&quot;https://github.com/jenkinsci/docker/blob/master/install-plugins.sh&quot;,&quot;user_id&quot;:36673283}}" data-hydro-click-hmac="b0212e0b0c6b88f57bafc7f154d03d818582b83dd5cb95a90314218019457eb2"
 >
   <svg height="32" aria-hidden="true" viewBox="0 0 16 16" version="1.1" width="32" data-view-component="true" class="octicon octicon-mark-github v-align-middle">
     <path fill-rule="evenodd" d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z"></path>
@@ -502,7 +502,7 @@
       <notification-indicator
         class="js-socket-channel"
         data-test-selector="notifications-indicator"
-        data-channel="eyJjIjoibm90aWZpY2F0aW9uLWNoYW5nZWQ6MzY2NzMyODMiLCJ0IjoxNjMyNzYyNDgyfQ==--289ed6873535fdd82b176e2e8f176df5aee6af81fef9e43aeff4736b1c75e545">
+        data-channel="eyJjIjoibm90aWZpY2F0aW9uLWNoYW5nZWQ6MzY2NzMyODMiLCJ0IjoxNjMyNzYyNzg0fQ==--b43cb54046d7b7058e4ab3386ef9d622055f14b9fbdc279799ce17a21909ee35">
         <a href="/notifications"
           class="Header-link notification-indicator position-relative tooltipped tooltipped-sw"
           
@@ -525,7 +525,7 @@
   <summary
     class="Header-link"
     aria-label="Create new…"
-    data-hydro-click="{&quot;event_type&quot;:&quot;analytics.event&quot;,&quot;payload&quot;:{&quot;category&quot;:&quot;Header&quot;,&quot;action&quot;:&quot;create new&quot;,&quot;label&quot;:&quot;icon:add&quot;,&quot;originating_url&quot;:&quot;https://github.com/jenkinsci/docker/blob/master/jenkins.sh&quot;,&quot;user_id&quot;:36673283}}" data-hydro-click-hmac="89fd54e05340b236176e51b0ef10b3eab0727b4984e7f263d43cf03daab08da6"
+    data-hydro-click="{&quot;event_type&quot;:&quot;analytics.event&quot;,&quot;payload&quot;:{&quot;category&quot;:&quot;Header&quot;,&quot;action&quot;:&quot;create new&quot;,&quot;label&quot;:&quot;icon:add&quot;,&quot;originating_url&quot;:&quot;https://github.com/jenkinsci/docker/blob/master/install-plugins.sh&quot;,&quot;user_id&quot;:36673283}}" data-hydro-click-hmac="b8ea0e34e4138896e6daf208ab5cf678435da5d8712eba59fb899957741d9423"
   >
       <svg aria-hidden="true" height="16" viewBox="0 0 16 16" version="1.1" width="16" data-view-component="true" class="octicon octicon-plus">
     <path fill-rule="evenodd" d="M7.75 2a.75.75 0 01.75.75V7h4.25a.75.75 0 110 1.5H8.5v4.25a.75.75 0 11-1.5 0V8.5H2.75a.75.75 0 010-1.5H7V2.75A.75.75 0 017.75 2z"></path>
@@ -563,7 +563,7 @@
   <summary
     class="Header-link"
     aria-label="View profile and more"
-    data-hydro-click="{&quot;event_type&quot;:&quot;analytics.event&quot;,&quot;payload&quot;:{&quot;category&quot;:&quot;Header&quot;,&quot;action&quot;:&quot;show menu&quot;,&quot;label&quot;:&quot;icon:avatar&quot;,&quot;originating_url&quot;:&quot;https://github.com/jenkinsci/docker/blob/master/jenkins.sh&quot;,&quot;user_id&quot;:36673283}}" data-hydro-click-hmac="9e0ff1544a55ce3a83549bb8d3388b88143113535492d02dae24c4fe496d5164"
+    data-hydro-click="{&quot;event_type&quot;:&quot;analytics.event&quot;,&quot;payload&quot;:{&quot;category&quot;:&quot;Header&quot;,&quot;action&quot;:&quot;show menu&quot;,&quot;label&quot;:&quot;icon:avatar&quot;,&quot;originating_url&quot;:&quot;https://github.com/jenkinsci/docker/blob/master/install-plugins.sh&quot;,&quot;user_id&quot;:36673283}}" data-hydro-click-hmac="1d5bbce71d990ab20bb6c38acd13e19fb35783964e13129a565fa790072a242b"
   >
     <img src="https://avatars.githubusercontent.com/u/36673283?s=40&amp;v=4" alt="@aarondvail" size="20" height="20" width="20" data-view-component="true" class="avatar-user avatar avatar-small"></img>
       <span class="feature-preview-indicator js-feature-preview-indicator" style="top: 1px;" hidden></span>
@@ -685,7 +685,7 @@
         data-action="toggle:notifications-list-subscription-form#detailsToggled"
       >
 
-      <summary class="btn btn-sm rounded-right-0" data-hydro-click="{&quot;event_type&quot;:&quot;repository.click&quot;,&quot;payload&quot;:{&quot;target&quot;:&quot;WATCH_BUTTON&quot;,&quot;repository_id&quot;:21969270,&quot;originating_url&quot;:&quot;https://github.com/jenkinsci/docker/blob/master/jenkins.sh&quot;,&quot;user_id&quot;:36673283}}" data-hydro-click-hmac="ca00cbd53902392f19b2d00b6ee52f96d9d32b414b3730c7ba2b07bd6b1f42ac" data-ga-click="Repository, click Watch settings, action:blob#show" aria-label="Notifications settings">
+      <summary class="btn btn-sm rounded-right-0" data-hydro-click="{&quot;event_type&quot;:&quot;repository.click&quot;,&quot;payload&quot;:{&quot;target&quot;:&quot;WATCH_BUTTON&quot;,&quot;repository_id&quot;:21969270,&quot;originating_url&quot;:&quot;https://github.com/jenkinsci/docker/blob/master/install-plugins.sh&quot;,&quot;user_id&quot;:36673283}}" data-hydro-click-hmac="7074707fda06289cc74522ff1d092a6061c6c1afdf65718a409e25ba18844291" data-ga-click="Repository, click Watch settings, action:blob#show" aria-label="Notifications settings">
           <span data-menu-button>
             <span
               hidden
@@ -737,7 +737,7 @@
             </header>
 
             <div class="SelectMenu-list">
-              <form data-target="notifications-list-subscription-form.form" data-action="submit:notifications-list-subscription-form#submitForm" action="/notifications/subscribe" accept-charset="UTF-8" method="post"><input type="hidden" name="authenticity_token" value="o1J0s1KmbLcAGB0DrFU25xcR0HDXYpXY4dzVwvOfDghzIWeKvWhOyLmvxKJObpkvY+85l/nEd27Mc0WIq/boqQ==" />
+              <form data-target="notifications-list-subscription-form.form" data-action="submit:notifications-list-subscription-form#submitForm" action="/notifications/subscribe" accept-charset="UTF-8" method="post"><input type="hidden" name="authenticity_token" value="Mnar6sWXXJqDbGKL6A4e9Pj+yEovUceSAnGsC+u/eB7iBbjTKll+5TrbuyoKNbE8jAAhrQH3JSQv3jxBs9aevw==" />
 
                 <input type="hidden" name="repository_id" value="21969270">
 
@@ -860,7 +860,7 @@
 
         <details-dialog class="notifications-component-dialog " data-target="notifications-list-subscription-form.customDialog" hidden>
           <div class="SelectMenu-modal notifications-component-dialog-modal overflow-visible">
-            <form data-target="notifications-list-subscription-form.customform" data-action="submit:notifications-list-subscription-form#submitCustomForm" action="/notifications/subscribe" accept-charset="UTF-8" method="post"><input type="hidden" name="authenticity_token" value="fp8sl9a0b+kExhQK3wmL1sjUKmqdkdt/dkd9TiErDDKu7D+uOXpNlr1xzas9MiQevCrDjbM3Oclb6O0EeULqkw==" />
+            <form data-target="notifications-list-subscription-form.customform" data-action="submit:notifications-list-subscription-form#submitCustomForm" action="/notifications/subscribe" accept-charset="UTF-8" method="post"><input type="hidden" name="authenticity_token" value="r3WNkppLhOqM7KXqdyqQlNj97BYx6HWBcR2HW/j+JnB/Bp6rdYWmlTVbfEuVET9crAMF8R9OlzdcshcRoJfA0Q==" />
 
               <input type="hidden" name="repository_id" value="21969270">
 
@@ -1019,9 +1019,9 @@
 
   <li>
         <div class="d-block js-toggler-container js-social-container starring-container ">
-    <form class="starred js-social-form" action="/jenkinsci/docker/unstar" accept-charset="UTF-8" method="post"><input type="hidden" name="authenticity_token" value="qm2qc4Snc/ESjGabFItnSI96irdX4TcRRcdABhEkNo2bv0xny/L+SYmZv4U4OmS2ZhRcrWyvUXCdsevlcQHnuA==" />
+    <form class="starred js-social-form" action="/jenkinsci/docker/unstar" accept-charset="UTF-8" method="post"><input type="hidden" name="authenticity_token" value="k2pGkJS4C3GjJhj58CBdoTbRCvskLIjkqPsgMzvOv4iiuKCE2+2GyTgzwefckV5f37/c4R9i7oVwjYvQW+tuvQ==" />
       <input type="hidden" name="context" value="repository">
-      <button type="submit" class="btn btn-sm btn-with-count  js-toggler-target" aria-label="Unstar this repository" title="Unstar jenkinsci/docker" data-hydro-click="{&quot;event_type&quot;:&quot;repository.click&quot;,&quot;payload&quot;:{&quot;target&quot;:&quot;UNSTAR_BUTTON&quot;,&quot;repository_id&quot;:21969270,&quot;originating_url&quot;:&quot;https://github.com/jenkinsci/docker/blob/master/jenkins.sh&quot;,&quot;user_id&quot;:36673283}}" data-hydro-click-hmac="e639ac4f2f81d871bdeaca4d2c29a17931a1ba27c1173ba0371826b604fabb16" data-ga-click="Repository, click unstar button, action:blob#show; text:Unstar">        <svg aria-hidden="true" height="16" viewBox="0 0 16 16" version="1.1" width="16" data-view-component="true" class="octicon octicon-star-fill mr-1">
+      <button type="submit" class="btn btn-sm btn-with-count  js-toggler-target" aria-label="Unstar this repository" title="Unstar jenkinsci/docker" data-hydro-click="{&quot;event_type&quot;:&quot;repository.click&quot;,&quot;payload&quot;:{&quot;target&quot;:&quot;UNSTAR_BUTTON&quot;,&quot;repository_id&quot;:21969270,&quot;originating_url&quot;:&quot;https://github.com/jenkinsci/docker/blob/master/install-plugins.sh&quot;,&quot;user_id&quot;:36673283}}" data-hydro-click-hmac="8de50bfcd35abd003884ba36cf3afc332576f27c57f1fd5e49f887ce6e5a585b" data-ga-click="Repository, click unstar button, action:blob#show; text:Unstar">        <svg aria-hidden="true" height="16" viewBox="0 0 16 16" version="1.1" width="16" data-view-component="true" class="octicon octicon-star-fill mr-1">
     <path fill-rule="evenodd" d="M8 .25a.75.75 0 01.673.418l1.882 3.815 4.21.612a.75.75 0 01.416 1.279l-3.046 2.97.719 4.192a.75.75 0 01-1.088.791L8 12.347l-3.766 1.98a.75.75 0 01-1.088-.79l.72-4.194L.818 6.374a.75.75 0 01.416-1.28l4.21-.611L7.327.668A.75.75 0 018 .25z"></path>
 </svg>
         <span data-view-component="true">
@@ -1031,9 +1031,9 @@
            4.7k
         </a>
 </form>
-    <form class="unstarred js-social-form" action="/jenkinsci/docker/star" accept-charset="UTF-8" method="post"><input type="hidden" name="authenticity_token" value="UKVQ3rvek0JEXa+0wYcWqjpPlabXsgY1d3awFz9WfIw4jVAGB7AHgw1lTdovFrG+poaMDkP/2fcSQM5hkmV1lQ==" />
+    <form class="unstarred js-social-form" action="/jenkinsci/docker/star" accept-charset="UTF-8" method="post"><input type="hidden" name="authenticity_token" value="PpIb0xElCwWfKDCHi3Ab4NaNYmijZZl1/P0X6ABFp9xWuhsLrUufxNYQ0ull4bz0SkR7wDcoRreZy2merXauxQ==" />
       <input type="hidden" name="context" value="repository">
-      <button type="submit" class="btn btn-sm btn-with-count  js-toggler-target" aria-label="Star this repository" title="Star jenkinsci/docker" data-hydro-click="{&quot;event_type&quot;:&quot;repository.click&quot;,&quot;payload&quot;:{&quot;target&quot;:&quot;STAR_BUTTON&quot;,&quot;repository_id&quot;:21969270,&quot;originating_url&quot;:&quot;https://github.com/jenkinsci/docker/blob/master/jenkins.sh&quot;,&quot;user_id&quot;:36673283}}" data-hydro-click-hmac="82ab9aa93c9bda477948bb8a8254bf083b1287cf8cc41b4ff9a272641c5c2309" data-ga-click="Repository, click star button, action:blob#show; text:Star">        <svg aria-hidden="true" height="16" viewBox="0 0 16 16" version="1.1" width="16" data-view-component="true" class="octicon octicon-star mr-1">
+      <button type="submit" class="btn btn-sm btn-with-count  js-toggler-target" aria-label="Star this repository" title="Star jenkinsci/docker" data-hydro-click="{&quot;event_type&quot;:&quot;repository.click&quot;,&quot;payload&quot;:{&quot;target&quot;:&quot;STAR_BUTTON&quot;,&quot;repository_id&quot;:21969270,&quot;originating_url&quot;:&quot;https://github.com/jenkinsci/docker/blob/master/install-plugins.sh&quot;,&quot;user_id&quot;:36673283}}" data-hydro-click-hmac="66a471e5ccc6e6f80b6445e166c0a7ba59d8453958f756bbf1255d17ca6d95e1" data-ga-click="Repository, click star button, action:blob#show; text:Star">        <svg aria-hidden="true" height="16" viewBox="0 0 16 16" version="1.1" width="16" data-view-component="true" class="octicon octicon-star mr-1">
     <path fill-rule="evenodd" d="M8 .25a.75.75 0 01.673.418l1.882 3.815 4.21.612a.75.75 0 01.416 1.279l-3.046 2.97.719 4.192a.75.75 0 01-1.088.791L8 12.347l-3.766 1.98a.75.75 0 01-1.088-.79l.72-4.194L.818 6.374a.75.75 0 01.416-1.28l4.21-.611L7.327.668A.75.75 0 018 .25zm0 2.445L6.615 5.5a.75.75 0 01-.564.41l-3.097.45 2.24 2.184a.75.75 0 01.216.664l-.528 3.084 2.769-1.456a.75.75 0 01.698 0l2.77 1.456-.53-3.084a.75.75 0 01.216-.664l2.24-2.183-3.096-.45a.75.75 0 01-.564-.41L8 2.694v.001z"></path>
 </svg>
         <span data-view-component="true">
@@ -1052,7 +1052,7 @@
                       <summary
                     class="btn btn-sm btn-with-count"
                     title="Fork your own copy of jenkinsci/docker to your account"
-                    data-hydro-click="{&quot;event_type&quot;:&quot;repository.click&quot;,&quot;payload&quot;:{&quot;target&quot;:&quot;FORK_BUTTON&quot;,&quot;repository_id&quot;:21969270,&quot;originating_url&quot;:&quot;https://github.com/jenkinsci/docker/blob/master/jenkins.sh&quot;,&quot;user_id&quot;:36673283}}" data-hydro-click-hmac="ef1858fe4a62bce08c27a9f810304ddac612f6a55ad82dfcaaddd81ba479d89f" data-ga-click="Repository, show fork modal, action:blob#show; text:Fork">
+                    data-hydro-click="{&quot;event_type&quot;:&quot;repository.click&quot;,&quot;payload&quot;:{&quot;target&quot;:&quot;FORK_BUTTON&quot;,&quot;repository_id&quot;:21969270,&quot;originating_url&quot;:&quot;https://github.com/jenkinsci/docker/blob/master/install-plugins.sh&quot;,&quot;user_id&quot;:36673283}}" data-hydro-click-hmac="66b6379aa28554095ac42dac0bc3bf810f7b1bf530220e6e7e763e2d66d86f12" data-ga-click="Repository, show fork modal, action:blob#show; text:Fork">
                     <svg aria-hidden="true" height="16" viewBox="0 0 16 16" version="1.1" width="16" data-view-component="true" class="octicon octicon-repo-forked">
     <path fill-rule="evenodd" d="M5 3.25a.75.75 0 11-1.5 0 .75.75 0 011.5 0zm0 2.122a2.25 2.25 0 10-1.5 0v.878A2.25 2.25 0 005.75 8.5h1.5v2.128a2.251 2.251 0 101.5 0V8.5h1.5a2.25 2.25 0 002.25-2.25v-.878a2.25 2.25 0 10-1.5 0v.878a.75.75 0 01-.75.75h-4.5A.75.75 0 015 6.25v-.878zm3.75 7.378a.75.75 0 11-1.5 0 .75.75 0 011.5 0zm3-8.75a.75.75 0 100-1.5.75.75 0 000 1.5z"></path>
 </svg>
@@ -1258,9 +1258,9 @@
   
 
 
-    <a class="d-none js-permalink-shortcut" data-hotkey="y" href="/jenkinsci/docker/blob/b9fe51cbc1e1faa1555c593c37ea29558f55b5b2/jenkins.sh">Permalink</a>
+    <a class="d-none js-permalink-shortcut" data-hotkey="y" href="/jenkinsci/docker/blob/b9fe51cbc1e1faa1555c593c37ea29558f55b5b2/install-plugins.sh">Permalink</a>
 
-    <!-- blob contrib key: blob_contributors:v22:e1d732a1aa66a181e384ab13c3b5be79a0306bfcf6210d100d2306522b1231aa -->
+    <!-- blob contrib key: blob_contributors:v22:f37a505b95c5587ab0b16377e0e5a4ea746005f773f53c7bbe9a8bb41c61fe98 -->
 
     <div class="d-flex flex-items-start flex-shrink-0 pb-3 flex-wrap flex-md-nowrap flex-justify-between flex-md-justify-start">
       
@@ -1345,7 +1345,7 @@
             </div>
 
               <template data-target="ref-selector.itemTemplate">
-  <a href="https://github.com/jenkinsci/docker/blob/{{ urlEncodedRefName }}/jenkins.sh" class="SelectMenu-item" role="menuitemradio" rel="nofollow" aria-checked="{{ isCurrent }}" data-index="{{ index }}">
+  <a href="https://github.com/jenkinsci/docker/blob/{{ urlEncodedRefName }}/install-plugins.sh" class="SelectMenu-item" role="menuitemradio" rel="nofollow" aria-checked="{{ isCurrent }}" data-index="{{ index }}">
     <svg aria-hidden="true" height="16" viewBox="0 0 16 16" version="1.1" width="16" data-view-component="true" class="octicon octicon-check SelectMenu-icon SelectMenu-icon--check">
     <path fill-rule="evenodd" d="M13.78 4.22a.75.75 0 010 1.06l-7.25 7.25a.75.75 0 01-1.06 0L2.22 9.28a.75.75 0 011.06-1.06L6 10.94l6.72-6.72a.75.75 0 011.06 0z"></path>
 </svg>
@@ -1385,7 +1385,7 @@
             </template>
 
               <template data-target="ref-selector.itemTemplate">
-  <a href="https://github.com/jenkinsci/docker/blob/{{ urlEncodedRefName }}/jenkins.sh" class="SelectMenu-item" role="menuitemradio" rel="nofollow" aria-checked="{{ isCurrent }}" data-index="{{ index }}">
+  <a href="https://github.com/jenkinsci/docker/blob/{{ urlEncodedRefName }}/install-plugins.sh" class="SelectMenu-item" role="menuitemradio" rel="nofollow" aria-checked="{{ isCurrent }}" data-index="{{ index }}">
     <svg aria-hidden="true" height="16" viewBox="0 0 16 16" version="1.1" width="16" data-view-component="true" class="octicon octicon-check SelectMenu-icon SelectMenu-icon--check">
     <path fill-rule="evenodd" d="M13.78 4.22a.75.75 0 010 1.06l-7.25 7.25a.75.75 0 01-1.06 0L2.22 9.28a.75.75 0 011.06-1.06L6 10.94l6.72-6.72a.75.75 0 011.06 0z"></path>
 </svg>
@@ -1416,7 +1416,7 @@
 </div>
 
       <h2 id="blob-path" class="breadcrumb flex-auto flex-self-center min-width-0 text-normal mx-2 width-full width-md-auto flex-order-1 flex-md-order-none mt-3 mt-md-0">
-        <span class="js-repo-root text-bold"><span class="js-path-segment d-inline-block wb-break-all"><a data-pjax="#repo-content-pjax-container" href="/jenkinsci/docker"><span>docker</span></a></span></span><span class="separator">/</span><strong class="final-path">jenkins.sh</strong>
+        <span class="js-repo-root text-bold"><span class="js-path-segment d-inline-block wb-break-all"><a data-pjax="#repo-content-pjax-container" href="/jenkinsci/docker"><span>docker</span></a></span></span><span class="separator">/</span><strong class="final-path">install-plugins.sh</strong>
       </h2>
       <a href="/jenkinsci/docker/find/master"
             class="js-pjax-capture-input btn mr-2 d-none d-md-block"
@@ -1437,7 +1437,7 @@
 </summary>
   <div data-view-component="true">          <ul class="dropdown-menu dropdown-menu-sw">
             <li class="d-block d-md-none">
-              <a class="dropdown-item d-flex flex-items-baseline" data-hydro-click="{&quot;event_type&quot;:&quot;repository.click&quot;,&quot;payload&quot;:{&quot;target&quot;:&quot;FIND_FILE_BUTTON&quot;,&quot;repository_id&quot;:21969270,&quot;originating_url&quot;:&quot;https://github.com/jenkinsci/docker/blob/master/jenkins.sh&quot;,&quot;user_id&quot;:36673283}}" data-hydro-click-hmac="64c4fa8c9fdcf0a32844a27c7464fa858221b4eec5b3c5e61332bd5c219b70ca" data-ga-click="Repository, find file, location:repo overview" data-hotkey="t" data-pjax="true" href="/jenkinsci/docker/find/master">
+              <a class="dropdown-item d-flex flex-items-baseline" data-hydro-click="{&quot;event_type&quot;:&quot;repository.click&quot;,&quot;payload&quot;:{&quot;target&quot;:&quot;FIND_FILE_BUTTON&quot;,&quot;repository_id&quot;:21969270,&quot;originating_url&quot;:&quot;https://github.com/jenkinsci/docker/blob/master/install-plugins.sh&quot;,&quot;user_id&quot;:36673283}}" data-hydro-click-hmac="b47a25d4f4315c0ee43e955708a04d15933685888bacfdc89fa89240b463935f" data-ga-click="Repository, find file, location:repo overview" data-hotkey="t" data-pjax="true" href="/jenkinsci/docker/find/master">
                 <span class="flex-auto">Go to file</span>
                 <span class="text-small color-text-secondary" aria-hidden="true">T</span>
 </a>            </li>
@@ -1455,13 +1455,13 @@
 </button>            </li>
             <li class="dropdown-divider" role="none"></li>
             <li>
-              <clipboard-copy data-toggle-for="blob-more-options-details" aria-label="Copy path" value="jenkins.sh" data-view-component="true" class="dropdown-item cursor-pointer">
+              <clipboard-copy data-toggle-for="blob-more-options-details" aria-label="Copy path" value="install-plugins.sh" data-view-component="true" class="dropdown-item cursor-pointer">
     
                 Copy path
 
 </clipboard-copy>            </li>
             <li>
-              <clipboard-copy data-toggle-for="blob-more-options-details" aria-label="Copy permalink" value="https://github.com/jenkinsci/docker/blob/b9fe51cbc1e1faa1555c593c37ea29558f55b5b2/jenkins.sh" data-view-component="true" class="dropdown-item cursor-pointer">
+              <clipboard-copy data-toggle-for="blob-more-options-details" aria-label="Copy permalink" value="https://github.com/jenkinsci/docker/blob/b9fe51cbc1e1faa1555c593c37ea29558f55b5b2/install-plugins.sh" data-view-component="true" class="dropdown-item cursor-pointer">
     
                 <span class="d-flex flex-items-baseline">
                   <span class="flex-auto">Copy permalink</span>
@@ -1476,17 +1476,115 @@
 
 
     <div class="Box d-flex flex-column flex-shrink-0 mb-3">
-      <include-fragment src="/jenkinsci/docker/contributors/master/jenkins.sh" class="commit-loader">
-        <div class="Box-header d-flex flex-items-center">
-          <div class="Skeleton avatar avatar-user flex-shrink-0 ml-n1 mr-n1 mt-n1 mb-n1" style="width:24px;height:24px;"></div>
-          <div class="Skeleton Skeleton--text col-5 ml-2">&nbsp;</div>
-        </div>
+      
+  <div class="Box-header Details js-details-container">
+      <div class="d-flex flex-items-center">
+        <span class="flex-shrink-0 ml-n1 mr-n1 mt-n1 mb-n1">
+          <a rel="contributor" data-skip-pjax="true" data-hovercard-type="user" data-hovercard-url="/users/phisco/hovercard" data-octo-click="hovercard-link-click" data-octo-dimensions="link_type:self" href="/phisco"><img class="avatar avatar-user" src="https://avatars.githubusercontent.com/u/5697904?s=48&amp;v=4" width="24" height="24" alt="@phisco" /></a>
+        </span>
+        <div class="flex-1 d-flex flex-items-center ml-3 min-width-0">
+          <div class="css-truncate css-truncate-overflow">
+            <a class="text-bold Link--primary" rel="contributor" data-hovercard-type="user" data-hovercard-url="/users/phisco/hovercard" data-octo-click="hovercard-link-click" data-octo-dimensions="link_type:self" href="/phisco">phisco</a>
 
-        <div class="Box-body d-flex flex-items-center" >
-          <div class="Skeleton Skeleton--text col-1">&nbsp;</div>
-          <span class="color-text-danger h6 loader-error">Cannot retrieve contributors at this time</span>
+              <span class="markdown-title">
+                <a data-pjax="true" title="ignore SC2086 as in previous usage" class="Link--secondary" href="/jenkinsci/docker/commit/0e8271bf693bddcaa76cfdedb8ef5d8ae940b859">ignore SC2086 as in previous usage</a>
+              </span>
+          </div>
+
+
+          <span class="ml-2">
+            <include-fragment accept="text/fragment+html" src="/jenkinsci/docker/commit/0e8271bf693bddcaa76cfdedb8ef5d8ae940b859/rollup?direction=e" class="d-inline"></include-fragment>
+          </span>
         </div>
-</include-fragment>    </div>
+        <div class="ml-3 d-flex flex-shrink-0 flex-items-center flex-justify-end color-text-secondary no-wrap">
+          <span class="d-none d-md-inline">
+            <span>Latest commit</span>
+            <a class="text-small text-mono Link--secondary" href="/jenkinsci/docker/commit/0e8271bf693bddcaa76cfdedb8ef5d8ae940b859" data-pjax>0e8271b</a>
+            <span itemprop="dateModified"><relative-time datetime="2020-10-22T10:45:14Z" class="no-wrap">Oct 22, 2020</relative-time></span>
+          </span>
+
+          <a data-pjax href="/jenkinsci/docker/commits/master/install-plugins.sh" class="ml-3 no-wrap Link--primary no-underline">
+            <svg aria-hidden="true" height="16" viewBox="0 0 16 16" version="1.1" width="16" data-view-component="true" class="octicon octicon-history">
+    <path fill-rule="evenodd" d="M1.643 3.143L.427 1.927A.25.25 0 000 2.104V5.75c0 .138.112.25.25.25h3.646a.25.25 0 00.177-.427L2.715 4.215a6.5 6.5 0 11-1.18 4.458.75.75 0 10-1.493.154 8.001 8.001 0 101.6-5.684zM7.75 4a.75.75 0 01.75.75v2.992l2.028.812a.75.75 0 01-.557 1.392l-2.5-1A.75.75 0 017 8.25v-3.5A.75.75 0 017.75 4z"></path>
+</svg>
+            <span class="d-none d-sm-inline">
+              <strong>History</strong>
+            </span>
+          </a>
+        </div>
+      </div>
+
+  </div>
+
+  <div class="Box-body d-flex flex-items-center flex-auto border-bottom-0 flex-wrap" >
+    <details class="details-reset details-overlay details-overlay-dark lh-default color-text-primary float-left mr-3" id="blob_contributors_box">
+      <summary class="Link--primary">
+        <svg aria-hidden="true" height="16" viewBox="0 0 16 16" version="1.1" width="16" data-view-component="true" class="octicon octicon-people">
+    <path fill-rule="evenodd" d="M5.5 3.5a2 2 0 100 4 2 2 0 000-4zM2 5.5a3.5 3.5 0 115.898 2.549 5.507 5.507 0 013.034 4.084.75.75 0 11-1.482.235 4.001 4.001 0 00-7.9 0 .75.75 0 01-1.482-.236A5.507 5.507 0 013.102 8.05 3.49 3.49 0 012 5.5zM11 4a.75.75 0 100 1.5 1.5 1.5 0 01.666 2.844.75.75 0 00-.416.672v.352a.75.75 0 00.574.73c1.2.289 2.162 1.2 2.522 2.372a.75.75 0 101.434-.44 5.01 5.01 0 00-2.56-3.012A3 3 0 0011 4z"></path>
+</svg>
+        <strong>33</strong>
+        
+        contributors
+      </summary>
+      <details-dialog
+        class="Box Box--overlay d-flex flex-column anim-fade-in fast"
+        aria-label="Users who have contributed to this file"
+        src="/jenkinsci/docker/contributors-list/master/install-plugins.sh" preload>
+        <div class="Box-header">
+          <button class="Box-btn-octicon btn-octicon float-right" type="button" aria-label="Close dialog" data-close-dialog>
+            <svg aria-hidden="true" height="16" viewBox="0 0 16 16" version="1.1" width="16" data-view-component="true" class="octicon octicon-x">
+    <path fill-rule="evenodd" d="M3.72 3.72a.75.75 0 011.06 0L8 6.94l3.22-3.22a.75.75 0 111.06 1.06L9.06 8l3.22 3.22a.75.75 0 11-1.06 1.06L8 9.06l-3.22 3.22a.75.75 0 01-1.06-1.06L6.94 8 3.72 4.78a.75.75 0 010-1.06z"></path>
+</svg>
+          </button>
+          <h3 class="Box-title">
+            Users who have contributed to this file
+          </h3>
+        </div>
+        <include-fragment>
+          <svg style="box-sizing: content-box; color: var(--color-icon-primary);" width="32" height="32" viewBox="0 0 16 16" fill="none" data-view-component="true" class="my-3 mx-auto d-block anim-rotate">
+  <circle cx="8" cy="8" r="7" stroke="currentColor" stroke-opacity="0.25" stroke-width="2" vector-effect="non-scaling-stroke" />
+  <path d="M15 8a7.002 7.002 0 00-7-7" stroke="currentColor" stroke-width="2" stroke-linecap="round" vector-effect="non-scaling-stroke" />
+</svg>
+        </include-fragment>
+      </details-dialog>
+    </details>
+      <span class="">
+    <a class="avatar-link" data-hovercard-type="user" data-hovercard-url="/users/carlossg/hovercard" data-octo-click="hovercard-link-click" data-octo-dimensions="link_type:self" href="/jenkinsci/docker/commits/master/install-plugins.sh?author=carlossg">
+      <img class="avatar mr-2 avatar-user" src="https://avatars.githubusercontent.com/u/23651?s=48&amp;v=4" width="24" height="24" alt="@carlossg" /> 
+</a>    <a class="avatar-link" data-hovercard-type="user" data-hovercard-url="/users/slide/hovercard" data-octo-click="hovercard-link-click" data-octo-dimensions="link_type:self" href="/jenkinsci/docker/commits/master/install-plugins.sh?author=slide">
+      <img class="avatar mr-2 avatar-user" src="https://avatars.githubusercontent.com/u/55871?s=48&amp;v=4" width="24" height="24" alt="@slide" /> 
+</a>    <a class="avatar-link" data-hovercard-type="user" data-hovercard-url="/users/ndeloof/hovercard" data-octo-click="hovercard-link-click" data-octo-dimensions="link_type:self" href="/jenkinsci/docker/commits/master/install-plugins.sh?author=ndeloof">
+      <img class="avatar mr-2 avatar-user" src="https://avatars.githubusercontent.com/u/132757?s=48&amp;v=4" width="24" height="24" alt="@ndeloof" /> 
+</a>    <a class="avatar-link" data-hovercard-type="user" data-hovercard-url="/users/Aigrefin/hovercard" data-octo-click="hovercard-link-click" data-octo-dimensions="link_type:self" href="/jenkinsci/docker/commits/master/install-plugins.sh?author=Aigrefin">
+      <img class="avatar mr-2 avatar-user" src="https://avatars.githubusercontent.com/u/8188216?s=48&amp;v=4" width="24" height="24" alt="@Aigrefin" /> 
+</a>    <a class="avatar-link" data-hovercard-type="user" data-hovercard-url="/users/deraffe/hovercard" data-octo-click="hovercard-link-click" data-octo-dimensions="link_type:self" href="/jenkinsci/docker/commits/master/install-plugins.sh?author=deraffe">
+      <img class="avatar mr-2 avatar-user" src="https://avatars.githubusercontent.com/u/121962?s=48&amp;v=4" width="24" height="24" alt="@deraffe" /> 
+</a>    <a class="avatar-link" data-hovercard-type="user" data-hovercard-url="/users/batmat/hovercard" data-octo-click="hovercard-link-click" data-octo-dimensions="link_type:self" href="/jenkinsci/docker/commits/master/install-plugins.sh?author=batmat">
+      <img class="avatar mr-2 avatar-user" src="https://avatars.githubusercontent.com/u/223853?s=48&amp;v=4" width="24" height="24" alt="@batmat" /> 
+</a>    <a class="avatar-link" data-hovercard-type="user" data-hovercard-url="/users/phisco/hovercard" data-octo-click="hovercard-link-click" data-octo-dimensions="link_type:self" href="/jenkinsci/docker/commits/master/install-plugins.sh?author=phisco">
+      <img class="avatar mr-2 avatar-user" src="https://avatars.githubusercontent.com/u/5697904?s=48&amp;v=4" width="24" height="24" alt="@phisco" /> 
+</a>    <a class="avatar-link" data-hovercard-type="user" data-hovercard-url="/users/oleg-nenashev/hovercard" data-octo-click="hovercard-link-click" data-octo-dimensions="link_type:self" href="/jenkinsci/docker/commits/master/install-plugins.sh?author=oleg-nenashev">
+      <img class="avatar mr-2 avatar-user" src="https://avatars.githubusercontent.com/u/3000480?s=48&amp;v=4" width="24" height="24" alt="@oleg-nenashev" /> 
+</a>    <a class="avatar-link" data-hovercard-type="user" data-hovercard-url="/users/bremac/hovercard" data-octo-click="hovercard-link-click" data-octo-dimensions="link_type:self" href="/jenkinsci/docker/commits/master/install-plugins.sh?author=bremac">
+      <img class="avatar mr-2 avatar-user" src="https://avatars.githubusercontent.com/u/10696?s=48&amp;v=4" width="24" height="24" alt="@bremac" /> 
+</a>    <a class="avatar-link" data-hovercard-type="user" data-hovercard-url="/users/jeanlouisboudart/hovercard" data-octo-click="hovercard-link-click" data-octo-dimensions="link_type:self" href="/jenkinsci/docker/commits/master/install-plugins.sh?author=jeanlouisboudart">
+      <img class="avatar mr-2 avatar-user" src="https://avatars.githubusercontent.com/u/374409?s=48&amp;v=4" width="24" height="24" alt="@jeanlouisboudart" /> 
+</a>    <a class="avatar-link" data-hovercard-type="user" data-hovercard-url="/users/HeyLazySunnyKid/hovercard" data-octo-click="hovercard-link-click" data-octo-dimensions="link_type:self" href="/jenkinsci/docker/commits/master/install-plugins.sh?author=HeyLazySunnyKid">
+      <img class="avatar mr-2 avatar-user" src="https://avatars.githubusercontent.com/u/34886352?s=48&amp;v=4" width="24" height="24" alt="@HeyLazySunnyKid" /> 
+</a>    <a class="avatar-link" data-hovercard-type="user" data-hovercard-url="/users/Vlatombe/hovercard" data-octo-click="hovercard-link-click" data-octo-dimensions="link_type:self" href="/jenkinsci/docker/commits/master/install-plugins.sh?author=Vlatombe">
+      <img class="avatar mr-2 avatar-user" src="https://avatars.githubusercontent.com/u/171459?s=48&amp;v=4" width="24" height="24" alt="@Vlatombe" /> 
+</a>
+    <button data-toggle-for="blob_contributors_box" type="button" data-view-component="true" class="lh-default btn-link">
+  
+  
+      +19
+
+  
+
+</button></span>
+
+  </div>
+    </div>
 
 
 
@@ -1510,25 +1608,25 @@
 
 
   <div class="text-mono f6 flex-auto pr-3 flex-order-2 flex-md-order-1">
-      <include-fragment src="/jenkinsci/docker/codeowners/master/jenkins.sh"></include-fragment>
+      <include-fragment src="/jenkinsci/docker/codeowners/master/install-plugins.sh"></include-fragment>
 
       <span class="file-mode" title="File mode">executable file</span>
       <span class="file-info-divider"></span>
-      52 lines (43 sloc)
+      292 lines (249 sloc)
       <span class="file-info-divider"></span>
-    2.17 KB
+    10.3 KB
   </div>
 
   <div class="d-flex py-1 py-md-0 flex-auto flex-order-1 flex-md-order-2 flex-sm-grow-0 flex-justify-between hide-sm hide-md">
 
     <div class="BtnGroup">
-      <a href="/jenkinsci/docker/raw/master/jenkins.sh" id="raw-url" role="button" data-view-component="true" class="btn-sm btn BtnGroup-item">
+      <a href="/jenkinsci/docker/raw/master/install-plugins.sh" id="raw-url" role="button" data-view-component="true" class="btn-sm btn BtnGroup-item">
   
   Raw
   
 
 </a>
-        <a href="/jenkinsci/docker/blame/master/jenkins.sh" data-hotkey="b" role="button" data-view-component="true" class="js-update-url-with-hash btn-sm btn BtnGroup-item">
+        <a href="/jenkinsci/docker/blame/master/install-plugins.sh" data-hotkey="b" role="button" data-view-component="true" class="js-update-url-with-hash btn-sm btn BtnGroup-item">
   
   Blame
   
@@ -1547,11 +1645,11 @@
 </svg>
           </a>
 
-          <remote-clipboard-copy class="d-inline-block btn-octicon" style="height: 26px" data-src="/jenkinsci/docker/raw/master/jenkins.sh" data-action="click:remote-clipboard-copy#remoteCopy">
+          <remote-clipboard-copy class="d-inline-block btn-octicon" style="height: 26px" data-src="/jenkinsci/docker/raw/master/install-plugins.sh" data-action="click:remote-clipboard-copy#remoteCopy">
   
 
 
-  <span data-target="remote-clipboard-copy.idle">              <span class="tooltipped tooltipped-nw cursor-pointer" data-hydro-click="{&quot;event_type&quot;:&quot;repository.click&quot;,&quot;payload&quot;:{&quot;target&quot;:&quot;COPY_RAW_CONTENTS_BUTTON&quot;,&quot;repository_id&quot;:21969270,&quot;originating_url&quot;:&quot;https://github.com/jenkinsci/docker/blob/master/jenkins.sh&quot;,&quot;user_id&quot;:36673283}}" data-hydro-click-hmac="52472adf88613d8e1d896d1cef92df5261acaf6f5efc0a4477b1eeae3e33d8cd" aria-label="Copy raw contents">
+  <span data-target="remote-clipboard-copy.idle">              <span class="tooltipped tooltipped-nw cursor-pointer" data-hydro-click="{&quot;event_type&quot;:&quot;repository.click&quot;,&quot;payload&quot;:{&quot;target&quot;:&quot;COPY_RAW_CONTENTS_BUTTON&quot;,&quot;repository_id&quot;:21969270,&quot;originating_url&quot;:&quot;https://github.com/jenkinsci/docker/blob/master/install-plugins.sh&quot;,&quot;user_id&quot;:36673283}}" data-hydro-click-hmac="4cba5835773a480bbe771e3abae6ff60b8b1df564d5695ab0d1e6a8f24c2f07a" aria-label="Copy raw contents">
                 <svg aria-hidden="true" height="16" viewBox="0 0 16 16" version="1.1" width="16" data-view-component="true" class="octicon octicon-copy">
     <path fill-rule="evenodd" d="M0 6.75C0 5.784.784 5 1.75 5h1.5a.75.75 0 010 1.5h-1.5a.25.25 0 00-.25.25v7.5c0 .138.112.25.25.25h7.5a.25.25 0 00.25-.25v-1.5a.75.75 0 011.5 0v1.5A1.75 1.75 0 019.25 16h-7.5A1.75 1.75 0 010 14.25v-7.5z"></path><path fill-rule="evenodd" d="M5 1.75C5 .784 5.784 0 6.75 0h7.5C15.216 0 16 .784 16 1.75v7.5A1.75 1.75 0 0114.25 11h-7.5A1.75 1.75 0 015 9.25v-7.5zm1.75-.25a.25.25 0 00-.25.25v7.5c0 .138.112.25.25.25h7.5a.25.25 0 00.25-.25v-7.5a.25.25 0 00-.25-.25h-7.5z"></path>
 </svg>
@@ -1574,7 +1672,7 @@
               </span>
 </span>
 </remote-clipboard-copy>
-          <!-- '"` --><!-- </textarea></xmp> --></option></form><form class="inline-form js-update-url-with-hash" action="/jenkinsci/docker/edit/master/jenkins.sh" accept-charset="UTF-8" method="post"><input type="hidden" name="authenticity_token" value="3IriN0cs8m8Y5cWgNB8FXKU2wOCEcEVKtds91LDsAipnPruqIs9e6iCInKjmbHVp0KpSHna3gDjTBrUGYB2LOQ==" />
+          <!-- '"` --><!-- </textarea></xmp> --></option></form><form class="inline-form js-update-url-with-hash" action="/jenkinsci/docker/edit/master/install-plugins.sh" accept-charset="UTF-8" method="post"><input type="hidden" name="authenticity_token" value="UyLckcTr+/x+3i6EZldtWbvpkToaqbmjMmiCdO0a4CFlH3wjcCVcsvLdtbjqMqwBW2EjHWXllJ/5bo3Zb6pkWA==" />
             <button class="btn-octicon tooltipped tooltipped-nw" type="submit"
               aria-label="Fork this project and edit the file" data-hotkey="e" data-disable-with>
               <svg aria-hidden="true" height="16" viewBox="0 0 16 16" version="1.1" width="16" data-view-component="true" class="octicon octicon-pencil">
@@ -1582,7 +1680,7 @@
 </svg>
             </button>
 </form>
-          <!-- '"` --><!-- </textarea></xmp> --></option></form><form class="inline-form" action="/jenkinsci/docker/delete/master/jenkins.sh" accept-charset="UTF-8" method="post"><input type="hidden" name="authenticity_token" value="pIIIHK3k2KfrrVKi48tBSfRVV5enLnfQaqzfQAXZMydnbruuFg83w8WGM5V7LU6r6uuWRx96Zelw4cym0dNbxw==" />
+          <!-- '"` --><!-- </textarea></xmp> --></option></form><form class="inline-form" action="/jenkinsci/docker/delete/master/install-plugins.sh" accept-charset="UTF-8" method="post"><input type="hidden" name="authenticity_token" value="X/Fy5IO7KnTSC2Q0c4PzNuDQoSz5Zj2tqzjyev0N43+Q0rj7YlTV2p1kbEpTAAz9gS822WauOhzu9HXBtx2bLQ==" />
             <button class="btn-octicon btn-octicon-danger tooltipped tooltipped-nw" type="submit"
               aria-label="Fork this project and delete the file" data-disable-with>
               <svg aria-hidden="true" height="16" viewBox="0 0 16 16" version="1.1" width="16" data-view-component="true" class="octicon octicon-trash">
@@ -1610,15 +1708,15 @@
                 </a>
             </li>
           <li>
-            <a class="dropdown-item" href="/jenkinsci/docker/raw/master/jenkins.sh">
+            <a class="dropdown-item" href="/jenkinsci/docker/raw/master/install-plugins.sh">
               View raw
             </a>
           </li>
               <li>
-                <remote-clipboard-copy class="dropdown-item" data-src="/jenkinsci/docker/raw/master/jenkins.sh" data-action="click:remote-clipboard-copy#remoteCopy">
+                <remote-clipboard-copy class="dropdown-item" data-src="/jenkinsci/docker/raw/master/install-plugins.sh" data-action="click:remote-clipboard-copy#remoteCopy">
   
 
-  <span data-target="remote-clipboard-copy.idle">                    <span class="cursor-pointer" data-hydro-click="{&quot;event_type&quot;:&quot;repository.click&quot;,&quot;payload&quot;:{&quot;target&quot;:&quot;COPY_RAW_CONTENTS_BUTTON&quot;,&quot;repository_id&quot;:21969270,&quot;originating_url&quot;:&quot;https://github.com/jenkinsci/docker/blob/master/jenkins.sh&quot;,&quot;user_id&quot;:36673283}}" data-hydro-click-hmac="52472adf88613d8e1d896d1cef92df5261acaf6f5efc0a4477b1eeae3e33d8cd">
+  <span data-target="remote-clipboard-copy.idle">                    <span class="cursor-pointer" data-hydro-click="{&quot;event_type&quot;:&quot;repository.click&quot;,&quot;payload&quot;:{&quot;target&quot;:&quot;COPY_RAW_CONTENTS_BUTTON&quot;,&quot;repository_id&quot;:21969270,&quot;originating_url&quot;:&quot;https://github.com/jenkinsci/docker/blob/master/install-plugins.sh&quot;,&quot;user_id&quot;:36673283}}" data-hydro-click-hmac="4cba5835773a480bbe771e3abae6ff60b8b1df564d5695ab0d1e6a8f24c2f07a">
                       Copy raw contents
 </span></span>
   <span data-target="remote-clipboard-copy.fetching" hidden="hidden">                    Copy raw contents
@@ -1641,17 +1739,17 @@
 </span>
 </remote-clipboard-copy>              </li>
             <li>
-              <a class="dropdown-item" href="/jenkinsci/docker/blame/master/jenkins.sh">
+              <a class="dropdown-item" href="/jenkinsci/docker/blame/master/install-plugins.sh">
                 View blame
               </a>
             </li>
 
               <li class="dropdown-divider" role="none"></li>
               <li>
-                <a class="dropdown-item" href="/jenkinsci/docker/edit/master/jenkins.sh">Edit file</a>
+                <a class="dropdown-item" href="/jenkinsci/docker/edit/master/install-plugins.sh">Edit file</a>
               </li>
               <li>
-                <a class="dropdown-item menu-item-danger" href="/jenkinsci/docker/delete/master/jenkins.sh">Delete file</a>
+                <a class="dropdown-item menu-item-danger" href="/jenkinsci/docker/delete/master/install-plugins.sh">Delete file</a>
               </li>
         </ul>
       </details>
@@ -1666,7 +1764,7 @@
 <table class="highlight tab-size js-file-line-container" data-tab-size="8" data-paste-markdown-skip>
       <tr>
         <td id="L1" class="blob-num js-line-number" data-line-number="1"></td>
-        <td id="LC1" class="blob-code blob-code-inner js-file-line"><span class="pl-c"><span class="pl-c">#!</span> /bin/bash -e</span></td>
+        <td id="LC1" class="blob-code blob-code-inner js-file-line"><span class="pl-c"><span class="pl-c">#!</span>/bin/bash -eu</span></td>
       </tr>
       <tr>
         <td id="L2" class="blob-num js-line-number" data-line-number="2"></td>
@@ -1675,90 +1773,89 @@
       </tr>
       <tr>
         <td id="L3" class="blob-num js-line-number" data-line-number="3"></td>
-        <td id="LC3" class="blob-code blob-code-inner js-file-line"><span class="pl-c1">:</span> <span class="pl-s"><span class="pl-pds">&quot;</span><span class="pl-smi">${JENKINS_WAR<span class="pl-k">:=</span><span class="pl-s"><span class="pl-pds">&quot;</span>/usr/share/jenkins/jenkins.war<span class="pl-pds">&quot;</span></span>}</span><span class="pl-pds">&quot;</span></span></td>
+        <td id="LC3" class="blob-code blob-code-inner js-file-line"><span class="pl-c"><span class="pl-c">#</span> Resolve dependencies and download plugins given on the command line</span></td>
       </tr>
       <tr>
         <td id="L4" class="blob-num js-line-number" data-line-number="4"></td>
-        <td id="LC4" class="blob-code blob-code-inner js-file-line"><span class="pl-c1">:</span> <span class="pl-s"><span class="pl-pds">&quot;</span><span class="pl-smi">${JENKINS_HOME<span class="pl-k">:=</span><span class="pl-s"><span class="pl-pds">&quot;</span>/var/jenkins_home<span class="pl-pds">&quot;</span></span>}</span><span class="pl-pds">&quot;</span></span></td>
+        <td id="LC4" class="blob-code blob-code-inner js-file-line"><span class="pl-c"><span class="pl-c">#</span></span></td>
       </tr>
       <tr>
         <td id="L5" class="blob-num js-line-number" data-line-number="5"></td>
-        <td id="LC5" class="blob-code blob-code-inner js-file-line"><span class="pl-c1">:</span> <span class="pl-s"><span class="pl-pds">&quot;</span><span class="pl-smi">${COPY_REFERENCE_FILE_LOG<span class="pl-k">:=</span><span class="pl-s"><span class="pl-pds">&quot;</span><span class="pl-smi">${JENKINS_HOME}</span>/copy_reference_file.log<span class="pl-pds">&quot;</span></span>}</span><span class="pl-pds">&quot;</span></span></td>
+        <td id="LC5" class="blob-code blob-code-inner js-file-line"><span class="pl-c"><span class="pl-c">#</span> FROM jenkins</span></td>
       </tr>
       <tr>
         <td id="L6" class="blob-num js-line-number" data-line-number="6"></td>
-        <td id="LC6" class="blob-code blob-code-inner js-file-line"><span class="pl-c1">:</span> <span class="pl-s"><span class="pl-pds">&quot;</span><span class="pl-smi">${REF<span class="pl-k">:=</span><span class="pl-s"><span class="pl-pds">&quot;</span>/usr/share/jenkins/ref<span class="pl-pds">&quot;</span></span>}</span><span class="pl-pds">&quot;</span></span></td>
+        <td id="LC6" class="blob-code blob-code-inner js-file-line"><span class="pl-c"><span class="pl-c">#</span> RUN install-plugins.sh docker-slaves github-branch-source</span></td>
       </tr>
       <tr>
         <td id="L7" class="blob-num js-line-number" data-line-number="7"></td>
-        <td id="LC7" class="blob-code blob-code-inner js-file-line">touch <span class="pl-s"><span class="pl-pds">&quot;</span><span class="pl-smi">${COPY_REFERENCE_FILE_LOG}</span><span class="pl-pds">&quot;</span></span> <span class="pl-k">||</span> { <span class="pl-c1">echo</span> <span class="pl-s"><span class="pl-pds">&quot;</span>Can not write to <span class="pl-smi">${COPY_REFERENCE_FILE_LOG}</span>. Wrong volume permissions?<span class="pl-pds">&quot;</span></span><span class="pl-k">;</span> <span class="pl-c1">exit</span> 1<span class="pl-k">;</span> }</td>
+        <td id="LC7" class="blob-code blob-code-inner js-file-line"><span class="pl-c"><span class="pl-c">#</span></span></td>
       </tr>
       <tr>
         <td id="L8" class="blob-num js-line-number" data-line-number="8"></td>
-        <td id="LC8" class="blob-code blob-code-inner js-file-line"><span class="pl-c1">echo</span> <span class="pl-s"><span class="pl-pds">&quot;</span>--- Copying files at <span class="pl-s"><span class="pl-pds">$(</span>date<span class="pl-pds">)</span></span><span class="pl-pds">&quot;</span></span> <span class="pl-k">&gt;&gt;</span> <span class="pl-s"><span class="pl-pds">&quot;</span><span class="pl-smi">$COPY_REFERENCE_FILE_LOG</span><span class="pl-pds">&quot;</span></span></td>
+        <td id="LC8" class="blob-code blob-code-inner js-file-line"><span class="pl-c"><span class="pl-c">#</span> Environment variables:</span></td>
       </tr>
       <tr>
         <td id="L9" class="blob-num js-line-number" data-line-number="9"></td>
-        <td id="LC9" class="blob-code blob-code-inner js-file-line">find <span class="pl-s"><span class="pl-pds">&quot;</span><span class="pl-smi">${REF}</span><span class="pl-pds">&quot;</span></span> <span class="pl-cce">\(</span> -type f -o -type l <span class="pl-cce">\)</span> -exec bash -c <span class="pl-s"><span class="pl-pds">&#39;</span>. /usr/local/bin/jenkins-support; for arg; do copy_reference_file &quot;$arg&quot;; done<span class="pl-pds">&#39;</span></span> _ {} +</td>
+        <td id="LC9" class="blob-code blob-code-inner js-file-line"><span class="pl-c"><span class="pl-c">#</span> REF: directory with preinstalled plugins. Default: /usr/share/jenkins/ref/plugins</span></td>
       </tr>
       <tr>
         <td id="L10" class="blob-num js-line-number" data-line-number="10"></td>
-        <td id="LC10" class="blob-code blob-code-inner js-file-line">
-</td>
+        <td id="LC10" class="blob-code blob-code-inner js-file-line"><span class="pl-c"><span class="pl-c">#</span> JENKINS_WAR: full path to the jenkins.war. Default: /usr/share/jenkins/jenkins.war</span></td>
       </tr>
       <tr>
         <td id="L11" class="blob-num js-line-number" data-line-number="11"></td>
-        <td id="LC11" class="blob-code blob-code-inner js-file-line"><span class="pl-c"><span class="pl-c">#</span> if `docker run` first argument start with `--` the user is passing jenkins launcher arguments</span></td>
+        <td id="LC11" class="blob-code blob-code-inner js-file-line"><span class="pl-c"><span class="pl-c">#</span> JENKINS_UC: url of the Update Center. Default: &quot;&quot;</span></td>
       </tr>
       <tr>
         <td id="L12" class="blob-num js-line-number" data-line-number="12"></td>
-        <td id="LC12" class="blob-code blob-code-inner js-file-line"><span class="pl-k">if</span> [[ <span class="pl-smi">$#</span> <span class="pl-k">-lt</span> 1 ]] <span class="pl-k">||</span> [[ <span class="pl-s"><span class="pl-pds">&quot;</span><span class="pl-smi">$1</span><span class="pl-pds">&quot;</span></span> <span class="pl-k">==</span> <span class="pl-s"><span class="pl-pds">&quot;</span>--<span class="pl-pds">&quot;</span></span><span class="pl-k">*</span> ]]<span class="pl-k">;</span> <span class="pl-k">then</span></td>
+        <td id="LC12" class="blob-code blob-code-inner js-file-line"><span class="pl-c"><span class="pl-c">#</span> JENKINS_UC_EXPERIMENTAL: url of the Experimental Update Center for experimental versions of plugins. Default: &quot;&quot;</span></td>
       </tr>
       <tr>
         <td id="L13" class="blob-num js-line-number" data-line-number="13"></td>
-        <td id="LC13" class="blob-code blob-code-inner js-file-line">
-</td>
+        <td id="LC13" class="blob-code blob-code-inner js-file-line"><span class="pl-c"><span class="pl-c">#</span> JENKINS_INCREMENTALS_REPO_MIRROR: url of the incrementals repo mirror. Default: &quot;&quot;</span></td>
       </tr>
       <tr>
         <td id="L14" class="blob-num js-line-number" data-line-number="14"></td>
-        <td id="LC14" class="blob-code blob-code-inner js-file-line">  <span class="pl-c"><span class="pl-c">#</span> read JAVA_OPTS and JENKINS_OPTS into arrays to avoid need for eval (and associated vulnerabilities)</span></td>
+        <td id="LC14" class="blob-code blob-code-inner js-file-line"><span class="pl-c"><span class="pl-c">#</span> JENKINS_UC_DOWNLOAD: download url of the Update Center. Default: JENKINS_UC/download</span></td>
       </tr>
       <tr>
         <td id="L15" class="blob-num js-line-number" data-line-number="15"></td>
-        <td id="LC15" class="blob-code blob-code-inner js-file-line">  java_opts_array=()</td>
+        <td id="LC15" class="blob-code blob-code-inner js-file-line"><span class="pl-c"><span class="pl-c">#</span> CURL_OPTIONS When downloading the plugins with curl. Curl options. Default: -sSfL</span></td>
       </tr>
       <tr>
         <td id="L16" class="blob-num js-line-number" data-line-number="16"></td>
-        <td id="LC16" class="blob-code blob-code-inner js-file-line">  <span class="pl-k">while</span> IFS= <span class="pl-c1">read</span> -r -d <span class="pl-s"><span class="pl-pds">&#39;</span><span class="pl-pds">&#39;</span></span> item<span class="pl-k">;</span> <span class="pl-k">do</span></td>
+        <td id="LC16" class="blob-code blob-code-inner js-file-line"><span class="pl-c"><span class="pl-c">#</span> CURL_CONNECTION_TIMEOUT When downloading the plugins with curl. &lt;seconds&gt; Maximum time allowed for connection. Default: 20</span></td>
       </tr>
       <tr>
         <td id="L17" class="blob-num js-line-number" data-line-number="17"></td>
-        <td id="LC17" class="blob-code blob-code-inner js-file-line">    java_opts_array+=( <span class="pl-s"><span class="pl-pds">&quot;</span><span class="pl-smi">$item</span><span class="pl-pds">&quot;</span></span> )</td>
+        <td id="LC17" class="blob-code blob-code-inner js-file-line"><span class="pl-c"><span class="pl-c">#</span> CURL_RETRY When downloading the plugins with curl. Retry request if transient problems occur. Default: 3</span></td>
       </tr>
       <tr>
         <td id="L18" class="blob-num js-line-number" data-line-number="18"></td>
-        <td id="LC18" class="blob-code blob-code-inner js-file-line">  <span class="pl-k">done</span> <span class="pl-k">&lt;</span> <span class="pl-s"><span class="pl-pds">&lt;(</span>[[ <span class="pl-smi">$JAVA_OPTS</span> ]] <span class="pl-k">&amp;&amp;</span> xargs <span class="pl-c1">printf</span> <span class="pl-s"><span class="pl-pds">&#39;</span>%s\0<span class="pl-pds">&#39;</span></span> <span class="pl-k">&lt;&lt;&lt;</span><span class="pl-s"><span class="pl-pds">&quot;</span>$JAVA_OPTS<span class="pl-pds">&quot;</span></span><span class="pl-pds">)</span></span></td>
+        <td id="LC18" class="blob-code blob-code-inner js-file-line"><span class="pl-c"><span class="pl-c">#</span> CURL_RETRY_DELAY When downloading the plugins with curl. &lt;seconds&gt; Wait time between retries. Default: 0</span></td>
       </tr>
       <tr>
         <td id="L19" class="blob-num js-line-number" data-line-number="19"></td>
-        <td id="LC19" class="blob-code blob-code-inner js-file-line">
-</td>
+        <td id="LC19" class="blob-code blob-code-inner js-file-line"><span class="pl-c"><span class="pl-c">#</span> CURL_RETRY_MAX_TIME When downloading the plugins with curl. &lt;seconds&gt; Retry only within this period. Default: 60</span></td>
       </tr>
       <tr>
         <td id="L20" class="blob-num js-line-number" data-line-number="20"></td>
-        <td id="LC20" class="blob-code blob-code-inner js-file-line">  <span class="pl-k">readonly</span> agent_port_property=<span class="pl-s"><span class="pl-pds">&#39;</span>jenkins.model.Jenkins.slaveAgentPort<span class="pl-pds">&#39;</span></span></td>
+        <td id="LC20" class="blob-code blob-code-inner js-file-line">
+</td>
       </tr>
       <tr>
         <td id="L21" class="blob-num js-line-number" data-line-number="21"></td>
-        <td id="LC21" class="blob-code blob-code-inner js-file-line">  <span class="pl-k">if</span> [ <span class="pl-k">-n</span> <span class="pl-s"><span class="pl-pds">&quot;</span><span class="pl-smi">${JENKINS_SLAVE_AGENT_PORT<span class="pl-k">:-</span>}</span><span class="pl-pds">&quot;</span></span> ] <span class="pl-k">&amp;&amp;</span> [[ <span class="pl-s"><span class="pl-pds">&quot;</span><span class="pl-smi">${JAVA_OPTS<span class="pl-k">:-</span>}</span><span class="pl-pds">&quot;</span></span> <span class="pl-k">!=</span> <span class="pl-k">*</span><span class="pl-s"><span class="pl-pds">&quot;</span><span class="pl-smi">${agent_port_property}</span><span class="pl-pds">&quot;</span></span><span class="pl-k">*</span> ]]<span class="pl-k">;</span> <span class="pl-k">then</span></td>
+        <td id="LC21" class="blob-code blob-code-inner js-file-line"><span class="pl-c1">set</span> -o pipefail</td>
       </tr>
       <tr>
         <td id="L22" class="blob-num js-line-number" data-line-number="22"></td>
-        <td id="LC22" class="blob-code blob-code-inner js-file-line">    java_opts_array+=( <span class="pl-s"><span class="pl-pds">&quot;</span>-D<span class="pl-smi">${agent_port_property}</span>=<span class="pl-smi">${JENKINS_SLAVE_AGENT_PORT}</span><span class="pl-pds">&quot;</span></span> )</td>
+        <td id="LC22" class="blob-code blob-code-inner js-file-line">
+</td>
       </tr>
       <tr>
         <td id="L23" class="blob-num js-line-number" data-line-number="23"></td>
-        <td id="LC23" class="blob-code blob-code-inner js-file-line">  <span class="pl-k">fi</span></td>
+        <td id="LC23" class="blob-code blob-code-inner js-file-line"><span class="pl-c1">echo</span> <span class="pl-s"><span class="pl-pds">&quot;</span>WARN: install-plugins.sh is deprecated, please switch to jenkins-plugin-cli<span class="pl-pds">&quot;</span></span></td>
       </tr>
       <tr>
         <td id="L24" class="blob-num js-line-number" data-line-number="24"></td>
@@ -1767,27 +1864,29 @@
       </tr>
       <tr>
         <td id="L25" class="blob-num js-line-number" data-line-number="25"></td>
-        <td id="LC25" class="blob-code blob-code-inner js-file-line">  <span class="pl-k">if</span> [[ <span class="pl-s"><span class="pl-pds">&quot;</span><span class="pl-smi">$DEBUG</span><span class="pl-pds">&quot;</span></span> ]] <span class="pl-k">;</span> <span class="pl-k">then</span></td>
+        <td id="LC25" class="blob-code blob-code-inner js-file-line">JENKINS_WAR=<span class="pl-smi">${JENKINS_WAR<span class="pl-k">:-/</span>usr<span class="pl-k">/</span>share<span class="pl-k">/</span>jenkins<span class="pl-k">/</span>jenkins.war}</span></td>
       </tr>
       <tr>
         <td id="L26" class="blob-num js-line-number" data-line-number="26"></td>
-        <td id="LC26" class="blob-code blob-code-inner js-file-line">    java_opts_array+=( \</td>
+        <td id="LC26" class="blob-code blob-code-inner js-file-line">
+</td>
       </tr>
       <tr>
         <td id="L27" class="blob-num js-line-number" data-line-number="27"></td>
-        <td id="LC27" class="blob-code blob-code-inner js-file-line">      <span class="pl-s"><span class="pl-pds">&#39;</span>-Xdebug<span class="pl-pds">&#39;</span></span> \</td>
+        <td id="LC27" class="blob-code blob-code-inner js-file-line"><span class="pl-c1">.</span> /usr/local/bin/jenkins-support</td>
       </tr>
       <tr>
         <td id="L28" class="blob-num js-line-number" data-line-number="28"></td>
-        <td id="LC28" class="blob-code blob-code-inner js-file-line">      <span class="pl-s"><span class="pl-pds">&#39;</span>-Xrunjdwp:server=y,transport=dt_socket,address=*:5005,suspend=y<span class="pl-pds">&#39;</span></span> \</td>
+        <td id="LC28" class="blob-code blob-code-inner js-file-line">
+</td>
       </tr>
       <tr>
         <td id="L29" class="blob-num js-line-number" data-line-number="29"></td>
-        <td id="LC29" class="blob-code blob-code-inner js-file-line">    )</td>
+        <td id="LC29" class="blob-code blob-code-inner js-file-line">REF_DIR=<span class="pl-s"><span class="pl-pds">&quot;</span><span class="pl-smi">${REF}</span>/plugins<span class="pl-pds">&quot;</span></span></td>
       </tr>
       <tr>
         <td id="L30" class="blob-num js-line-number" data-line-number="30"></td>
-        <td id="LC30" class="blob-code blob-code-inner js-file-line">  <span class="pl-k">fi</span></td>
+        <td id="LC30" class="blob-code blob-code-inner js-file-line">FAILED=<span class="pl-s"><span class="pl-pds">&quot;</span><span class="pl-smi">$REF_DIR</span>/failed-plugins.txt<span class="pl-pds">&quot;</span></span></td>
       </tr>
       <tr>
         <td id="L31" class="blob-num js-line-number" data-line-number="31"></td>
@@ -1796,90 +1895,1083 @@
       </tr>
       <tr>
         <td id="L32" class="blob-num js-line-number" data-line-number="32"></td>
-        <td id="LC32" class="blob-code blob-code-inner js-file-line">  jenkins_opts_array=( )</td>
+        <td id="LC32" class="blob-code blob-code-inner js-file-line"><span class="pl-en">getLockFile</span>() {</td>
       </tr>
       <tr>
         <td id="L33" class="blob-num js-line-number" data-line-number="33"></td>
-        <td id="LC33" class="blob-code blob-code-inner js-file-line">  <span class="pl-k">while</span> IFS= <span class="pl-c1">read</span> -r -d <span class="pl-s"><span class="pl-pds">&#39;</span><span class="pl-pds">&#39;</span></span> item<span class="pl-k">;</span> <span class="pl-k">do</span></td>
+        <td id="LC33" class="blob-code blob-code-inner js-file-line">    <span class="pl-c1">printf</span> <span class="pl-s"><span class="pl-pds">&#39;</span>%s<span class="pl-pds">&#39;</span></span> <span class="pl-s"><span class="pl-pds">&quot;</span><span class="pl-smi">$REF_DIR</span>/<span class="pl-smi">${1}</span>.lock<span class="pl-pds">&quot;</span></span></td>
       </tr>
       <tr>
         <td id="L34" class="blob-num js-line-number" data-line-number="34"></td>
-        <td id="LC34" class="blob-code blob-code-inner js-file-line">    jenkins_opts_array+=( <span class="pl-s"><span class="pl-pds">&quot;</span><span class="pl-smi">$item</span><span class="pl-pds">&quot;</span></span> )</td>
+        <td id="LC34" class="blob-code blob-code-inner js-file-line">}</td>
       </tr>
       <tr>
         <td id="L35" class="blob-num js-line-number" data-line-number="35"></td>
-        <td id="LC35" class="blob-code blob-code-inner js-file-line">  <span class="pl-k">done</span> <span class="pl-k">&lt;</span> <span class="pl-s"><span class="pl-pds">&lt;(</span>[[ <span class="pl-smi">$JENKINS_OPTS</span> ]] <span class="pl-k">&amp;&amp;</span> xargs <span class="pl-c1">printf</span> <span class="pl-s"><span class="pl-pds">&#39;</span>%s\0<span class="pl-pds">&#39;</span></span> <span class="pl-k">&lt;&lt;&lt;</span><span class="pl-s"><span class="pl-pds">&quot;</span>$JENKINS_OPTS<span class="pl-pds">&quot;</span></span><span class="pl-pds">)</span></span></td>
+        <td id="LC35" class="blob-code blob-code-inner js-file-line">
+</td>
       </tr>
       <tr>
         <td id="L36" class="blob-num js-line-number" data-line-number="36"></td>
-        <td id="LC36" class="blob-code blob-code-inner js-file-line">
-</td>
+        <td id="LC36" class="blob-code blob-code-inner js-file-line"><span class="pl-en">getArchiveFilename</span>() {</td>
       </tr>
       <tr>
         <td id="L37" class="blob-num js-line-number" data-line-number="37"></td>
-        <td id="LC37" class="blob-code blob-code-inner js-file-line">  FUTURE_OPTS=<span class="pl-s"><span class="pl-pds">&quot;</span><span class="pl-pds">&quot;</span></span></td>
+        <td id="LC37" class="blob-code blob-code-inner js-file-line">    <span class="pl-c1">printf</span> <span class="pl-s"><span class="pl-pds">&#39;</span>%s<span class="pl-pds">&#39;</span></span> <span class="pl-s"><span class="pl-pds">&quot;</span><span class="pl-smi">$REF_DIR</span>/<span class="pl-smi">${1}</span>.jpi<span class="pl-pds">&quot;</span></span></td>
       </tr>
       <tr>
         <td id="L38" class="blob-num js-line-number" data-line-number="38"></td>
-        <td id="LC38" class="blob-code blob-code-inner js-file-line">  <span class="pl-k">if</span> [[ <span class="pl-s"><span class="pl-pds">&quot;</span><span class="pl-smi">$JENKINS_ENABLE_FUTURE_JAVA</span><span class="pl-pds">&quot;</span></span> ]] <span class="pl-k">;</span> <span class="pl-k">then</span></td>
+        <td id="LC38" class="blob-code blob-code-inner js-file-line">}</td>
       </tr>
       <tr>
         <td id="L39" class="blob-num js-line-number" data-line-number="39"></td>
-        <td id="LC39" class="blob-code blob-code-inner js-file-line">    FUTURE_OPTS=<span class="pl-s"><span class="pl-pds">&quot;</span>--add-opens java.base/java.lang=ALL-UNNAMED</span></td>
+        <td id="LC39" class="blob-code blob-code-inner js-file-line">
+</td>
       </tr>
       <tr>
         <td id="L40" class="blob-num js-line-number" data-line-number="40"></td>
-        <td id="LC40" class="blob-code blob-code-inner js-file-line"><span class="pl-s">        --add-opens=java.base/java.io=ALL-UNNAMED</span></td>
+        <td id="LC40" class="blob-code blob-code-inner js-file-line"><span class="pl-en">download</span>() {</td>
       </tr>
       <tr>
         <td id="L41" class="blob-num js-line-number" data-line-number="41"></td>
-        <td id="LC41" class="blob-code blob-code-inner js-file-line"><span class="pl-s">        --add-opens java.base/java.util=ALL-UNNAMED</span></td>
+        <td id="LC41" class="blob-code blob-code-inner js-file-line">    <span class="pl-k">local</span> plugin originalPlugin version lock ignoreLockFile url</td>
       </tr>
       <tr>
         <td id="L42" class="blob-num js-line-number" data-line-number="42"></td>
-        <td id="LC42" class="blob-code blob-code-inner js-file-line"><span class="pl-s">        --add-opens java.base/java.util.concurrent=ALL-UNNAMED</span></td>
+        <td id="LC42" class="blob-code blob-code-inner js-file-line">    plugin=<span class="pl-s"><span class="pl-pds">&quot;</span><span class="pl-smi">$1</span><span class="pl-pds">&quot;</span></span></td>
       </tr>
       <tr>
         <td id="L43" class="blob-num js-line-number" data-line-number="43"></td>
-        <td id="LC43" class="blob-code blob-code-inner js-file-line"><span class="pl-s">        <span class="pl-pds">&quot;</span></span></td>
+        <td id="LC43" class="blob-code blob-code-inner js-file-line">    version=<span class="pl-s"><span class="pl-pds">&quot;</span><span class="pl-smi">${2<span class="pl-k">:-</span>latest}</span><span class="pl-pds">&quot;</span></span></td>
       </tr>
       <tr>
         <td id="L44" class="blob-num js-line-number" data-line-number="44"></td>
-        <td id="LC44" class="blob-code blob-code-inner js-file-line">  <span class="pl-k">fi</span></td>
+        <td id="LC44" class="blob-code blob-code-inner js-file-line">    ignoreLockFile=<span class="pl-s"><span class="pl-pds">&quot;</span><span class="pl-smi">${3<span class="pl-k">:-</span>}</span><span class="pl-pds">&quot;</span></span></td>
       </tr>
       <tr>
         <td id="L45" class="blob-num js-line-number" data-line-number="45"></td>
-        <td id="LC45" class="blob-code blob-code-inner js-file-line">
-</td>
+        <td id="LC45" class="blob-code blob-code-inner js-file-line">    url=<span class="pl-s"><span class="pl-pds">&quot;</span><span class="pl-smi">${4<span class="pl-k">:-</span>}</span><span class="pl-pds">&quot;</span></span></td>
       </tr>
       <tr>
         <td id="L46" class="blob-num js-line-number" data-line-number="46"></td>
-        <td id="LC46" class="blob-code blob-code-inner js-file-line">  <span class="pl-c"><span class="pl-c">#</span> --add-opens won&#39;t get expanded properly with quotes around it</span></td>
+        <td id="LC46" class="blob-code blob-code-inner js-file-line">    lock=<span class="pl-s"><span class="pl-pds">&quot;</span><span class="pl-s"><span class="pl-pds">$(</span>getLockFile <span class="pl-s"><span class="pl-pds">&quot;</span><span class="pl-smi">$plugin</span><span class="pl-pds">&quot;</span></span><span class="pl-pds">)</span></span><span class="pl-pds">&quot;</span></span></td>
       </tr>
       <tr>
         <td id="L47" class="blob-num js-line-number" data-line-number="47"></td>
-        <td id="LC47" class="blob-code blob-code-inner js-file-line">  <span class="pl-c"><span class="pl-c">#</span> shellcheck disable=SC2086</span></td>
-      </tr>
-      <tr>
-        <td id="L48" class="blob-num js-line-number" data-line-number="48"></td>
-        <td id="LC48" class="blob-code blob-code-inner js-file-line">  <span class="pl-c1">exec</span> java -Duser.home=<span class="pl-s"><span class="pl-pds">&quot;</span><span class="pl-smi">$JENKINS_HOME</span><span class="pl-pds">&quot;</span></span> <span class="pl-smi">${FUTURE_OPTS}</span> <span class="pl-s"><span class="pl-pds">&quot;</span><span class="pl-smi">${java_opts_array[@]}</span><span class="pl-pds">&quot;</span></span> -jar <span class="pl-smi">${JENKINS_WAR}</span> <span class="pl-s"><span class="pl-pds">&quot;</span><span class="pl-smi">${jenkins_opts_array[@]}</span><span class="pl-pds">&quot;</span></span> <span class="pl-s"><span class="pl-pds">&quot;</span><span class="pl-smi">$@</span><span class="pl-pds">&quot;</span></span></td>
-      </tr>
-      <tr>
-        <td id="L49" class="blob-num js-line-number" data-line-number="49"></td>
-        <td id="LC49" class="blob-code blob-code-inner js-file-line"><span class="pl-k">fi</span></td>
-      </tr>
-      <tr>
-        <td id="L50" class="blob-num js-line-number" data-line-number="50"></td>
-        <td id="LC50" class="blob-code blob-code-inner js-file-line">
+        <td id="LC47" class="blob-code blob-code-inner js-file-line">
 </td>
       </tr>
       <tr>
+        <td id="L48" class="blob-num js-line-number" data-line-number="48"></td>
+        <td id="LC48" class="blob-code blob-code-inner js-file-line">    <span class="pl-k">if</span> [[ <span class="pl-smi">$ignoreLockFile</span> ]] <span class="pl-k">||</span> mkdir <span class="pl-s"><span class="pl-pds">&quot;</span><span class="pl-smi">$lock</span><span class="pl-pds">&quot;</span></span> <span class="pl-k">&amp;</span><span class="pl-k">&gt;</span>/dev/null<span class="pl-k">;</span> <span class="pl-k">then</span></td>
+      </tr>
+      <tr>
+        <td id="L49" class="blob-num js-line-number" data-line-number="49"></td>
+        <td id="LC49" class="blob-code blob-code-inner js-file-line">        <span class="pl-k">if</span> <span class="pl-k">!</span> doDownload <span class="pl-s"><span class="pl-pds">&quot;</span><span class="pl-smi">$plugin</span><span class="pl-pds">&quot;</span></span> <span class="pl-s"><span class="pl-pds">&quot;</span><span class="pl-smi">$version</span><span class="pl-pds">&quot;</span></span> <span class="pl-s"><span class="pl-pds">&quot;</span><span class="pl-smi">$url</span><span class="pl-pds">&quot;</span></span><span class="pl-k">;</span> <span class="pl-k">then</span></td>
+      </tr>
+      <tr>
+        <td id="L50" class="blob-num js-line-number" data-line-number="50"></td>
+        <td id="LC50" class="blob-code blob-code-inner js-file-line">            <span class="pl-c"><span class="pl-c">#</span> some plugin don&#39;t follow the rules about artifact ID</span></td>
+      </tr>
+      <tr>
         <td id="L51" class="blob-num js-line-number" data-line-number="51"></td>
-        <td id="LC51" class="blob-code blob-code-inner js-file-line"><span class="pl-c"><span class="pl-c">#</span> As argument is not jenkins, assume user want to run his own process, for example a `bash` shell to explore this image</span></td>
+        <td id="LC51" class="blob-code blob-code-inner js-file-line">            <span class="pl-c"><span class="pl-c">#</span> typically: docker-plugin</span></td>
       </tr>
       <tr>
         <td id="L52" class="blob-num js-line-number" data-line-number="52"></td>
-        <td id="LC52" class="blob-code blob-code-inner js-file-line"><span class="pl-c1">exec</span> <span class="pl-s"><span class="pl-pds">&quot;</span><span class="pl-smi">$@</span><span class="pl-pds">&quot;</span></span></td>
+        <td id="LC52" class="blob-code blob-code-inner js-file-line">            originalPlugin=<span class="pl-s"><span class="pl-pds">&quot;</span><span class="pl-smi">$plugin</span><span class="pl-pds">&quot;</span></span></td>
+      </tr>
+      <tr>
+        <td id="L53" class="blob-num js-line-number" data-line-number="53"></td>
+        <td id="LC53" class="blob-code blob-code-inner js-file-line">            plugin=<span class="pl-s"><span class="pl-pds">&quot;</span><span class="pl-smi">${plugin}</span>-plugin<span class="pl-pds">&quot;</span></span></td>
+      </tr>
+      <tr>
+        <td id="L54" class="blob-num js-line-number" data-line-number="54"></td>
+        <td id="LC54" class="blob-code blob-code-inner js-file-line">            <span class="pl-k">if</span> <span class="pl-k">!</span> doDownload <span class="pl-s"><span class="pl-pds">&quot;</span><span class="pl-smi">$plugin</span><span class="pl-pds">&quot;</span></span> <span class="pl-s"><span class="pl-pds">&quot;</span><span class="pl-smi">$version</span><span class="pl-pds">&quot;</span></span> <span class="pl-s"><span class="pl-pds">&quot;</span><span class="pl-smi">$url</span><span class="pl-pds">&quot;</span></span><span class="pl-k">;</span> <span class="pl-k">then</span></td>
+      </tr>
+      <tr>
+        <td id="L55" class="blob-num js-line-number" data-line-number="55"></td>
+        <td id="LC55" class="blob-code blob-code-inner js-file-line">                <span class="pl-c1">echo</span> <span class="pl-s"><span class="pl-pds">&quot;</span>Failed to download plugin: <span class="pl-smi">$originalPlugin</span> or <span class="pl-smi">$plugin</span><span class="pl-pds">&quot;</span></span> <span class="pl-k">&gt;&amp;2</span></td>
+      </tr>
+      <tr>
+        <td id="L56" class="blob-num js-line-number" data-line-number="56"></td>
+        <td id="LC56" class="blob-code blob-code-inner js-file-line">                <span class="pl-c1">echo</span> <span class="pl-s"><span class="pl-pds">&quot;</span>Not downloaded: <span class="pl-smi">${originalPlugin}</span><span class="pl-pds">&quot;</span></span> <span class="pl-k">&gt;&gt;</span> <span class="pl-s"><span class="pl-pds">&quot;</span><span class="pl-smi">$FAILED</span><span class="pl-pds">&quot;</span></span></td>
+      </tr>
+      <tr>
+        <td id="L57" class="blob-num js-line-number" data-line-number="57"></td>
+        <td id="LC57" class="blob-code blob-code-inner js-file-line">                <span class="pl-k">return</span> 1</td>
+      </tr>
+      <tr>
+        <td id="L58" class="blob-num js-line-number" data-line-number="58"></td>
+        <td id="LC58" class="blob-code blob-code-inner js-file-line">            <span class="pl-k">fi</span></td>
+      </tr>
+      <tr>
+        <td id="L59" class="blob-num js-line-number" data-line-number="59"></td>
+        <td id="LC59" class="blob-code blob-code-inner js-file-line">        <span class="pl-k">fi</span></td>
+      </tr>
+      <tr>
+        <td id="L60" class="blob-num js-line-number" data-line-number="60"></td>
+        <td id="LC60" class="blob-code blob-code-inner js-file-line">
+</td>
+      </tr>
+      <tr>
+        <td id="L61" class="blob-num js-line-number" data-line-number="61"></td>
+        <td id="LC61" class="blob-code blob-code-inner js-file-line">        <span class="pl-k">if</span> <span class="pl-k">!</span> checkIntegrity <span class="pl-s"><span class="pl-pds">&quot;</span><span class="pl-smi">$plugin</span><span class="pl-pds">&quot;</span></span><span class="pl-k">;</span> <span class="pl-k">then</span></td>
+      </tr>
+      <tr>
+        <td id="L62" class="blob-num js-line-number" data-line-number="62"></td>
+        <td id="LC62" class="blob-code blob-code-inner js-file-line">            <span class="pl-c1">echo</span> <span class="pl-s"><span class="pl-pds">&quot;</span>Downloaded file is not a valid ZIP: <span class="pl-s"><span class="pl-pds">$(</span>getArchiveFilename <span class="pl-s"><span class="pl-pds">&quot;</span><span class="pl-smi">$plugin</span><span class="pl-pds">&quot;</span></span><span class="pl-pds">)</span></span><span class="pl-pds">&quot;</span></span> <span class="pl-k">&gt;&amp;2</span></td>
+      </tr>
+      <tr>
+        <td id="L63" class="blob-num js-line-number" data-line-number="63"></td>
+        <td id="LC63" class="blob-code blob-code-inner js-file-line">            <span class="pl-c1">echo</span> <span class="pl-s"><span class="pl-pds">&quot;</span>Download integrity: <span class="pl-smi">${plugin}</span><span class="pl-pds">&quot;</span></span> <span class="pl-k">&gt;&gt;</span> <span class="pl-s"><span class="pl-pds">&quot;</span><span class="pl-smi">$FAILED</span><span class="pl-pds">&quot;</span></span></td>
+      </tr>
+      <tr>
+        <td id="L64" class="blob-num js-line-number" data-line-number="64"></td>
+        <td id="LC64" class="blob-code blob-code-inner js-file-line">            <span class="pl-k">return</span> 1</td>
+      </tr>
+      <tr>
+        <td id="L65" class="blob-num js-line-number" data-line-number="65"></td>
+        <td id="LC65" class="blob-code blob-code-inner js-file-line">        <span class="pl-k">fi</span></td>
+      </tr>
+      <tr>
+        <td id="L66" class="blob-num js-line-number" data-line-number="66"></td>
+        <td id="LC66" class="blob-code blob-code-inner js-file-line">
+</td>
+      </tr>
+      <tr>
+        <td id="L67" class="blob-num js-line-number" data-line-number="67"></td>
+        <td id="LC67" class="blob-code blob-code-inner js-file-line">        resolveDependencies <span class="pl-s"><span class="pl-pds">&quot;</span><span class="pl-smi">$plugin</span><span class="pl-pds">&quot;</span></span></td>
+      </tr>
+      <tr>
+        <td id="L68" class="blob-num js-line-number" data-line-number="68"></td>
+        <td id="LC68" class="blob-code blob-code-inner js-file-line">    <span class="pl-k">fi</span></td>
+      </tr>
+      <tr>
+        <td id="L69" class="blob-num js-line-number" data-line-number="69"></td>
+        <td id="LC69" class="blob-code blob-code-inner js-file-line">}</td>
+      </tr>
+      <tr>
+        <td id="L70" class="blob-num js-line-number" data-line-number="70"></td>
+        <td id="LC70" class="blob-code blob-code-inner js-file-line">
+</td>
+      </tr>
+      <tr>
+        <td id="L71" class="blob-num js-line-number" data-line-number="71"></td>
+        <td id="LC71" class="blob-code blob-code-inner js-file-line"><span class="pl-en">doDownload</span>() {</td>
+      </tr>
+      <tr>
+        <td id="L72" class="blob-num js-line-number" data-line-number="72"></td>
+        <td id="LC72" class="blob-code blob-code-inner js-file-line">    <span class="pl-k">local</span> plugin version url jpi</td>
+      </tr>
+      <tr>
+        <td id="L73" class="blob-num js-line-number" data-line-number="73"></td>
+        <td id="LC73" class="blob-code blob-code-inner js-file-line">    plugin=<span class="pl-s"><span class="pl-pds">&quot;</span><span class="pl-smi">$1</span><span class="pl-pds">&quot;</span></span></td>
+      </tr>
+      <tr>
+        <td id="L74" class="blob-num js-line-number" data-line-number="74"></td>
+        <td id="LC74" class="blob-code blob-code-inner js-file-line">    version=<span class="pl-s"><span class="pl-pds">&quot;</span><span class="pl-smi">$2</span><span class="pl-pds">&quot;</span></span></td>
+      </tr>
+      <tr>
+        <td id="L75" class="blob-num js-line-number" data-line-number="75"></td>
+        <td id="LC75" class="blob-code blob-code-inner js-file-line">    url=<span class="pl-s"><span class="pl-pds">&quot;</span><span class="pl-smi">$3</span><span class="pl-pds">&quot;</span></span></td>
+      </tr>
+      <tr>
+        <td id="L76" class="blob-num js-line-number" data-line-number="76"></td>
+        <td id="LC76" class="blob-code blob-code-inner js-file-line">    jpi=<span class="pl-s"><span class="pl-pds">&quot;</span><span class="pl-s"><span class="pl-pds">$(</span>getArchiveFilename <span class="pl-s"><span class="pl-pds">&quot;</span><span class="pl-smi">$plugin</span><span class="pl-pds">&quot;</span></span><span class="pl-pds">)</span></span><span class="pl-pds">&quot;</span></span></td>
+      </tr>
+      <tr>
+        <td id="L77" class="blob-num js-line-number" data-line-number="77"></td>
+        <td id="LC77" class="blob-code blob-code-inner js-file-line">
+</td>
+      </tr>
+      <tr>
+        <td id="L78" class="blob-num js-line-number" data-line-number="78"></td>
+        <td id="LC78" class="blob-code blob-code-inner js-file-line">    <span class="pl-c"><span class="pl-c">#</span> If plugin already exists and is the same version do not download</span></td>
+      </tr>
+      <tr>
+        <td id="L79" class="blob-num js-line-number" data-line-number="79"></td>
+        <td id="LC79" class="blob-code blob-code-inner js-file-line">    <span class="pl-k">if</span> <span class="pl-c1">test</span> -f <span class="pl-s"><span class="pl-pds">&quot;</span><span class="pl-smi">$jpi</span><span class="pl-pds">&quot;</span></span> <span class="pl-k">&amp;&amp;</span> unzip -p <span class="pl-s"><span class="pl-pds">&quot;</span><span class="pl-smi">$jpi</span><span class="pl-pds">&quot;</span></span> META-INF/MANIFEST.MF <span class="pl-k">|</span> tr -d <span class="pl-s"><span class="pl-pds">&#39;</span>\r<span class="pl-pds">&#39;</span></span> <span class="pl-k">|</span> grep <span class="pl-s"><span class="pl-pds">&quot;</span>^Plugin-Version: <span class="pl-smi">${version}</span>$<span class="pl-pds">&quot;</span></span> <span class="pl-k">&gt;</span> /dev/null<span class="pl-k">;</span> <span class="pl-k">then</span></td>
+      </tr>
+      <tr>
+        <td id="L80" class="blob-num js-line-number" data-line-number="80"></td>
+        <td id="LC80" class="blob-code blob-code-inner js-file-line">        <span class="pl-c1">echo</span> <span class="pl-s"><span class="pl-pds">&quot;</span>Using provided plugin: <span class="pl-smi">$plugin</span><span class="pl-pds">&quot;</span></span></td>
+      </tr>
+      <tr>
+        <td id="L81" class="blob-num js-line-number" data-line-number="81"></td>
+        <td id="LC81" class="blob-code blob-code-inner js-file-line">        <span class="pl-k">return</span> 0</td>
+      </tr>
+      <tr>
+        <td id="L82" class="blob-num js-line-number" data-line-number="82"></td>
+        <td id="LC82" class="blob-code blob-code-inner js-file-line">    <span class="pl-k">fi</span></td>
+      </tr>
+      <tr>
+        <td id="L83" class="blob-num js-line-number" data-line-number="83"></td>
+        <td id="LC83" class="blob-code blob-code-inner js-file-line">
+</td>
+      </tr>
+      <tr>
+        <td id="L84" class="blob-num js-line-number" data-line-number="84"></td>
+        <td id="LC84" class="blob-code blob-code-inner js-file-line">    <span class="pl-k">if</span> [[ <span class="pl-k">-n</span> <span class="pl-smi">$url</span> ]] <span class="pl-k">;</span> <span class="pl-k">then</span></td>
+      </tr>
+      <tr>
+        <td id="L85" class="blob-num js-line-number" data-line-number="85"></td>
+        <td id="LC85" class="blob-code blob-code-inner js-file-line">        <span class="pl-c1">echo</span> <span class="pl-s"><span class="pl-pds">&quot;</span>Will use url=<span class="pl-smi">$url</span><span class="pl-pds">&quot;</span></span></td>
+      </tr>
+      <tr>
+        <td id="L86" class="blob-num js-line-number" data-line-number="86"></td>
+        <td id="LC86" class="blob-code blob-code-inner js-file-line">    <span class="pl-k">elif</span> [[ <span class="pl-s"><span class="pl-pds">&quot;</span><span class="pl-smi">$version</span><span class="pl-pds">&quot;</span></span> <span class="pl-k">==</span> <span class="pl-s"><span class="pl-pds">&quot;</span>latest<span class="pl-pds">&quot;</span></span> <span class="pl-k">&amp;&amp;</span> <span class="pl-k">-n</span> <span class="pl-s"><span class="pl-pds">&quot;</span><span class="pl-smi">$JENKINS_UC_LATEST</span><span class="pl-pds">&quot;</span></span> ]]<span class="pl-k">;</span> <span class="pl-k">then</span></td>
+      </tr>
+      <tr>
+        <td id="L87" class="blob-num js-line-number" data-line-number="87"></td>
+        <td id="LC87" class="blob-code blob-code-inner js-file-line">        <span class="pl-c"><span class="pl-c">#</span> If version-specific Update Center is available, which is the case for LTS versions,</span></td>
+      </tr>
+      <tr>
+        <td id="L88" class="blob-num js-line-number" data-line-number="88"></td>
+        <td id="LC88" class="blob-code blob-code-inner js-file-line">        <span class="pl-c"><span class="pl-c">#</span> use it to resolve latest versions.</span></td>
+      </tr>
+      <tr>
+        <td id="L89" class="blob-num js-line-number" data-line-number="89"></td>
+        <td id="LC89" class="blob-code blob-code-inner js-file-line">        url=<span class="pl-s"><span class="pl-pds">&quot;</span><span class="pl-smi">$JENKINS_UC_LATEST</span>/latest/<span class="pl-smi">${plugin}</span>.hpi<span class="pl-pds">&quot;</span></span></td>
+      </tr>
+      <tr>
+        <td id="L90" class="blob-num js-line-number" data-line-number="90"></td>
+        <td id="LC90" class="blob-code blob-code-inner js-file-line">    <span class="pl-k">elif</span> [[ <span class="pl-s"><span class="pl-pds">&quot;</span><span class="pl-smi">$version</span><span class="pl-pds">&quot;</span></span> <span class="pl-k">==</span> <span class="pl-s"><span class="pl-pds">&quot;</span>experimental<span class="pl-pds">&quot;</span></span> <span class="pl-k">&amp;&amp;</span> <span class="pl-k">-n</span> <span class="pl-s"><span class="pl-pds">&quot;</span><span class="pl-smi">$JENKINS_UC_EXPERIMENTAL</span><span class="pl-pds">&quot;</span></span> ]]<span class="pl-k">;</span> <span class="pl-k">then</span></td>
+      </tr>
+      <tr>
+        <td id="L91" class="blob-num js-line-number" data-line-number="91"></td>
+        <td id="LC91" class="blob-code blob-code-inner js-file-line">        <span class="pl-c"><span class="pl-c">#</span> Download from the experimental update center</span></td>
+      </tr>
+      <tr>
+        <td id="L92" class="blob-num js-line-number" data-line-number="92"></td>
+        <td id="LC92" class="blob-code blob-code-inner js-file-line">        url=<span class="pl-s"><span class="pl-pds">&quot;</span><span class="pl-smi">$JENKINS_UC_EXPERIMENTAL</span>/latest/<span class="pl-smi">${plugin}</span>.hpi<span class="pl-pds">&quot;</span></span></td>
+      </tr>
+      <tr>
+        <td id="L93" class="blob-num js-line-number" data-line-number="93"></td>
+        <td id="LC93" class="blob-code blob-code-inner js-file-line">    <span class="pl-k">elif</span> [[ <span class="pl-s"><span class="pl-pds">&quot;</span><span class="pl-smi">$version</span><span class="pl-pds">&quot;</span></span> <span class="pl-k">==</span> incrementals<span class="pl-k">*</span> ]] <span class="pl-k">;</span> <span class="pl-k">then</span></td>
+      </tr>
+      <tr>
+        <td id="L94" class="blob-num js-line-number" data-line-number="94"></td>
+        <td id="LC94" class="blob-code blob-code-inner js-file-line">        <span class="pl-c"><span class="pl-c">#</span> Download from Incrementals repo: https://jenkins.io/blog/2018/05/15/incremental-deployment/</span></td>
+      </tr>
+      <tr>
+        <td id="L95" class="blob-num js-line-number" data-line-number="95"></td>
+        <td id="LC95" class="blob-code blob-code-inner js-file-line">        <span class="pl-c"><span class="pl-c">#</span> Example URL: https://repo.jenkins-ci.org/incrementals/org/jenkins-ci/plugins/workflow/workflow-support/2.19-rc289.d09828a05a74/workflow-support-2.19-rc289.d09828a05a74.hpi</span></td>
+      </tr>
+      <tr>
+        <td id="L96" class="blob-num js-line-number" data-line-number="96"></td>
+        <td id="LC96" class="blob-code blob-code-inner js-file-line">        <span class="pl-k">local</span> groupId incrementalsVersion</td>
+      </tr>
+      <tr>
+        <td id="L97" class="blob-num js-line-number" data-line-number="97"></td>
+        <td id="LC97" class="blob-code blob-code-inner js-file-line">        <span class="pl-c"><span class="pl-c">#</span> add a trailing ; so the \n gets added to the end</span></td>
+      </tr>
+      <tr>
+        <td id="L98" class="blob-num js-line-number" data-line-number="98"></td>
+        <td id="LC98" class="blob-code blob-code-inner js-file-line">        readarray -t <span class="pl-s"><span class="pl-pds">&quot;</span>-d;<span class="pl-pds">&quot;</span></span> arrIN <span class="pl-k">&lt;&lt;&lt;</span><span class="pl-s"><span class="pl-pds">&quot;</span>${version};<span class="pl-pds">&quot;</span></span><span class="pl-k">;</span></td>
+      </tr>
+      <tr>
+        <td id="L99" class="blob-num js-line-number" data-line-number="99"></td>
+        <td id="LC99" class="blob-code blob-code-inner js-file-line">        <span class="pl-c1">unset</span> <span class="pl-s"><span class="pl-pds">&#39;</span>arrIN[-1]<span class="pl-pds">&#39;</span></span><span class="pl-k">;</span></td>
+      </tr>
+      <tr>
+        <td id="L100" class="blob-num js-line-number" data-line-number="100"></td>
+        <td id="LC100" class="blob-code blob-code-inner js-file-line">        groupId=<span class="pl-smi">${arrIN[1]}</span></td>
+      </tr>
+      <tr>
+        <td id="L101" class="blob-num js-line-number" data-line-number="101"></td>
+        <td id="LC101" class="blob-code blob-code-inner js-file-line">        incrementalsVersion=<span class="pl-smi">${arrIN[2]}</span></td>
+      </tr>
+      <tr>
+        <td id="L102" class="blob-num js-line-number" data-line-number="102"></td>
+        <td id="LC102" class="blob-code blob-code-inner js-file-line">        url=<span class="pl-s"><span class="pl-pds">&quot;</span><span class="pl-smi">${JENKINS_INCREMENTALS_REPO_MIRROR}</span>/<span class="pl-s"><span class="pl-pds">$(</span>echo <span class="pl-s"><span class="pl-pds">&quot;</span><span class="pl-smi">${groupId}</span><span class="pl-pds">&quot;</span></span> <span class="pl-k">|</span> tr <span class="pl-s"><span class="pl-pds">&#39;</span>.<span class="pl-pds">&#39;</span></span> <span class="pl-s"><span class="pl-pds">&#39;</span>/<span class="pl-pds">&#39;</span></span><span class="pl-pds">)</span></span>/<span class="pl-smi">${plugin}</span>/<span class="pl-smi">${incrementalsVersion}</span>/<span class="pl-smi">${plugin}</span>-<span class="pl-smi">${incrementalsVersion}</span>.hpi<span class="pl-pds">&quot;</span></span></td>
+      </tr>
+      <tr>
+        <td id="L103" class="blob-num js-line-number" data-line-number="103"></td>
+        <td id="LC103" class="blob-code blob-code-inner js-file-line">    <span class="pl-k">else</span></td>
+      </tr>
+      <tr>
+        <td id="L104" class="blob-num js-line-number" data-line-number="104"></td>
+        <td id="LC104" class="blob-code blob-code-inner js-file-line">        JENKINS_UC_DOWNLOAD=<span class="pl-smi">${JENKINS_UC_DOWNLOAD<span class="pl-k">:-</span><span class="pl-s"><span class="pl-pds">&quot;</span><span class="pl-smi">$JENKINS_UC</span>/download<span class="pl-pds">&quot;</span></span>}</span></td>
+      </tr>
+      <tr>
+        <td id="L105" class="blob-num js-line-number" data-line-number="105"></td>
+        <td id="LC105" class="blob-code blob-code-inner js-file-line">        url=<span class="pl-s"><span class="pl-pds">&quot;</span><span class="pl-smi">$JENKINS_UC_DOWNLOAD</span>/plugins/<span class="pl-smi">$plugin</span>/<span class="pl-smi">$version</span>/<span class="pl-smi">${plugin}</span>.hpi<span class="pl-pds">&quot;</span></span></td>
+      </tr>
+      <tr>
+        <td id="L106" class="blob-num js-line-number" data-line-number="106"></td>
+        <td id="LC106" class="blob-code blob-code-inner js-file-line">    <span class="pl-k">fi</span></td>
+      </tr>
+      <tr>
+        <td id="L107" class="blob-num js-line-number" data-line-number="107"></td>
+        <td id="LC107" class="blob-code blob-code-inner js-file-line">
+</td>
+      </tr>
+      <tr>
+        <td id="L108" class="blob-num js-line-number" data-line-number="108"></td>
+        <td id="LC108" class="blob-code blob-code-inner js-file-line">    <span class="pl-c1">echo</span> <span class="pl-s"><span class="pl-pds">&quot;</span>Downloading plugin: <span class="pl-smi">$plugin</span> from <span class="pl-smi">$url</span><span class="pl-pds">&quot;</span></span></td>
+      </tr>
+      <tr>
+        <td id="L109" class="blob-num js-line-number" data-line-number="109"></td>
+        <td id="LC109" class="blob-code blob-code-inner js-file-line">    <span class="pl-c"><span class="pl-c">#</span> We actually want to allow variable value to be split into multiple options passed to curl.</span></td>
+      </tr>
+      <tr>
+        <td id="L110" class="blob-num js-line-number" data-line-number="110"></td>
+        <td id="LC110" class="blob-code blob-code-inner js-file-line">    <span class="pl-c"><span class="pl-c">#</span> This is needed to allow long options and any options that take value.</span></td>
+      </tr>
+      <tr>
+        <td id="L111" class="blob-num js-line-number" data-line-number="111"></td>
+        <td id="LC111" class="blob-code blob-code-inner js-file-line">    <span class="pl-c"><span class="pl-c">#</span> shellcheck disable=SC2086</span></td>
+      </tr>
+      <tr>
+        <td id="L112" class="blob-num js-line-number" data-line-number="112"></td>
+        <td id="LC112" class="blob-code blob-code-inner js-file-line">    retry_command curl <span class="pl-smi">${CURL_OPTIONS<span class="pl-k">:-</span>-sSfL}</span> --connect-timeout <span class="pl-s"><span class="pl-pds">&quot;</span><span class="pl-smi">${CURL_CONNECTION_TIMEOUT<span class="pl-k">:-</span>20}</span><span class="pl-pds">&quot;</span></span> --retry <span class="pl-s"><span class="pl-pds">&quot;</span><span class="pl-smi">${CURL_RETRY<span class="pl-k">:-</span>3}</span><span class="pl-pds">&quot;</span></span> --retry-delay <span class="pl-s"><span class="pl-pds">&quot;</span><span class="pl-smi">${CURL_RETRY_DELAY<span class="pl-k">:-</span>0}</span><span class="pl-pds">&quot;</span></span> --retry-max-time <span class="pl-s"><span class="pl-pds">&quot;</span><span class="pl-smi">${CURL_RETRY_MAX_TIME<span class="pl-k">:-</span>60}</span><span class="pl-pds">&quot;</span></span> <span class="pl-s"><span class="pl-pds">&quot;</span><span class="pl-smi">$url</span><span class="pl-pds">&quot;</span></span> -o <span class="pl-s"><span class="pl-pds">&quot;</span><span class="pl-smi">$jpi</span><span class="pl-pds">&quot;</span></span></td>
+      </tr>
+      <tr>
+        <td id="L113" class="blob-num js-line-number" data-line-number="113"></td>
+        <td id="LC113" class="blob-code blob-code-inner js-file-line">    <span class="pl-k">return</span> <span class="pl-smi">$?</span></td>
+      </tr>
+      <tr>
+        <td id="L114" class="blob-num js-line-number" data-line-number="114"></td>
+        <td id="LC114" class="blob-code blob-code-inner js-file-line">}</td>
+      </tr>
+      <tr>
+        <td id="L115" class="blob-num js-line-number" data-line-number="115"></td>
+        <td id="LC115" class="blob-code blob-code-inner js-file-line">
+</td>
+      </tr>
+      <tr>
+        <td id="L116" class="blob-num js-line-number" data-line-number="116"></td>
+        <td id="LC116" class="blob-code blob-code-inner js-file-line"><span class="pl-en">checkIntegrity</span>() {</td>
+      </tr>
+      <tr>
+        <td id="L117" class="blob-num js-line-number" data-line-number="117"></td>
+        <td id="LC117" class="blob-code blob-code-inner js-file-line">    <span class="pl-k">local</span> plugin jpi</td>
+      </tr>
+      <tr>
+        <td id="L118" class="blob-num js-line-number" data-line-number="118"></td>
+        <td id="LC118" class="blob-code blob-code-inner js-file-line">    plugin=<span class="pl-s"><span class="pl-pds">&quot;</span><span class="pl-smi">$1</span><span class="pl-pds">&quot;</span></span></td>
+      </tr>
+      <tr>
+        <td id="L119" class="blob-num js-line-number" data-line-number="119"></td>
+        <td id="LC119" class="blob-code blob-code-inner js-file-line">    jpi=<span class="pl-s"><span class="pl-pds">&quot;</span><span class="pl-s"><span class="pl-pds">$(</span>getArchiveFilename <span class="pl-s"><span class="pl-pds">&quot;</span><span class="pl-smi">$plugin</span><span class="pl-pds">&quot;</span></span><span class="pl-pds">)</span></span><span class="pl-pds">&quot;</span></span></td>
+      </tr>
+      <tr>
+        <td id="L120" class="blob-num js-line-number" data-line-number="120"></td>
+        <td id="LC120" class="blob-code blob-code-inner js-file-line">
+</td>
+      </tr>
+      <tr>
+        <td id="L121" class="blob-num js-line-number" data-line-number="121"></td>
+        <td id="LC121" class="blob-code blob-code-inner js-file-line">    unzip -t -qq <span class="pl-s"><span class="pl-pds">&quot;</span><span class="pl-smi">$jpi</span><span class="pl-pds">&quot;</span></span> <span class="pl-k">&gt;</span>/dev/null</td>
+      </tr>
+      <tr>
+        <td id="L122" class="blob-num js-line-number" data-line-number="122"></td>
+        <td id="LC122" class="blob-code blob-code-inner js-file-line">    <span class="pl-k">return</span> <span class="pl-smi">$?</span></td>
+      </tr>
+      <tr>
+        <td id="L123" class="blob-num js-line-number" data-line-number="123"></td>
+        <td id="LC123" class="blob-code blob-code-inner js-file-line">}</td>
+      </tr>
+      <tr>
+        <td id="L124" class="blob-num js-line-number" data-line-number="124"></td>
+        <td id="LC124" class="blob-code blob-code-inner js-file-line">
+</td>
+      </tr>
+      <tr>
+        <td id="L125" class="blob-num js-line-number" data-line-number="125"></td>
+        <td id="LC125" class="blob-code blob-code-inner js-file-line"><span class="pl-en">resolveDependencies</span>() {</td>
+      </tr>
+      <tr>
+        <td id="L126" class="blob-num js-line-number" data-line-number="126"></td>
+        <td id="LC126" class="blob-code blob-code-inner js-file-line">    <span class="pl-k">local</span> plugin jpi dependencies</td>
+      </tr>
+      <tr>
+        <td id="L127" class="blob-num js-line-number" data-line-number="127"></td>
+        <td id="LC127" class="blob-code blob-code-inner js-file-line">    plugin=<span class="pl-s"><span class="pl-pds">&quot;</span><span class="pl-smi">$1</span><span class="pl-pds">&quot;</span></span></td>
+      </tr>
+      <tr>
+        <td id="L128" class="blob-num js-line-number" data-line-number="128"></td>
+        <td id="LC128" class="blob-code blob-code-inner js-file-line">    jpi=<span class="pl-s"><span class="pl-pds">&quot;</span><span class="pl-s"><span class="pl-pds">$(</span>getArchiveFilename <span class="pl-s"><span class="pl-pds">&quot;</span><span class="pl-smi">$plugin</span><span class="pl-pds">&quot;</span></span><span class="pl-pds">)</span></span><span class="pl-pds">&quot;</span></span></td>
+      </tr>
+      <tr>
+        <td id="L129" class="blob-num js-line-number" data-line-number="129"></td>
+        <td id="LC129" class="blob-code blob-code-inner js-file-line">
+</td>
+      </tr>
+      <tr>
+        <td id="L130" class="blob-num js-line-number" data-line-number="130"></td>
+        <td id="LC130" class="blob-code blob-code-inner js-file-line">    dependencies=<span class="pl-s"><span class="pl-pds">&quot;</span><span class="pl-s"><span class="pl-pds">$(</span>unzip -p <span class="pl-s"><span class="pl-pds">&quot;</span><span class="pl-smi">$jpi</span><span class="pl-pds">&quot;</span></span> META-INF/MANIFEST.MF <span class="pl-k">|</span> tr -d <span class="pl-s"><span class="pl-pds">&#39;</span>\r<span class="pl-pds">&#39;</span></span> <span class="pl-k">|</span> tr <span class="pl-s"><span class="pl-pds">&#39;</span>\n<span class="pl-pds">&#39;</span></span> <span class="pl-s"><span class="pl-pds">&#39;</span>|<span class="pl-pds">&#39;</span></span> <span class="pl-k">|</span> sed -e <span class="pl-s"><span class="pl-pds">&#39;</span>s#| ##g<span class="pl-pds">&#39;</span></span> <span class="pl-k">|</span> tr <span class="pl-s"><span class="pl-pds">&#39;</span>|<span class="pl-pds">&#39;</span></span> <span class="pl-s"><span class="pl-pds">&#39;</span>\n<span class="pl-pds">&#39;</span></span> <span class="pl-k">|</span> grep <span class="pl-s"><span class="pl-pds">&quot;</span>^Plugin-Dependencies: <span class="pl-pds">&quot;</span></span> <span class="pl-k">|</span> sed -e <span class="pl-s"><span class="pl-pds">&#39;</span>s#^Plugin-Dependencies: ##<span class="pl-pds">&#39;</span></span><span class="pl-pds">)</span></span><span class="pl-pds">&quot;</span></span></td>
+      </tr>
+      <tr>
+        <td id="L131" class="blob-num js-line-number" data-line-number="131"></td>
+        <td id="LC131" class="blob-code blob-code-inner js-file-line">
+</td>
+      </tr>
+      <tr>
+        <td id="L132" class="blob-num js-line-number" data-line-number="132"></td>
+        <td id="LC132" class="blob-code blob-code-inner js-file-line">    <span class="pl-k">if</span> [[ <span class="pl-k">!</span> <span class="pl-smi">$dependencies</span> ]]<span class="pl-k">;</span> <span class="pl-k">then</span></td>
+      </tr>
+      <tr>
+        <td id="L133" class="blob-num js-line-number" data-line-number="133"></td>
+        <td id="LC133" class="blob-code blob-code-inner js-file-line">        <span class="pl-c1">echo</span> <span class="pl-s"><span class="pl-pds">&quot;</span> &gt; <span class="pl-smi">$plugin</span> has no dependencies<span class="pl-pds">&quot;</span></span></td>
+      </tr>
+      <tr>
+        <td id="L134" class="blob-num js-line-number" data-line-number="134"></td>
+        <td id="LC134" class="blob-code blob-code-inner js-file-line">        <span class="pl-k">return</span></td>
+      </tr>
+      <tr>
+        <td id="L135" class="blob-num js-line-number" data-line-number="135"></td>
+        <td id="LC135" class="blob-code blob-code-inner js-file-line">    <span class="pl-k">fi</span></td>
+      </tr>
+      <tr>
+        <td id="L136" class="blob-num js-line-number" data-line-number="136"></td>
+        <td id="LC136" class="blob-code blob-code-inner js-file-line">
+</td>
+      </tr>
+      <tr>
+        <td id="L137" class="blob-num js-line-number" data-line-number="137"></td>
+        <td id="LC137" class="blob-code blob-code-inner js-file-line">    <span class="pl-c1">echo</span> <span class="pl-s"><span class="pl-pds">&quot;</span> &gt; <span class="pl-smi">$plugin</span> depends on <span class="pl-smi">$dependencies</span><span class="pl-pds">&quot;</span></span></td>
+      </tr>
+      <tr>
+        <td id="L138" class="blob-num js-line-number" data-line-number="138"></td>
+        <td id="LC138" class="blob-code blob-code-inner js-file-line">
+</td>
+      </tr>
+      <tr>
+        <td id="L139" class="blob-num js-line-number" data-line-number="139"></td>
+        <td id="LC139" class="blob-code blob-code-inner js-file-line">    IFS=<span class="pl-s"><span class="pl-pds">&#39;</span>,<span class="pl-pds">&#39;</span></span> <span class="pl-c1">read</span> -r -a array <span class="pl-k">&lt;&lt;&lt;</span> <span class="pl-s"><span class="pl-pds">&quot;</span>$dependencies<span class="pl-pds">&quot;</span></span></td>
+      </tr>
+      <tr>
+        <td id="L140" class="blob-num js-line-number" data-line-number="140"></td>
+        <td id="LC140" class="blob-code blob-code-inner js-file-line">
+</td>
+      </tr>
+      <tr>
+        <td id="L141" class="blob-num js-line-number" data-line-number="141"></td>
+        <td id="LC141" class="blob-code blob-code-inner js-file-line">    <span class="pl-k">for</span> <span class="pl-smi">d</span> <span class="pl-k">in</span> <span class="pl-s"><span class="pl-pds">&quot;</span><span class="pl-smi">${array[@]}</span><span class="pl-pds">&quot;</span></span></td>
+      </tr>
+      <tr>
+        <td id="L142" class="blob-num js-line-number" data-line-number="142"></td>
+        <td id="LC142" class="blob-code blob-code-inner js-file-line">    <span class="pl-k">do</span></td>
+      </tr>
+      <tr>
+        <td id="L143" class="blob-num js-line-number" data-line-number="143"></td>
+        <td id="LC143" class="blob-code blob-code-inner js-file-line">        plugin=<span class="pl-s"><span class="pl-pds">&quot;</span><span class="pl-s"><span class="pl-pds">$(</span>cut -d<span class="pl-s"><span class="pl-pds">&#39;</span>:<span class="pl-pds">&#39;</span></span> -f1 - <span class="pl-k">&lt;&lt;&lt;</span> <span class="pl-s"><span class="pl-pds">&quot;</span>$d<span class="pl-pds">&quot;</span></span><span class="pl-pds">)</span></span><span class="pl-pds">&quot;</span></span></td>
+      </tr>
+      <tr>
+        <td id="L144" class="blob-num js-line-number" data-line-number="144"></td>
+        <td id="LC144" class="blob-code blob-code-inner js-file-line">        <span class="pl-k">if</span> [[ <span class="pl-smi">$d</span> <span class="pl-k">==</span> <span class="pl-k">*</span><span class="pl-s"><span class="pl-pds">&quot;</span>resolution:=optional<span class="pl-pds">&quot;</span></span><span class="pl-k">*</span> ]]<span class="pl-k">;</span> <span class="pl-k">then</span></td>
+      </tr>
+      <tr>
+        <td id="L145" class="blob-num js-line-number" data-line-number="145"></td>
+        <td id="LC145" class="blob-code blob-code-inner js-file-line">            <span class="pl-c1">echo</span> <span class="pl-s"><span class="pl-pds">&quot;</span>Skipping optional dependency <span class="pl-smi">$plugin</span><span class="pl-pds">&quot;</span></span></td>
+      </tr>
+      <tr>
+        <td id="L146" class="blob-num js-line-number" data-line-number="146"></td>
+        <td id="LC146" class="blob-code blob-code-inner js-file-line">        <span class="pl-k">else</span></td>
+      </tr>
+      <tr>
+        <td id="L147" class="blob-num js-line-number" data-line-number="147"></td>
+        <td id="LC147" class="blob-code blob-code-inner js-file-line">            <span class="pl-k">local</span> pluginInstalled</td>
+      </tr>
+      <tr>
+        <td id="L148" class="blob-num js-line-number" data-line-number="148"></td>
+        <td id="LC148" class="blob-code blob-code-inner js-file-line">            <span class="pl-k">if</span> pluginInstalled=<span class="pl-s"><span class="pl-pds">&quot;</span><span class="pl-s"><span class="pl-pds">$(</span>echo -e <span class="pl-s"><span class="pl-pds">&quot;</span><span class="pl-smi">${bundledPlugins}</span>\n<span class="pl-smi">${installedPlugins}</span><span class="pl-pds">&quot;</span></span> <span class="pl-k">|</span> grep <span class="pl-s"><span class="pl-pds">&quot;</span>^<span class="pl-smi">${plugin}</span>:<span class="pl-pds">&quot;</span></span><span class="pl-pds">)</span></span><span class="pl-pds">&quot;</span></span><span class="pl-k">;</span> <span class="pl-k">then</span></td>
+      </tr>
+      <tr>
+        <td id="L149" class="blob-num js-line-number" data-line-number="149"></td>
+        <td id="LC149" class="blob-code blob-code-inner js-file-line">                pluginInstalled=<span class="pl-s"><span class="pl-pds">&quot;</span><span class="pl-smi">${pluginInstalled<span class="pl-k">//</span>[$&#39;\r&#39;]}</span><span class="pl-pds">&quot;</span></span></td>
+      </tr>
+      <tr>
+        <td id="L150" class="blob-num js-line-number" data-line-number="150"></td>
+        <td id="LC150" class="blob-code blob-code-inner js-file-line">                <span class="pl-k">local</span> versionInstalled<span class="pl-k">;</span> versionInstalled=<span class="pl-s"><span class="pl-pds">$(</span>versionFromPlugin <span class="pl-s"><span class="pl-pds">&quot;</span><span class="pl-smi">${pluginInstalled}</span><span class="pl-pds">&quot;</span></span><span class="pl-pds">)</span></span></td>
+      </tr>
+      <tr>
+        <td id="L151" class="blob-num js-line-number" data-line-number="151"></td>
+        <td id="LC151" class="blob-code blob-code-inner js-file-line">                <span class="pl-k">local</span> minVersion<span class="pl-k">;</span> minVersion=<span class="pl-s"><span class="pl-pds">$(</span>versionFromPlugin <span class="pl-s"><span class="pl-pds">&quot;</span><span class="pl-smi">${d}</span><span class="pl-pds">&quot;</span></span><span class="pl-pds">)</span></span></td>
+      </tr>
+      <tr>
+        <td id="L152" class="blob-num js-line-number" data-line-number="152"></td>
+        <td id="LC152" class="blob-code blob-code-inner js-file-line">                <span class="pl-k">if</span> versionLT <span class="pl-s"><span class="pl-pds">&quot;</span><span class="pl-smi">${versionInstalled}</span><span class="pl-pds">&quot;</span></span> <span class="pl-s"><span class="pl-pds">&quot;</span><span class="pl-smi">${minVersion}</span><span class="pl-pds">&quot;</span></span><span class="pl-k">;</span> <span class="pl-k">then</span></td>
+      </tr>
+      <tr>
+        <td id="L153" class="blob-num js-line-number" data-line-number="153"></td>
+        <td id="LC153" class="blob-code blob-code-inner js-file-line">                    <span class="pl-c1">echo</span> <span class="pl-s"><span class="pl-pds">&quot;</span>Upgrading bundled dependency <span class="pl-smi">$d</span> (<span class="pl-smi">$minVersion</span> &gt; <span class="pl-smi">$versionInstalled</span>)<span class="pl-pds">&quot;</span></span></td>
+      </tr>
+      <tr>
+        <td id="L154" class="blob-num js-line-number" data-line-number="154"></td>
+        <td id="LC154" class="blob-code blob-code-inner js-file-line">                    download <span class="pl-s"><span class="pl-pds">&quot;</span><span class="pl-smi">$plugin</span><span class="pl-pds">&quot;</span></span> <span class="pl-k">&amp;</span></td>
+      </tr>
+      <tr>
+        <td id="L155" class="blob-num js-line-number" data-line-number="155"></td>
+        <td id="LC155" class="blob-code blob-code-inner js-file-line">                <span class="pl-k">else</span></td>
+      </tr>
+      <tr>
+        <td id="L156" class="blob-num js-line-number" data-line-number="156"></td>
+        <td id="LC156" class="blob-code blob-code-inner js-file-line">                    <span class="pl-c1">echo</span> <span class="pl-s"><span class="pl-pds">&quot;</span>Skipping already installed dependency <span class="pl-smi">$d</span> (<span class="pl-smi">$minVersion</span> &lt;= <span class="pl-smi">$versionInstalled</span>)<span class="pl-pds">&quot;</span></span></td>
+      </tr>
+      <tr>
+        <td id="L157" class="blob-num js-line-number" data-line-number="157"></td>
+        <td id="LC157" class="blob-code blob-code-inner js-file-line">                <span class="pl-k">fi</span></td>
+      </tr>
+      <tr>
+        <td id="L158" class="blob-num js-line-number" data-line-number="158"></td>
+        <td id="LC158" class="blob-code blob-code-inner js-file-line">            <span class="pl-k">else</span></td>
+      </tr>
+      <tr>
+        <td id="L159" class="blob-num js-line-number" data-line-number="159"></td>
+        <td id="LC159" class="blob-code blob-code-inner js-file-line">                download <span class="pl-s"><span class="pl-pds">&quot;</span><span class="pl-smi">$plugin</span><span class="pl-pds">&quot;</span></span> <span class="pl-k">&amp;</span></td>
+      </tr>
+      <tr>
+        <td id="L160" class="blob-num js-line-number" data-line-number="160"></td>
+        <td id="LC160" class="blob-code blob-code-inner js-file-line">            <span class="pl-k">fi</span></td>
+      </tr>
+      <tr>
+        <td id="L161" class="blob-num js-line-number" data-line-number="161"></td>
+        <td id="LC161" class="blob-code blob-code-inner js-file-line">        <span class="pl-k">fi</span></td>
+      </tr>
+      <tr>
+        <td id="L162" class="blob-num js-line-number" data-line-number="162"></td>
+        <td id="LC162" class="blob-code blob-code-inner js-file-line">    <span class="pl-k">done</span></td>
+      </tr>
+      <tr>
+        <td id="L163" class="blob-num js-line-number" data-line-number="163"></td>
+        <td id="LC163" class="blob-code blob-code-inner js-file-line">    <span class="pl-c1">wait</span></td>
+      </tr>
+      <tr>
+        <td id="L164" class="blob-num js-line-number" data-line-number="164"></td>
+        <td id="LC164" class="blob-code blob-code-inner js-file-line">}</td>
+      </tr>
+      <tr>
+        <td id="L165" class="blob-num js-line-number" data-line-number="165"></td>
+        <td id="LC165" class="blob-code blob-code-inner js-file-line">
+</td>
+      </tr>
+      <tr>
+        <td id="L166" class="blob-num js-line-number" data-line-number="166"></td>
+        <td id="LC166" class="blob-code blob-code-inner js-file-line"><span class="pl-en">bundledPlugins</span>() {</td>
+      </tr>
+      <tr>
+        <td id="L167" class="blob-num js-line-number" data-line-number="167"></td>
+        <td id="LC167" class="blob-code blob-code-inner js-file-line">    <span class="pl-k">if</span> [ <span class="pl-k">-f</span> <span class="pl-s"><span class="pl-pds">&quot;</span><span class="pl-smi">$JENKINS_WAR</span><span class="pl-pds">&quot;</span></span> ]</td>
+      </tr>
+      <tr>
+        <td id="L168" class="blob-num js-line-number" data-line-number="168"></td>
+        <td id="LC168" class="blob-code blob-code-inner js-file-line">    <span class="pl-k">then</span></td>
+      </tr>
+      <tr>
+        <td id="L169" class="blob-num js-line-number" data-line-number="169"></td>
+        <td id="LC169" class="blob-code blob-code-inner js-file-line">        TEMP_PLUGIN_DIR=/tmp/plugintemp.<span class="pl-smi">$$</span></td>
+      </tr>
+      <tr>
+        <td id="L170" class="blob-num js-line-number" data-line-number="170"></td>
+        <td id="LC170" class="blob-code blob-code-inner js-file-line">        <span class="pl-k">for</span> <span class="pl-smi">i</span> <span class="pl-k">in</span> <span class="pl-s"><span class="pl-pds">$(</span>jar tf <span class="pl-s"><span class="pl-pds">&quot;</span><span class="pl-smi">$JENKINS_WAR</span><span class="pl-pds">&quot;</span></span> <span class="pl-k">|</span> grep -E <span class="pl-s"><span class="pl-pds">&#39;</span>[^detached-]plugins.*\..pi<span class="pl-pds">&#39;</span></span> <span class="pl-k">|</span> sort<span class="pl-pds">)</span></span></td>
+      </tr>
+      <tr>
+        <td id="L171" class="blob-num js-line-number" data-line-number="171"></td>
+        <td id="LC171" class="blob-code blob-code-inner js-file-line">        <span class="pl-k">do</span></td>
+      </tr>
+      <tr>
+        <td id="L172" class="blob-num js-line-number" data-line-number="172"></td>
+        <td id="LC172" class="blob-code blob-code-inner js-file-line">            rm -fr <span class="pl-smi">$TEMP_PLUGIN_DIR</span></td>
+      </tr>
+      <tr>
+        <td id="L173" class="blob-num js-line-number" data-line-number="173"></td>
+        <td id="LC173" class="blob-code blob-code-inner js-file-line">            mkdir -p <span class="pl-smi">$TEMP_PLUGIN_DIR</span></td>
+      </tr>
+      <tr>
+        <td id="L174" class="blob-num js-line-number" data-line-number="174"></td>
+        <td id="LC174" class="blob-code blob-code-inner js-file-line">            PLUGIN=<span class="pl-s"><span class="pl-pds">$(</span>basename <span class="pl-s"><span class="pl-pds">&quot;</span><span class="pl-smi">$i</span><span class="pl-pds">&quot;</span></span><span class="pl-k">|</span>cut -f1 -d<span class="pl-s"><span class="pl-pds">&#39;</span>.<span class="pl-pds">&#39;</span></span><span class="pl-pds">)</span></span></td>
+      </tr>
+      <tr>
+        <td id="L175" class="blob-num js-line-number" data-line-number="175"></td>
+        <td id="LC175" class="blob-code blob-code-inner js-file-line">            (cd <span class="pl-smi">$TEMP_PLUGIN_DIR</span><span class="pl-k">;</span>jar xf <span class="pl-s"><span class="pl-pds">&quot;</span><span class="pl-smi">$JENKINS_WAR</span><span class="pl-pds">&quot;</span></span> <span class="pl-s"><span class="pl-pds">&quot;</span><span class="pl-smi">$i</span><span class="pl-pds">&quot;</span></span><span class="pl-k">;</span>jar xvf <span class="pl-s"><span class="pl-pds">&quot;</span><span class="pl-smi">$TEMP_PLUGIN_DIR</span>/<span class="pl-smi">$i</span><span class="pl-pds">&quot;</span></span> META-INF/MANIFEST.MF <span class="pl-k">&gt;</span>/dev/null <span class="pl-k">2&gt;&amp;1</span>)</td>
+      </tr>
+      <tr>
+        <td id="L176" class="blob-num js-line-number" data-line-number="176"></td>
+        <td id="LC176" class="blob-code blob-code-inner js-file-line">            VER=<span class="pl-s"><span class="pl-pds">$(</span>grep -E -i Plugin-Version <span class="pl-s"><span class="pl-pds">&quot;</span><span class="pl-smi">$TEMP_PLUGIN_DIR</span>/META-INF/MANIFEST.MF<span class="pl-pds">&quot;</span></span><span class="pl-k">|</span>cut -d: -f2<span class="pl-k">|</span>sed <span class="pl-s"><span class="pl-pds">&#39;</span>s/ //<span class="pl-pds">&#39;</span></span><span class="pl-pds">)</span></span></td>
+      </tr>
+      <tr>
+        <td id="L177" class="blob-num js-line-number" data-line-number="177"></td>
+        <td id="LC177" class="blob-code blob-code-inner js-file-line">            <span class="pl-c1">echo</span> <span class="pl-s"><span class="pl-pds">&quot;</span><span class="pl-smi">$PLUGIN</span>:<span class="pl-smi">$VER</span><span class="pl-pds">&quot;</span></span></td>
+      </tr>
+      <tr>
+        <td id="L178" class="blob-num js-line-number" data-line-number="178"></td>
+        <td id="LC178" class="blob-code blob-code-inner js-file-line">        <span class="pl-k">done</span></td>
+      </tr>
+      <tr>
+        <td id="L179" class="blob-num js-line-number" data-line-number="179"></td>
+        <td id="LC179" class="blob-code blob-code-inner js-file-line">        rm -fr <span class="pl-smi">$TEMP_PLUGIN_DIR</span></td>
+      </tr>
+      <tr>
+        <td id="L180" class="blob-num js-line-number" data-line-number="180"></td>
+        <td id="LC180" class="blob-code blob-code-inner js-file-line">    <span class="pl-k">else</span></td>
+      </tr>
+      <tr>
+        <td id="L181" class="blob-num js-line-number" data-line-number="181"></td>
+        <td id="LC181" class="blob-code blob-code-inner js-file-line">        <span class="pl-c1">echo</span> <span class="pl-s"><span class="pl-pds">&quot;</span>war not found, installing all plugins: <span class="pl-smi">$JENKINS_WAR</span><span class="pl-pds">&quot;</span></span></td>
+      </tr>
+      <tr>
+        <td id="L182" class="blob-num js-line-number" data-line-number="182"></td>
+        <td id="LC182" class="blob-code blob-code-inner js-file-line">    <span class="pl-k">fi</span></td>
+      </tr>
+      <tr>
+        <td id="L183" class="blob-num js-line-number" data-line-number="183"></td>
+        <td id="LC183" class="blob-code blob-code-inner js-file-line">}</td>
+      </tr>
+      <tr>
+        <td id="L184" class="blob-num js-line-number" data-line-number="184"></td>
+        <td id="LC184" class="blob-code blob-code-inner js-file-line">
+</td>
+      </tr>
+      <tr>
+        <td id="L185" class="blob-num js-line-number" data-line-number="185"></td>
+        <td id="LC185" class="blob-code blob-code-inner js-file-line"><span class="pl-en">versionFromPlugin</span>() {</td>
+      </tr>
+      <tr>
+        <td id="L186" class="blob-num js-line-number" data-line-number="186"></td>
+        <td id="LC186" class="blob-code blob-code-inner js-file-line">    <span class="pl-k">local</span> plugin=<span class="pl-smi">$1</span></td>
+      </tr>
+      <tr>
+        <td id="L187" class="blob-num js-line-number" data-line-number="187"></td>
+        <td id="LC187" class="blob-code blob-code-inner js-file-line">    <span class="pl-k">if</span> [[ <span class="pl-smi">$plugin</span> <span class="pl-k">=~</span> .<span class="pl-k">*</span>:.<span class="pl-k">*</span> ]]<span class="pl-k">;</span> <span class="pl-k">then</span></td>
+      </tr>
+      <tr>
+        <td id="L188" class="blob-num js-line-number" data-line-number="188"></td>
+        <td id="LC188" class="blob-code blob-code-inner js-file-line">        <span class="pl-c1">echo</span> <span class="pl-s"><span class="pl-pds">&quot;</span><span class="pl-smi">${plugin<span class="pl-k">##*:</span>}</span><span class="pl-pds">&quot;</span></span></td>
+      </tr>
+      <tr>
+        <td id="L189" class="blob-num js-line-number" data-line-number="189"></td>
+        <td id="LC189" class="blob-code blob-code-inner js-file-line">    <span class="pl-k">else</span></td>
+      </tr>
+      <tr>
+        <td id="L190" class="blob-num js-line-number" data-line-number="190"></td>
+        <td id="LC190" class="blob-code blob-code-inner js-file-line">        <span class="pl-c1">echo</span> <span class="pl-s"><span class="pl-pds">&quot;</span>latest<span class="pl-pds">&quot;</span></span></td>
+      </tr>
+      <tr>
+        <td id="L191" class="blob-num js-line-number" data-line-number="191"></td>
+        <td id="LC191" class="blob-code blob-code-inner js-file-line">    <span class="pl-k">fi</span></td>
+      </tr>
+      <tr>
+        <td id="L192" class="blob-num js-line-number" data-line-number="192"></td>
+        <td id="LC192" class="blob-code blob-code-inner js-file-line">
+</td>
+      </tr>
+      <tr>
+        <td id="L193" class="blob-num js-line-number" data-line-number="193"></td>
+        <td id="LC193" class="blob-code blob-code-inner js-file-line">}</td>
+      </tr>
+      <tr>
+        <td id="L194" class="blob-num js-line-number" data-line-number="194"></td>
+        <td id="LC194" class="blob-code blob-code-inner js-file-line">
+</td>
+      </tr>
+      <tr>
+        <td id="L195" class="blob-num js-line-number" data-line-number="195"></td>
+        <td id="LC195" class="blob-code blob-code-inner js-file-line"><span class="pl-en">installedPlugins</span>() {</td>
+      </tr>
+      <tr>
+        <td id="L196" class="blob-num js-line-number" data-line-number="196"></td>
+        <td id="LC196" class="blob-code blob-code-inner js-file-line">    <span class="pl-k">for</span> <span class="pl-smi">f</span> <span class="pl-k">in</span> <span class="pl-s"><span class="pl-pds">&quot;</span><span class="pl-smi">$REF_DIR</span><span class="pl-pds">&quot;</span></span>/<span class="pl-k">*</span>.jpi<span class="pl-k">;</span> <span class="pl-k">do</span></td>
+      </tr>
+      <tr>
+        <td id="L197" class="blob-num js-line-number" data-line-number="197"></td>
+        <td id="LC197" class="blob-code blob-code-inner js-file-line">        <span class="pl-c1">echo</span> <span class="pl-s"><span class="pl-pds">&quot;</span><span class="pl-s"><span class="pl-pds">$(</span>basename <span class="pl-s"><span class="pl-pds">&quot;</span><span class="pl-smi">$f</span><span class="pl-pds">&quot;</span></span> <span class="pl-k">|</span> sed -e <span class="pl-s"><span class="pl-pds">&#39;</span>s/\.jpi//<span class="pl-pds">&#39;</span></span><span class="pl-pds">)</span></span>:<span class="pl-s"><span class="pl-pds">$(</span>get_plugin_version <span class="pl-s"><span class="pl-pds">&quot;</span><span class="pl-smi">$f</span><span class="pl-pds">&quot;</span></span><span class="pl-pds">)</span></span><span class="pl-pds">&quot;</span></span></td>
+      </tr>
+      <tr>
+        <td id="L198" class="blob-num js-line-number" data-line-number="198"></td>
+        <td id="LC198" class="blob-code blob-code-inner js-file-line">    <span class="pl-k">done</span></td>
+      </tr>
+      <tr>
+        <td id="L199" class="blob-num js-line-number" data-line-number="199"></td>
+        <td id="LC199" class="blob-code blob-code-inner js-file-line">}</td>
+      </tr>
+      <tr>
+        <td id="L200" class="blob-num js-line-number" data-line-number="200"></td>
+        <td id="LC200" class="blob-code blob-code-inner js-file-line">
+</td>
+      </tr>
+      <tr>
+        <td id="L201" class="blob-num js-line-number" data-line-number="201"></td>
+        <td id="LC201" class="blob-code blob-code-inner js-file-line"><span class="pl-en">jenkinsMajorMinorVersion</span>() {</td>
+      </tr>
+      <tr>
+        <td id="L202" class="blob-num js-line-number" data-line-number="202"></td>
+        <td id="LC202" class="blob-code blob-code-inner js-file-line">    <span class="pl-k">if</span> [[ <span class="pl-k">-f</span> <span class="pl-s"><span class="pl-pds">&quot;</span><span class="pl-smi">$JENKINS_WAR</span><span class="pl-pds">&quot;</span></span> ]]<span class="pl-k">;</span> <span class="pl-k">then</span></td>
+      </tr>
+      <tr>
+        <td id="L203" class="blob-num js-line-number" data-line-number="203"></td>
+        <td id="LC203" class="blob-code blob-code-inner js-file-line">        <span class="pl-k">local</span> version major minor</td>
+      </tr>
+      <tr>
+        <td id="L204" class="blob-num js-line-number" data-line-number="204"></td>
+        <td id="LC204" class="blob-code blob-code-inner js-file-line">        version=<span class="pl-s"><span class="pl-pds">&quot;</span><span class="pl-s"><span class="pl-pds">$(</span>java -jar <span class="pl-s"><span class="pl-pds">&quot;</span><span class="pl-smi">$JENKINS_WAR</span><span class="pl-pds">&quot;</span></span> --version<span class="pl-pds">)</span></span><span class="pl-pds">&quot;</span></span></td>
+      </tr>
+      <tr>
+        <td id="L205" class="blob-num js-line-number" data-line-number="205"></td>
+        <td id="LC205" class="blob-code blob-code-inner js-file-line">        major=<span class="pl-s"><span class="pl-pds">&quot;</span><span class="pl-s"><span class="pl-pds">$(</span>echo <span class="pl-s"><span class="pl-pds">&quot;</span><span class="pl-smi">$version</span><span class="pl-pds">&quot;</span></span> <span class="pl-k">|</span> cut -d <span class="pl-s"><span class="pl-pds">&#39;</span>.<span class="pl-pds">&#39;</span></span> -f 1<span class="pl-pds">)</span></span><span class="pl-pds">&quot;</span></span></td>
+      </tr>
+      <tr>
+        <td id="L206" class="blob-num js-line-number" data-line-number="206"></td>
+        <td id="LC206" class="blob-code blob-code-inner js-file-line">        minor=<span class="pl-s"><span class="pl-pds">&quot;</span><span class="pl-s"><span class="pl-pds">$(</span>echo <span class="pl-s"><span class="pl-pds">&quot;</span><span class="pl-smi">$version</span><span class="pl-pds">&quot;</span></span> <span class="pl-k">|</span> cut -d <span class="pl-s"><span class="pl-pds">&#39;</span>.<span class="pl-pds">&#39;</span></span> -f 2<span class="pl-pds">)</span></span><span class="pl-pds">&quot;</span></span></td>
+      </tr>
+      <tr>
+        <td id="L207" class="blob-num js-line-number" data-line-number="207"></td>
+        <td id="LC207" class="blob-code blob-code-inner js-file-line">        <span class="pl-c1">echo</span> <span class="pl-s"><span class="pl-pds">&quot;</span><span class="pl-smi">$major</span>.<span class="pl-smi">$minor</span><span class="pl-pds">&quot;</span></span></td>
+      </tr>
+      <tr>
+        <td id="L208" class="blob-num js-line-number" data-line-number="208"></td>
+        <td id="LC208" class="blob-code blob-code-inner js-file-line">    <span class="pl-k">else</span></td>
+      </tr>
+      <tr>
+        <td id="L209" class="blob-num js-line-number" data-line-number="209"></td>
+        <td id="LC209" class="blob-code blob-code-inner js-file-line">        <span class="pl-c1">echo</span> <span class="pl-s"><span class="pl-pds">&quot;</span><span class="pl-pds">&quot;</span></span></td>
+      </tr>
+      <tr>
+        <td id="L210" class="blob-num js-line-number" data-line-number="210"></td>
+        <td id="LC210" class="blob-code blob-code-inner js-file-line">    <span class="pl-k">fi</span></td>
+      </tr>
+      <tr>
+        <td id="L211" class="blob-num js-line-number" data-line-number="211"></td>
+        <td id="LC211" class="blob-code blob-code-inner js-file-line">}</td>
+      </tr>
+      <tr>
+        <td id="L212" class="blob-num js-line-number" data-line-number="212"></td>
+        <td id="LC212" class="blob-code blob-code-inner js-file-line">
+</td>
+      </tr>
+      <tr>
+        <td id="L213" class="blob-num js-line-number" data-line-number="213"></td>
+        <td id="LC213" class="blob-code blob-code-inner js-file-line"><span class="pl-en">main</span>() {</td>
+      </tr>
+      <tr>
+        <td id="L214" class="blob-num js-line-number" data-line-number="214"></td>
+        <td id="LC214" class="blob-code blob-code-inner js-file-line">    <span class="pl-k">local</span> plugin jenkinsVersion</td>
+      </tr>
+      <tr>
+        <td id="L215" class="blob-num js-line-number" data-line-number="215"></td>
+        <td id="LC215" class="blob-code blob-code-inner js-file-line">    <span class="pl-k">local</span> plugins=()</td>
+      </tr>
+      <tr>
+        <td id="L216" class="blob-num js-line-number" data-line-number="216"></td>
+        <td id="LC216" class="blob-code blob-code-inner js-file-line">
+</td>
+      </tr>
+      <tr>
+        <td id="L217" class="blob-num js-line-number" data-line-number="217"></td>
+        <td id="LC217" class="blob-code blob-code-inner js-file-line">    mkdir -p <span class="pl-s"><span class="pl-pds">&quot;</span><span class="pl-smi">$REF_DIR</span><span class="pl-pds">&quot;</span></span> <span class="pl-k">||</span> <span class="pl-c1">exit</span> 1</td>
+      </tr>
+      <tr>
+        <td id="L218" class="blob-num js-line-number" data-line-number="218"></td>
+        <td id="LC218" class="blob-code blob-code-inner js-file-line">    rm -f <span class="pl-s"><span class="pl-pds">&quot;</span><span class="pl-smi">$FAILED</span><span class="pl-pds">&quot;</span></span></td>
+      </tr>
+      <tr>
+        <td id="L219" class="blob-num js-line-number" data-line-number="219"></td>
+        <td id="LC219" class="blob-code blob-code-inner js-file-line">
+</td>
+      </tr>
+      <tr>
+        <td id="L220" class="blob-num js-line-number" data-line-number="220"></td>
+        <td id="LC220" class="blob-code blob-code-inner js-file-line">    <span class="pl-c"><span class="pl-c">#</span> Read plugins from stdin or from the command line arguments</span></td>
+      </tr>
+      <tr>
+        <td id="L221" class="blob-num js-line-number" data-line-number="221"></td>
+        <td id="LC221" class="blob-code blob-code-inner js-file-line">    <span class="pl-k">if</span> [[ (<span class="pl-smi">$#</span> -eq 0) ]]<span class="pl-k">;</span> <span class="pl-k">then</span></td>
+      </tr>
+      <tr>
+        <td id="L222" class="blob-num js-line-number" data-line-number="222"></td>
+        <td id="LC222" class="blob-code blob-code-inner js-file-line">        <span class="pl-k">while</span> <span class="pl-c1">read</span> -r line <span class="pl-k">||</span> [ <span class="pl-s"><span class="pl-pds">&quot;</span><span class="pl-smi">$line</span><span class="pl-pds">&quot;</span></span> <span class="pl-k">!=</span> <span class="pl-s"><span class="pl-pds">&quot;</span><span class="pl-pds">&quot;</span></span> ]<span class="pl-k">;</span> <span class="pl-k">do</span></td>
+      </tr>
+      <tr>
+        <td id="L223" class="blob-num js-line-number" data-line-number="223"></td>
+        <td id="LC223" class="blob-code blob-code-inner js-file-line">            <span class="pl-c"><span class="pl-c">#</span> Remove leading/trailing spaces, comments, and empty lines</span></td>
+      </tr>
+      <tr>
+        <td id="L224" class="blob-num js-line-number" data-line-number="224"></td>
+        <td id="LC224" class="blob-code blob-code-inner js-file-line">            plugin=<span class="pl-s"><span class="pl-pds">$(</span>echo <span class="pl-s"><span class="pl-pds">&quot;</span><span class="pl-smi">${line}</span><span class="pl-pds">&quot;</span></span> <span class="pl-k">|</span> tr -d <span class="pl-s"><span class="pl-pds">&#39;</span>\r<span class="pl-pds">&#39;</span></span> <span class="pl-k">|</span> sed -e <span class="pl-s"><span class="pl-pds">&#39;</span>s/^[ \t]*//g<span class="pl-pds">&#39;</span></span> -e <span class="pl-s"><span class="pl-pds">&#39;</span>s/[ \t]*$//g<span class="pl-pds">&#39;</span></span> -e <span class="pl-s"><span class="pl-pds">&#39;</span>s/[ \t]*#.*$//g<span class="pl-pds">&#39;</span></span> -e <span class="pl-s"><span class="pl-pds">&#39;</span>/^[ \t]*$/d<span class="pl-pds">&#39;</span></span><span class="pl-pds">)</span></span></td>
+      </tr>
+      <tr>
+        <td id="L225" class="blob-num js-line-number" data-line-number="225"></td>
+        <td id="LC225" class="blob-code blob-code-inner js-file-line">
+</td>
+      </tr>
+      <tr>
+        <td id="L226" class="blob-num js-line-number" data-line-number="226"></td>
+        <td id="LC226" class="blob-code blob-code-inner js-file-line">            <span class="pl-c"><span class="pl-c">#</span> Avoid adding empty plugin into array</span></td>
+      </tr>
+      <tr>
+        <td id="L227" class="blob-num js-line-number" data-line-number="227"></td>
+        <td id="LC227" class="blob-code blob-code-inner js-file-line">            <span class="pl-k">if</span> [ <span class="pl-smi">${<span class="pl-k">#</span>plugin}</span> <span class="pl-k">-ne</span> 0 ]<span class="pl-k">;</span> <span class="pl-k">then</span></td>
+      </tr>
+      <tr>
+        <td id="L228" class="blob-num js-line-number" data-line-number="228"></td>
+        <td id="LC228" class="blob-code blob-code-inner js-file-line">                plugins+=(<span class="pl-s"><span class="pl-pds">&quot;</span><span class="pl-smi">${plugin}</span><span class="pl-pds">&quot;</span></span>)</td>
+      </tr>
+      <tr>
+        <td id="L229" class="blob-num js-line-number" data-line-number="229"></td>
+        <td id="LC229" class="blob-code blob-code-inner js-file-line">            <span class="pl-k">fi</span></td>
+      </tr>
+      <tr>
+        <td id="L230" class="blob-num js-line-number" data-line-number="230"></td>
+        <td id="LC230" class="blob-code blob-code-inner js-file-line">        <span class="pl-k">done</span></td>
+      </tr>
+      <tr>
+        <td id="L231" class="blob-num js-line-number" data-line-number="231"></td>
+        <td id="LC231" class="blob-code blob-code-inner js-file-line">    <span class="pl-k">else</span></td>
+      </tr>
+      <tr>
+        <td id="L232" class="blob-num js-line-number" data-line-number="232"></td>
+        <td id="LC232" class="blob-code blob-code-inner js-file-line">        plugins=(<span class="pl-s"><span class="pl-pds">&quot;</span><span class="pl-smi">$@</span><span class="pl-pds">&quot;</span></span>)</td>
+      </tr>
+      <tr>
+        <td id="L233" class="blob-num js-line-number" data-line-number="233"></td>
+        <td id="LC233" class="blob-code blob-code-inner js-file-line">    <span class="pl-k">fi</span></td>
+      </tr>
+      <tr>
+        <td id="L234" class="blob-num js-line-number" data-line-number="234"></td>
+        <td id="LC234" class="blob-code blob-code-inner js-file-line">
+</td>
+      </tr>
+      <tr>
+        <td id="L235" class="blob-num js-line-number" data-line-number="235"></td>
+        <td id="LC235" class="blob-code blob-code-inner js-file-line">    <span class="pl-c"><span class="pl-c">#</span> Create lockfile manually before first run to make sure any explicit version set is used.</span></td>
+      </tr>
+      <tr>
+        <td id="L236" class="blob-num js-line-number" data-line-number="236"></td>
+        <td id="LC236" class="blob-code blob-code-inner js-file-line">    <span class="pl-c1">echo</span> <span class="pl-s"><span class="pl-pds">&quot;</span>Creating initial locks...<span class="pl-pds">&quot;</span></span></td>
+      </tr>
+      <tr>
+        <td id="L237" class="blob-num js-line-number" data-line-number="237"></td>
+        <td id="LC237" class="blob-code blob-code-inner js-file-line">    <span class="pl-k">for</span> <span class="pl-smi">plugin</span> <span class="pl-k">in</span> <span class="pl-s"><span class="pl-pds">&quot;</span><span class="pl-smi">${plugins[@]}</span><span class="pl-pds">&quot;</span></span><span class="pl-k">;</span> <span class="pl-k">do</span></td>
+      </tr>
+      <tr>
+        <td id="L238" class="blob-num js-line-number" data-line-number="238"></td>
+        <td id="LC238" class="blob-code blob-code-inner js-file-line">        mkdir <span class="pl-s"><span class="pl-pds">&quot;</span><span class="pl-s"><span class="pl-pds">$(</span>getLockFile <span class="pl-s"><span class="pl-pds">&quot;</span><span class="pl-smi">${plugin<span class="pl-k">%%:*</span>}</span><span class="pl-pds">&quot;</span></span><span class="pl-pds">)</span></span><span class="pl-pds">&quot;</span></span></td>
+      </tr>
+      <tr>
+        <td id="L239" class="blob-num js-line-number" data-line-number="239"></td>
+        <td id="LC239" class="blob-code blob-code-inner js-file-line">    <span class="pl-k">done</span></td>
+      </tr>
+      <tr>
+        <td id="L240" class="blob-num js-line-number" data-line-number="240"></td>
+        <td id="LC240" class="blob-code blob-code-inner js-file-line">
+</td>
+      </tr>
+      <tr>
+        <td id="L241" class="blob-num js-line-number" data-line-number="241"></td>
+        <td id="LC241" class="blob-code blob-code-inner js-file-line">    <span class="pl-c1">echo</span> <span class="pl-s"><span class="pl-pds">&quot;</span>Analyzing war <span class="pl-smi">$JENKINS_WAR</span>...<span class="pl-pds">&quot;</span></span></td>
+      </tr>
+      <tr>
+        <td id="L242" class="blob-num js-line-number" data-line-number="242"></td>
+        <td id="LC242" class="blob-code blob-code-inner js-file-line">    bundledPlugins=<span class="pl-s"><span class="pl-pds">&quot;</span><span class="pl-s"><span class="pl-pds">$(</span>bundledPlugins<span class="pl-pds">)</span></span><span class="pl-pds">&quot;</span></span></td>
+      </tr>
+      <tr>
+        <td id="L243" class="blob-num js-line-number" data-line-number="243"></td>
+        <td id="LC243" class="blob-code blob-code-inner js-file-line">
+</td>
+      </tr>
+      <tr>
+        <td id="L244" class="blob-num js-line-number" data-line-number="244"></td>
+        <td id="LC244" class="blob-code blob-code-inner js-file-line">    <span class="pl-c1">echo</span> <span class="pl-s"><span class="pl-pds">&quot;</span>Registering preinstalled plugins...<span class="pl-pds">&quot;</span></span></td>
+      </tr>
+      <tr>
+        <td id="L245" class="blob-num js-line-number" data-line-number="245"></td>
+        <td id="LC245" class="blob-code blob-code-inner js-file-line">    installedPlugins=<span class="pl-s"><span class="pl-pds">&quot;</span><span class="pl-s"><span class="pl-pds">$(</span>installedPlugins<span class="pl-pds">)</span></span><span class="pl-pds">&quot;</span></span></td>
+      </tr>
+      <tr>
+        <td id="L246" class="blob-num js-line-number" data-line-number="246"></td>
+        <td id="LC246" class="blob-code blob-code-inner js-file-line">
+</td>
+      </tr>
+      <tr>
+        <td id="L247" class="blob-num js-line-number" data-line-number="247"></td>
+        <td id="LC247" class="blob-code blob-code-inner js-file-line">    <span class="pl-c"><span class="pl-c">#</span> Get the update center URL based on the jenkins version</span></td>
+      </tr>
+      <tr>
+        <td id="L248" class="blob-num js-line-number" data-line-number="248"></td>
+        <td id="LC248" class="blob-code blob-code-inner js-file-line">    jenkinsVersion=<span class="pl-s"><span class="pl-pds">&quot;</span><span class="pl-s"><span class="pl-pds">$(</span>jenkinsMajorMinorVersion<span class="pl-pds">)</span></span><span class="pl-pds">&quot;</span></span></td>
+      </tr>
+      <tr>
+        <td id="L249" class="blob-num js-line-number" data-line-number="249"></td>
+        <td id="LC249" class="blob-code blob-code-inner js-file-line">    <span class="pl-c"><span class="pl-c">#</span> shellcheck disable=SC2086</span></td>
+      </tr>
+      <tr>
+        <td id="L250" class="blob-num js-line-number" data-line-number="250"></td>
+        <td id="LC250" class="blob-code blob-code-inner js-file-line">    jenkinsUcJson=<span class="pl-s"><span class="pl-pds">$(</span>curl <span class="pl-smi">${CURL_OPTIONS<span class="pl-k">:-</span>-sSfL}</span> -o /dev/null -w <span class="pl-s"><span class="pl-pds">&quot;</span>%{url_effective}<span class="pl-pds">&quot;</span></span> <span class="pl-s"><span class="pl-pds">&quot;</span><span class="pl-smi">${JENKINS_UC}</span>/update-center.json?version=<span class="pl-smi">${jenkinsVersion}</span><span class="pl-pds">&quot;</span></span><span class="pl-pds">)</span></span></td>
+      </tr>
+      <tr>
+        <td id="L251" class="blob-num js-line-number" data-line-number="251"></td>
+        <td id="LC251" class="blob-code blob-code-inner js-file-line">    <span class="pl-k">if</span> [ <span class="pl-k">-n</span> <span class="pl-s"><span class="pl-pds">&quot;</span><span class="pl-smi">${jenkinsUcJson}</span><span class="pl-pds">&quot;</span></span> ]<span class="pl-k">;</span> <span class="pl-k">then</span></td>
+      </tr>
+      <tr>
+        <td id="L252" class="blob-num js-line-number" data-line-number="252"></td>
+        <td id="LC252" class="blob-code blob-code-inner js-file-line">        JENKINS_UC_LATEST=<span class="pl-smi">${jenkinsUcJson<span class="pl-k">//</span>update-center.json<span class="pl-k">/</span>}</span></td>
+      </tr>
+      <tr>
+        <td id="L253" class="blob-num js-line-number" data-line-number="253"></td>
+        <td id="LC253" class="blob-code blob-code-inner js-file-line">        <span class="pl-c1">echo</span> <span class="pl-s"><span class="pl-pds">&quot;</span>Using version-specific update center: <span class="pl-smi">$JENKINS_UC_LATEST</span>...<span class="pl-pds">&quot;</span></span></td>
+      </tr>
+      <tr>
+        <td id="L254" class="blob-num js-line-number" data-line-number="254"></td>
+        <td id="LC254" class="blob-code blob-code-inner js-file-line">    <span class="pl-k">else</span></td>
+      </tr>
+      <tr>
+        <td id="L255" class="blob-num js-line-number" data-line-number="255"></td>
+        <td id="LC255" class="blob-code blob-code-inner js-file-line">        JENKINS_UC_LATEST=</td>
+      </tr>
+      <tr>
+        <td id="L256" class="blob-num js-line-number" data-line-number="256"></td>
+        <td id="LC256" class="blob-code blob-code-inner js-file-line">    <span class="pl-k">fi</span></td>
+      </tr>
+      <tr>
+        <td id="L257" class="blob-num js-line-number" data-line-number="257"></td>
+        <td id="LC257" class="blob-code blob-code-inner js-file-line">
+</td>
+      </tr>
+      <tr>
+        <td id="L258" class="blob-num js-line-number" data-line-number="258"></td>
+        <td id="LC258" class="blob-code blob-code-inner js-file-line">    <span class="pl-c1">echo</span> <span class="pl-s"><span class="pl-pds">&quot;</span>Downloading plugins...<span class="pl-pds">&quot;</span></span></td>
+      </tr>
+      <tr>
+        <td id="L259" class="blob-num js-line-number" data-line-number="259"></td>
+        <td id="LC259" class="blob-code blob-code-inner js-file-line">    <span class="pl-k">for</span> <span class="pl-smi">plugin</span> <span class="pl-k">in</span> <span class="pl-s"><span class="pl-pds">&quot;</span><span class="pl-smi">${plugins[@]}</span><span class="pl-pds">&quot;</span></span><span class="pl-k">;</span> <span class="pl-k">do</span></td>
+      </tr>
+      <tr>
+        <td id="L260" class="blob-num js-line-number" data-line-number="260"></td>
+        <td id="LC260" class="blob-code blob-code-inner js-file-line">        <span class="pl-k">local</span> reg=<span class="pl-s"><span class="pl-pds">&#39;</span>^([^:]+):?([^:]+)?:?([^:]+)?:?(http.+)?<span class="pl-pds">&#39;</span></span></td>
+      </tr>
+      <tr>
+        <td id="L261" class="blob-num js-line-number" data-line-number="261"></td>
+        <td id="LC261" class="blob-code blob-code-inner js-file-line">        <span class="pl-k">if</span> [[ <span class="pl-smi">$plugin</span> <span class="pl-k">=~</span> <span class="pl-smi">$reg</span> ]]<span class="pl-k">;</span> <span class="pl-k">then</span></td>
+      </tr>
+      <tr>
+        <td id="L262" class="blob-num js-line-number" data-line-number="262"></td>
+        <td id="LC262" class="blob-code blob-code-inner js-file-line">            <span class="pl-k">local</span> pluginId=<span class="pl-s"><span class="pl-pds">&quot;</span><span class="pl-smi">${BASH_REMATCH[1]}</span><span class="pl-pds">&quot;</span></span></td>
+      </tr>
+      <tr>
+        <td id="L263" class="blob-num js-line-number" data-line-number="263"></td>
+        <td id="LC263" class="blob-code blob-code-inner js-file-line">            <span class="pl-k">local</span> version=<span class="pl-s"><span class="pl-pds">&quot;</span><span class="pl-smi">${BASH_REMATCH[2]}</span><span class="pl-pds">&quot;</span></span></td>
+      </tr>
+      <tr>
+        <td id="L264" class="blob-num js-line-number" data-line-number="264"></td>
+        <td id="LC264" class="blob-code blob-code-inner js-file-line">            <span class="pl-k">local</span> lock=<span class="pl-s"><span class="pl-pds">&quot;</span><span class="pl-smi">${BASH_REMATCH[3]}</span><span class="pl-pds">&quot;</span></span></td>
+      </tr>
+      <tr>
+        <td id="L265" class="blob-num js-line-number" data-line-number="265"></td>
+        <td id="LC265" class="blob-code blob-code-inner js-file-line">            <span class="pl-k">local</span> url=<span class="pl-s"><span class="pl-pds">&quot;</span><span class="pl-smi">${BASH_REMATCH[4]}</span><span class="pl-pds">&quot;</span></span></td>
+      </tr>
+      <tr>
+        <td id="L266" class="blob-num js-line-number" data-line-number="266"></td>
+        <td id="LC266" class="blob-code blob-code-inner js-file-line">            download <span class="pl-s"><span class="pl-pds">&quot;</span><span class="pl-smi">$pluginId</span><span class="pl-pds">&quot;</span></span> <span class="pl-s"><span class="pl-pds">&quot;</span><span class="pl-smi">$version</span><span class="pl-pds">&quot;</span></span> <span class="pl-s"><span class="pl-pds">&quot;</span><span class="pl-smi">${lock<span class="pl-k">:-</span>true}</span><span class="pl-pds">&quot;</span></span> <span class="pl-s"><span class="pl-pds">&quot;</span><span class="pl-smi">${url}</span><span class="pl-pds">&quot;</span></span> <span class="pl-k">&amp;</span></td>
+      </tr>
+      <tr>
+        <td id="L267" class="blob-num js-line-number" data-line-number="267"></td>
+        <td id="LC267" class="blob-code blob-code-inner js-file-line">        <span class="pl-k">else</span></td>
+      </tr>
+      <tr>
+        <td id="L268" class="blob-num js-line-number" data-line-number="268"></td>
+        <td id="LC268" class="blob-code blob-code-inner js-file-line">          <span class="pl-c1">echo</span> <span class="pl-s"><span class="pl-pds">&quot;</span>Skipping the line &#39;<span class="pl-smi">${plugin}</span>&#39; as it does not look like a reference to a plugin<span class="pl-pds">&quot;</span></span></td>
+      </tr>
+      <tr>
+        <td id="L269" class="blob-num js-line-number" data-line-number="269"></td>
+        <td id="LC269" class="blob-code blob-code-inner js-file-line">        <span class="pl-k">fi</span></td>
+      </tr>
+      <tr>
+        <td id="L270" class="blob-num js-line-number" data-line-number="270"></td>
+        <td id="LC270" class="blob-code blob-code-inner js-file-line">    <span class="pl-k">done</span></td>
+      </tr>
+      <tr>
+        <td id="L271" class="blob-num js-line-number" data-line-number="271"></td>
+        <td id="LC271" class="blob-code blob-code-inner js-file-line">    <span class="pl-c1">wait</span></td>
+      </tr>
+      <tr>
+        <td id="L272" class="blob-num js-line-number" data-line-number="272"></td>
+        <td id="LC272" class="blob-code blob-code-inner js-file-line">
+</td>
+      </tr>
+      <tr>
+        <td id="L273" class="blob-num js-line-number" data-line-number="273"></td>
+        <td id="LC273" class="blob-code blob-code-inner js-file-line">    <span class="pl-c1">echo</span></td>
+      </tr>
+      <tr>
+        <td id="L274" class="blob-num js-line-number" data-line-number="274"></td>
+        <td id="LC274" class="blob-code blob-code-inner js-file-line">    <span class="pl-c1">echo</span> <span class="pl-s"><span class="pl-pds">&quot;</span>WAR bundled plugins:<span class="pl-pds">&quot;</span></span></td>
+      </tr>
+      <tr>
+        <td id="L275" class="blob-num js-line-number" data-line-number="275"></td>
+        <td id="LC275" class="blob-code blob-code-inner js-file-line">    <span class="pl-c1">echo</span> <span class="pl-s"><span class="pl-pds">&quot;</span><span class="pl-smi">${bundledPlugins}</span><span class="pl-pds">&quot;</span></span></td>
+      </tr>
+      <tr>
+        <td id="L276" class="blob-num js-line-number" data-line-number="276"></td>
+        <td id="LC276" class="blob-code blob-code-inner js-file-line">    <span class="pl-c1">echo</span></td>
+      </tr>
+      <tr>
+        <td id="L277" class="blob-num js-line-number" data-line-number="277"></td>
+        <td id="LC277" class="blob-code blob-code-inner js-file-line">    <span class="pl-c1">echo</span> <span class="pl-s"><span class="pl-pds">&quot;</span>Installed plugins:<span class="pl-pds">&quot;</span></span></td>
+      </tr>
+      <tr>
+        <td id="L278" class="blob-num js-line-number" data-line-number="278"></td>
+        <td id="LC278" class="blob-code blob-code-inner js-file-line">    installedPlugins</td>
+      </tr>
+      <tr>
+        <td id="L279" class="blob-num js-line-number" data-line-number="279"></td>
+        <td id="LC279" class="blob-code blob-code-inner js-file-line">
+</td>
+      </tr>
+      <tr>
+        <td id="L280" class="blob-num js-line-number" data-line-number="280"></td>
+        <td id="LC280" class="blob-code blob-code-inner js-file-line">    <span class="pl-k">if</span> [[ <span class="pl-k">-f</span> <span class="pl-smi">$FAILED</span> ]]<span class="pl-k">;</span> <span class="pl-k">then</span></td>
+      </tr>
+      <tr>
+        <td id="L281" class="blob-num js-line-number" data-line-number="281"></td>
+        <td id="LC281" class="blob-code blob-code-inner js-file-line">        <span class="pl-c1">echo</span> <span class="pl-s"><span class="pl-pds">&quot;</span>Some plugins failed to download!<span class="pl-pds">&quot;</span></span> <span class="pl-s"><span class="pl-pds">&quot;</span><span class="pl-s"><span class="pl-pds">$(</span><span class="pl-k">&lt;</span><span class="pl-s"><span class="pl-pds">&quot;</span><span class="pl-smi">$FAILED</span><span class="pl-pds">&quot;</span></span><span class="pl-pds">)</span></span><span class="pl-pds">&quot;</span></span> <span class="pl-k">&gt;&amp;2</span></td>
+      </tr>
+      <tr>
+        <td id="L282" class="blob-num js-line-number" data-line-number="282"></td>
+        <td id="LC282" class="blob-code blob-code-inner js-file-line">        <span class="pl-c1">exit</span> 1</td>
+      </tr>
+      <tr>
+        <td id="L283" class="blob-num js-line-number" data-line-number="283"></td>
+        <td id="LC283" class="blob-code blob-code-inner js-file-line">    <span class="pl-k">fi</span></td>
+      </tr>
+      <tr>
+        <td id="L284" class="blob-num js-line-number" data-line-number="284"></td>
+        <td id="LC284" class="blob-code blob-code-inner js-file-line">
+</td>
+      </tr>
+      <tr>
+        <td id="L285" class="blob-num js-line-number" data-line-number="285"></td>
+        <td id="LC285" class="blob-code blob-code-inner js-file-line">    <span class="pl-c1">echo</span> <span class="pl-s"><span class="pl-pds">&quot;</span>Cleaning up locks<span class="pl-pds">&quot;</span></span></td>
+      </tr>
+      <tr>
+        <td id="L286" class="blob-num js-line-number" data-line-number="286"></td>
+        <td id="LC286" class="blob-code blob-code-inner js-file-line">    find <span class="pl-s"><span class="pl-pds">&quot;</span><span class="pl-smi">$REF_DIR</span><span class="pl-pds">&quot;</span></span> -regex <span class="pl-s"><span class="pl-pds">&quot;</span>.*.lock<span class="pl-pds">&quot;</span></span> <span class="pl-k">|</span> <span class="pl-k">while</span> <span class="pl-c1">read</span> -r filepath<span class="pl-k">;</span> <span class="pl-k">do</span></td>
+      </tr>
+      <tr>
+        <td id="L287" class="blob-num js-line-number" data-line-number="287"></td>
+        <td id="LC287" class="blob-code blob-code-inner js-file-line">        rm -r <span class="pl-s"><span class="pl-pds">&quot;</span><span class="pl-smi">$filepath</span><span class="pl-pds">&quot;</span></span></td>
+      </tr>
+      <tr>
+        <td id="L288" class="blob-num js-line-number" data-line-number="288"></td>
+        <td id="LC288" class="blob-code blob-code-inner js-file-line">    <span class="pl-k">done</span></td>
+      </tr>
+      <tr>
+        <td id="L289" class="blob-num js-line-number" data-line-number="289"></td>
+        <td id="LC289" class="blob-code blob-code-inner js-file-line">
+</td>
+      </tr>
+      <tr>
+        <td id="L290" class="blob-num js-line-number" data-line-number="290"></td>
+        <td id="LC290" class="blob-code blob-code-inner js-file-line">}</td>
+      </tr>
+      <tr>
+        <td id="L291" class="blob-num js-line-number" data-line-number="291"></td>
+        <td id="LC291" class="blob-code blob-code-inner js-file-line">
+</td>
+      </tr>
+      <tr>
+        <td id="L292" class="blob-num js-line-number" data-line-number="292"></td>
+        <td id="LC292" class="blob-code blob-code-inner js-file-line">main <span class="pl-s"><span class="pl-pds">&quot;</span><span class="pl-smi">$@</span><span class="pl-pds">&quot;</span></span></td>
       </tr>
 </table>
 
@@ -1904,7 +2996,7 @@
             Copy permalink
           </clipboard-copy>
         </li>
-        <li><a class="dropdown-item js-update-url-with-hash" id="js-view-git-blame" role="menuitem" href="/jenkinsci/docker/blame/b9fe51cbc1e1faa1555c593c37ea29558f55b5b2/jenkins.sh">View git blame</a></li>
+        <li><a class="dropdown-item js-update-url-with-hash" id="js-view-git-blame" role="menuitem" href="/jenkinsci/docker/blame/b9fe51cbc1e1faa1555c593c37ea29558f55b5b2/install-plugins.sh">View git blame</a></li>
           <li><a class="dropdown-item" id="js-new-issue" role="menuitem" href="/jenkinsci/docker/issues/new">Reference in new issue</a></li>
       </ul>
     </details-menu>
@@ -1949,10 +3041,10 @@
   <div class="position-relative d-flex flex-row-reverse flex-lg-row flex-wrap flex-lg-nowrap flex-justify-center flex-lg-justify-between pt-6 pb-2 mt-6 f6 color-text-secondary border-top color-border-secondary ">
     <ul class="list-style-none d-flex flex-wrap col-12 col-lg-5 flex-justify-center flex-lg-justify-between mb-2 mb-lg-0">
       <li class="mr-3 mr-lg-0">&copy; 2021 GitHub, Inc.</li>
-        <li class="mr-3 mr-lg-0"><a href="https://docs.github.com/en/github/site-policy/github-terms-of-service" data-hydro-click="{&quot;event_type&quot;:&quot;analytics.event&quot;,&quot;payload&quot;:{&quot;category&quot;:&quot;Footer&quot;,&quot;action&quot;:&quot;go to terms&quot;,&quot;label&quot;:&quot;text:terms&quot;,&quot;originating_url&quot;:&quot;https://github.com/jenkinsci/docker/blob/master/jenkins.sh&quot;,&quot;user_id&quot;:36673283}}" data-hydro-click-hmac="9350af352727c5a0ddadf8918d92d5401ca6d33b8e5f8e3dd8649794446e7645">Terms</a></li>
-        <li class="mr-3 mr-lg-0"><a href="https://docs.github.com/en/github/site-policy/github-privacy-statement" data-hydro-click="{&quot;event_type&quot;:&quot;analytics.event&quot;,&quot;payload&quot;:{&quot;category&quot;:&quot;Footer&quot;,&quot;action&quot;:&quot;go to privacy&quot;,&quot;label&quot;:&quot;text:privacy&quot;,&quot;originating_url&quot;:&quot;https://github.com/jenkinsci/docker/blob/master/jenkins.sh&quot;,&quot;user_id&quot;:36673283}}" data-hydro-click-hmac="24c90970f45294c74731479fc2cc69b0b0e8fcf2d1500496ca128626606823da">Privacy</a></li>
-        <li class="mr-3 mr-lg-0"><a data-hydro-click="{&quot;event_type&quot;:&quot;analytics.event&quot;,&quot;payload&quot;:{&quot;category&quot;:&quot;Footer&quot;,&quot;action&quot;:&quot;go to security&quot;,&quot;label&quot;:&quot;text:security&quot;,&quot;originating_url&quot;:&quot;https://github.com/jenkinsci/docker/blob/master/jenkins.sh&quot;,&quot;user_id&quot;:36673283}}" data-hydro-click-hmac="7a13a8fbf6a206dd445f61bd5765dbf5b540f0048a9f91e7125017f908f870f5" href="https://github.com/security">Security</a></li>
-        <li class="mr-3 mr-lg-0"><a href="https://www.githubstatus.com/" data-hydro-click="{&quot;event_type&quot;:&quot;analytics.event&quot;,&quot;payload&quot;:{&quot;category&quot;:&quot;Footer&quot;,&quot;action&quot;:&quot;go to status&quot;,&quot;label&quot;:&quot;text:status&quot;,&quot;originating_url&quot;:&quot;https://github.com/jenkinsci/docker/blob/master/jenkins.sh&quot;,&quot;user_id&quot;:36673283}}" data-hydro-click-hmac="732502b87c46774ab6ad4b3e45889e853a8eeddd986e837529fd83ecaac0a0d0">Status</a></li>
+        <li class="mr-3 mr-lg-0"><a href="https://docs.github.com/en/github/site-policy/github-terms-of-service" data-hydro-click="{&quot;event_type&quot;:&quot;analytics.event&quot;,&quot;payload&quot;:{&quot;category&quot;:&quot;Footer&quot;,&quot;action&quot;:&quot;go to terms&quot;,&quot;label&quot;:&quot;text:terms&quot;,&quot;originating_url&quot;:&quot;https://github.com/jenkinsci/docker/blob/master/install-plugins.sh&quot;,&quot;user_id&quot;:36673283}}" data-hydro-click-hmac="c6eab87df7af1bcbbc4024256c9d0b838104e8ea5215964e13b31d9c0a5b11d4">Terms</a></li>
+        <li class="mr-3 mr-lg-0"><a href="https://docs.github.com/en/github/site-policy/github-privacy-statement" data-hydro-click="{&quot;event_type&quot;:&quot;analytics.event&quot;,&quot;payload&quot;:{&quot;category&quot;:&quot;Footer&quot;,&quot;action&quot;:&quot;go to privacy&quot;,&quot;label&quot;:&quot;text:privacy&quot;,&quot;originating_url&quot;:&quot;https://github.com/jenkinsci/docker/blob/master/install-plugins.sh&quot;,&quot;user_id&quot;:36673283}}" data-hydro-click-hmac="4dd0ca425461fac2fdfbd9a8ee0aa980010b168a366ca5e75c26548a82bba2dc">Privacy</a></li>
+        <li class="mr-3 mr-lg-0"><a data-hydro-click="{&quot;event_type&quot;:&quot;analytics.event&quot;,&quot;payload&quot;:{&quot;category&quot;:&quot;Footer&quot;,&quot;action&quot;:&quot;go to security&quot;,&quot;label&quot;:&quot;text:security&quot;,&quot;originating_url&quot;:&quot;https://github.com/jenkinsci/docker/blob/master/install-plugins.sh&quot;,&quot;user_id&quot;:36673283}}" data-hydro-click-hmac="7aabd2808707013ab813866e66293be5bac3f21ef78fbb5279fd8f105f400781" href="https://github.com/security">Security</a></li>
+        <li class="mr-3 mr-lg-0"><a href="https://www.githubstatus.com/" data-hydro-click="{&quot;event_type&quot;:&quot;analytics.event&quot;,&quot;payload&quot;:{&quot;category&quot;:&quot;Footer&quot;,&quot;action&quot;:&quot;go to status&quot;,&quot;label&quot;:&quot;text:status&quot;,&quot;originating_url&quot;:&quot;https://github.com/jenkinsci/docker/blob/master/install-plugins.sh&quot;,&quot;user_id&quot;:36673283}}" data-hydro-click-hmac="030cf1b3af8c95e11e4a625178a18d8ec92380ad53a2d1b0e7f7ee7f6514e802">Status</a></li>
         <li><a data-ga-click="Footer, go to help, text:Docs" href="https://docs.github.com">Docs</a></li>
     </ul>
 
@@ -1962,11 +3054,11 @@
 </svg>
 </a>
     <ul class="list-style-none d-flex flex-wrap col-12 col-lg-5 flex-justify-center flex-lg-justify-between mb-2 mb-lg-0">
-        <li class="mr-3 mr-lg-0"><a href="https://support.github.com?tags=dotcom-footer" data-hydro-click="{&quot;event_type&quot;:&quot;analytics.event&quot;,&quot;payload&quot;:{&quot;category&quot;:&quot;Footer&quot;,&quot;action&quot;:&quot;go to contact&quot;,&quot;label&quot;:&quot;text:contact&quot;,&quot;originating_url&quot;:&quot;https://github.com/jenkinsci/docker/blob/master/jenkins.sh&quot;,&quot;user_id&quot;:36673283}}" data-hydro-click-hmac="89a45be0f714990493e966c7c7efe33963faa0516b2b1ef2fd704c80f9d3db42">Contact GitHub</a></li>
-        <li class="mr-3 mr-lg-0"><a href="https://github.com/pricing" data-hydro-click="{&quot;event_type&quot;:&quot;analytics.event&quot;,&quot;payload&quot;:{&quot;category&quot;:&quot;Footer&quot;,&quot;action&quot;:&quot;go to Pricing&quot;,&quot;label&quot;:&quot;text:Pricing&quot;,&quot;originating_url&quot;:&quot;https://github.com/jenkinsci/docker/blob/master/jenkins.sh&quot;,&quot;user_id&quot;:36673283}}" data-hydro-click-hmac="af99fe786b857aee28a0db8ebda44075902e7a1d50f501bdeafda252c08e78ab">Pricing</a></li>
-      <li class="mr-3 mr-lg-0"><a href="https://docs.github.com" data-hydro-click="{&quot;event_type&quot;:&quot;analytics.event&quot;,&quot;payload&quot;:{&quot;category&quot;:&quot;Footer&quot;,&quot;action&quot;:&quot;go to api&quot;,&quot;label&quot;:&quot;text:api&quot;,&quot;originating_url&quot;:&quot;https://github.com/jenkinsci/docker/blob/master/jenkins.sh&quot;,&quot;user_id&quot;:36673283}}" data-hydro-click-hmac="0b852705dfd882a1e5e591767c48ff7e85bf6d7117f4ad98b56448f3728cf20c">API</a></li>
-      <li class="mr-3 mr-lg-0"><a href="https://services.github.com" data-hydro-click="{&quot;event_type&quot;:&quot;analytics.event&quot;,&quot;payload&quot;:{&quot;category&quot;:&quot;Footer&quot;,&quot;action&quot;:&quot;go to training&quot;,&quot;label&quot;:&quot;text:training&quot;,&quot;originating_url&quot;:&quot;https://github.com/jenkinsci/docker/blob/master/jenkins.sh&quot;,&quot;user_id&quot;:36673283}}" data-hydro-click-hmac="608bcb9426d360fc630a2bb3fcc52e1d95cbae99b164721bca2fbbf3a67a2786">Training</a></li>
-        <li class="mr-3 mr-lg-0"><a href="https://github.blog" data-hydro-click="{&quot;event_type&quot;:&quot;analytics.event&quot;,&quot;payload&quot;:{&quot;category&quot;:&quot;Footer&quot;,&quot;action&quot;:&quot;go to blog&quot;,&quot;label&quot;:&quot;text:blog&quot;,&quot;originating_url&quot;:&quot;https://github.com/jenkinsci/docker/blob/master/jenkins.sh&quot;,&quot;user_id&quot;:36673283}}" data-hydro-click-hmac="7580be01adbeda7e2a5d4f5ce1b02eb6f4a3ca9b5ef9dd86ab660d233bd45237">Blog</a></li>
+        <li class="mr-3 mr-lg-0"><a href="https://support.github.com?tags=dotcom-footer" data-hydro-click="{&quot;event_type&quot;:&quot;analytics.event&quot;,&quot;payload&quot;:{&quot;category&quot;:&quot;Footer&quot;,&quot;action&quot;:&quot;go to contact&quot;,&quot;label&quot;:&quot;text:contact&quot;,&quot;originating_url&quot;:&quot;https://github.com/jenkinsci/docker/blob/master/install-plugins.sh&quot;,&quot;user_id&quot;:36673283}}" data-hydro-click-hmac="d608374e1d0c545b188d97fc6c4838f1593b585b02c0a1b62b8b1e0fce16ffbb">Contact GitHub</a></li>
+        <li class="mr-3 mr-lg-0"><a href="https://github.com/pricing" data-hydro-click="{&quot;event_type&quot;:&quot;analytics.event&quot;,&quot;payload&quot;:{&quot;category&quot;:&quot;Footer&quot;,&quot;action&quot;:&quot;go to Pricing&quot;,&quot;label&quot;:&quot;text:Pricing&quot;,&quot;originating_url&quot;:&quot;https://github.com/jenkinsci/docker/blob/master/install-plugins.sh&quot;,&quot;user_id&quot;:36673283}}" data-hydro-click-hmac="97fc8dbf07b377f2590d5ea8c0e115cdfeb0742cb0702754abe056df89b48033">Pricing</a></li>
+      <li class="mr-3 mr-lg-0"><a href="https://docs.github.com" data-hydro-click="{&quot;event_type&quot;:&quot;analytics.event&quot;,&quot;payload&quot;:{&quot;category&quot;:&quot;Footer&quot;,&quot;action&quot;:&quot;go to api&quot;,&quot;label&quot;:&quot;text:api&quot;,&quot;originating_url&quot;:&quot;https://github.com/jenkinsci/docker/blob/master/install-plugins.sh&quot;,&quot;user_id&quot;:36673283}}" data-hydro-click-hmac="e155f89ff39596428cc48e3ce97bffb632dab2f8a856d9a390209b00a1f27635">API</a></li>
+      <li class="mr-3 mr-lg-0"><a href="https://services.github.com" data-hydro-click="{&quot;event_type&quot;:&quot;analytics.event&quot;,&quot;payload&quot;:{&quot;category&quot;:&quot;Footer&quot;,&quot;action&quot;:&quot;go to training&quot;,&quot;label&quot;:&quot;text:training&quot;,&quot;originating_url&quot;:&quot;https://github.com/jenkinsci/docker/blob/master/install-plugins.sh&quot;,&quot;user_id&quot;:36673283}}" data-hydro-click-hmac="5b58887e478c702bc5b54d934202c85927229a782639237a01a6ec60150b389c">Training</a></li>
+        <li class="mr-3 mr-lg-0"><a href="https://github.blog" data-hydro-click="{&quot;event_type&quot;:&quot;analytics.event&quot;,&quot;payload&quot;:{&quot;category&quot;:&quot;Footer&quot;,&quot;action&quot;:&quot;go to blog&quot;,&quot;label&quot;:&quot;text:blog&quot;,&quot;originating_url&quot;:&quot;https://github.com/jenkinsci/docker/blob/master/install-plugins.sh&quot;,&quot;user_id&quot;:36673283}}" data-hydro-click-hmac="c6de58b5a58fcfe70e23a31f163d33b13d3125a263b27fbe3110a14c074cb52c">Blog</a></li>
         <li><a data-ga-click="Footer, go to about, text:about" href="https://github.com/about">About</a></li>
     </ul>
   </div>

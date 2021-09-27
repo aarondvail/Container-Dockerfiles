@@ -85,14 +85,14 @@
 
   <meta name="viewport" content="width=device-width">
   
-  <title>docker/jenkins.sh at master · jenkinsci/docker</title>
+  <title>docker/jenkins-plugin-cli.sh at master · jenkinsci/docker</title>
     <meta name="description" content="Docker official jenkins repo. Contribute to jenkinsci/docker development by creating an account on GitHub.">
     <link rel="search" type="application/opensearchdescription+xml" href="/opensearch.xml" title="GitHub">
   <link rel="fluid-icon" href="https://github.com/fluidicon.png" title="GitHub">
   <meta property="fb:app_id" content="1401488693436528">
   <meta name="apple-itunes-app" content="app-id=1477376905" />
-    <meta name="twitter:image:src" content="https://repository-images.githubusercontent.com/21969270/25b81280-c039-11e9-9a7c-2c2222c231b5" /><meta name="twitter:site" content="@github" /><meta name="twitter:card" content="summary_large_image" /><meta name="twitter:title" content="docker/jenkins.sh at master · jenkinsci/docker" /><meta name="twitter:description" content="Docker official jenkins repo. Contribute to jenkinsci/docker development by creating an account on GitHub." />
-    <meta property="og:image" content="https://repository-images.githubusercontent.com/21969270/25b81280-c039-11e9-9a7c-2c2222c231b5" /><meta property="og:image:alt" content="Docker official jenkins repo. Contribute to jenkinsci/docker development by creating an account on GitHub." /><meta property="og:site_name" content="GitHub" /><meta property="og:type" content="object" /><meta property="og:title" content="docker/jenkins.sh at master · jenkinsci/docker" /><meta property="og:url" content="https://github.com/jenkinsci/docker" /><meta property="og:description" content="Docker official jenkins repo. Contribute to jenkinsci/docker development by creating an account on GitHub." />
+    <meta name="twitter:image:src" content="https://repository-images.githubusercontent.com/21969270/25b81280-c039-11e9-9a7c-2c2222c231b5" /><meta name="twitter:site" content="@github" /><meta name="twitter:card" content="summary_large_image" /><meta name="twitter:title" content="docker/jenkins-plugin-cli.sh at master · jenkinsci/docker" /><meta name="twitter:description" content="Docker official jenkins repo. Contribute to jenkinsci/docker development by creating an account on GitHub." />
+    <meta property="og:image" content="https://repository-images.githubusercontent.com/21969270/25b81280-c039-11e9-9a7c-2c2222c231b5" /><meta property="og:image:alt" content="Docker official jenkins repo. Contribute to jenkinsci/docker development by creating an account on GitHub." /><meta property="og:site_name" content="GitHub" /><meta property="og:type" content="object" /><meta property="og:title" content="docker/jenkins-plugin-cli.sh at master · jenkinsci/docker" /><meta property="og:url" content="https://github.com/jenkinsci/docker" /><meta property="og:description" content="Docker official jenkins repo. Contribute to jenkinsci/docker development by creating an account on GitHub." />
     
 
 
@@ -100,11 +100,11 @@
     
 
   <link rel="assets" href="https://github.githubassets.com/">
-    <link rel="shared-web-socket" href="wss://alive.github.com/_sockets/u/36673283/ws?session=eyJ2IjoiVjMiLCJ1IjozNjY3MzI4MywicyI6NzU4MTU3NDE0LCJjIjozMDU0OTk5NjE1LCJ0IjoxNjMyNzYyNDgyfQ==--d2c439eca2cd1d8138fa5954af4d7a2a961e9df61c610a2393a847ee896ab0aa" data-refresh-url="/_alive" data-session-id="70f59983080e56e5088aab3390e6c70d16aa6be7aeb3310b0dcef115c2519730">
+    <link rel="shared-web-socket" href="wss://alive.github.com/_sockets/u/36673283/ws?session=eyJ2IjoiVjMiLCJ1IjozNjY3MzI4MywicyI6NzU4MTU3NDE0LCJjIjoyMzE0MzA2OTM3LCJ0IjoxNjMyNzYyNjg4fQ==--af38a2e0a3cffc144a748f6471c3f5075d8a43824f58dea437088ec9b2d455dc" data-refresh-url="/_alive" data-session-id="70f59983080e56e5088aab3390e6c70d16aa6be7aeb3310b0dcef115c2519730">
     <link rel="shared-web-socket-src" href="/socket-worker-0af8a29d.js">
   <link rel="sudo-modal" href="/sessions/sudo_modal">
 
-  <meta name="request-id" content="771D:6F4D:1D4998F:30FD3F7:6151FA72" data-pjax-transient="true" /><meta name="html-safe-nonce" content="d4cc0e21ee8ff01dcdbf0e8f92b692aca64fcb97247502afcfc7ddbe682923db" data-pjax-transient="true" /><meta name="visitor-payload" content="eyJyZWZlcnJlciI6Imh0dHBzOi8vZ2l0aHViLmNvbS9qZW5raW5zY2kvZG9ja2VyIiwicmVxdWVzdF9pZCI6Ijc3MUQ6NkY0RDoxRDQ5OThGOjMwRkQzRjc6NjE1MUZBNzIiLCJ2aXNpdG9yX2lkIjoiNzk0MjEwOTgyODY1NzE1NzMzNSIsInJlZ2lvbl9lZGdlIjoiaWFkIiwicmVnaW9uX3JlbmRlciI6ImlhZCJ9" data-pjax-transient="true" /><meta name="visitor-hmac" content="bb83d6e7f4cfee542278711a0db71e4fb709b7d566d2a9a623fbb78f75a5bc43" data-pjax-transient="true" />
+  <meta name="request-id" content="771D:6F4D:1D4D7AF:3103F1C:6151FB09" data-pjax-transient="true" /><meta name="html-safe-nonce" content="d4cc0e21ee8ff01dcdbf0e8f92b692aca64fcb97247502afcfc7ddbe682923db" data-pjax-transient="true" /><meta name="visitor-payload" content="eyJyZWZlcnJlciI6Imh0dHBzOi8vZ2l0aHViLmNvbS9qZW5raW5zY2kvZG9ja2VyIiwicmVxdWVzdF9pZCI6Ijc3MUQ6NkY0RDoxRDREN0FGOjMxMDNGMUM6NjE1MUZCMDkiLCJ2aXNpdG9yX2lkIjoiNzk0MjEwOTgyODY1NzE1NzMzNSIsInJlZ2lvbl9lZGdlIjoiaWFkIiwicmVnaW9uX3JlbmRlciI6ImlhZCJ9" data-pjax-transient="true" /><meta name="visitor-hmac" content="63b90216347f0a4f0517dd622241bc1ce6d086751063677a24072aaf0d887c48" data-pjax-transient="true" />
 
     <meta name="hovercard-subject-tag" content="repository:21969270" data-pjax-transient>
 
@@ -143,7 +143,7 @@
 
       <meta name="expected-hostname" content="github.com">
 
-      <meta name="js-proxy-site-detection-payload" content="N2VjMWQ3ZDBhMTUxMzU4YjkzZmEzN2NiMzYyMjU5ODQ4ODBiNmY2NTZjNGNlNWQxZTZiMjJjYjExZGZmM2U3Ynx7InJlbW90ZV9hZGRyZXNzIjoiMjQuMzUuMjcuMjEiLCJyZXF1ZXN0X2lkIjoiNzcxRDo2RjREOjFENDk5OEY6MzBGRDNGNzo2MTUxRkE3MiIsInRpbWVzdGFtcCI6MTYzMjc2MjQ4MiwiaG9zdCI6ImdpdGh1Yi5jb20ifQ==">
+      <meta name="js-proxy-site-detection-payload" content="YmM5ODIzYzhjZjUwODU2MDllYzg3NGQ4OWE3MDllZmUwNTk2NjRhNWJlMWJlN2MxZWRlZWZhNGU3ZjBjNGMwNnx7InJlbW90ZV9hZGRyZXNzIjoiMjQuMzUuMjcuMjEiLCJyZXF1ZXN0X2lkIjoiNzcxRDo2RjREOjFENEQ3QUY6MzEwM0YxQzo2MTUxRkIwOSIsInRpbWVzdGFtcCI6MTYzMjc2MjY4OCwiaG9zdCI6ImdpdGh1Yi5jb20ifQ==">
       <meta name="keyboard-shortcuts-preference" content="all">
 
     <meta name="enabled-features" content="BRANCH_PROTECTION_RULE_WEBHOOK,MARKETPLACE_PENDING_INSTALLATIONS,FILE_UPLOAD_CURSOR_POSITION">
@@ -161,7 +161,7 @@
 
 
 
-    <link rel="canonical" href="https://github.com/jenkinsci/docker/blob/master/jenkins.sh" data-pjax-transient>
+    <link rel="canonical" href="https://github.com/jenkinsci/docker/blob/master/jenkins-plugin-cli.sh" data-pjax-transient>
 
 
   <meta name="browser-stats-url" content="https://api.github.com/_private/browser/stats">
@@ -201,7 +201,7 @@
   href="https://github.com/"
   data-hotkey="g d"
   aria-label="Homepage "
-  data-hydro-click="{&quot;event_type&quot;:&quot;analytics.event&quot;,&quot;payload&quot;:{&quot;category&quot;:&quot;Header&quot;,&quot;action&quot;:&quot;go to dashboard&quot;,&quot;label&quot;:&quot;icon:logo&quot;,&quot;originating_url&quot;:&quot;https://github.com/jenkinsci/docker/blob/master/jenkins.sh&quot;,&quot;user_id&quot;:36673283}}" data-hydro-click-hmac="35b21036edd341e6b38bbaecf656bd028db293095e05c24d2f98f5ee8fcf1c21"
+  data-hydro-click="{&quot;event_type&quot;:&quot;analytics.event&quot;,&quot;payload&quot;:{&quot;category&quot;:&quot;Header&quot;,&quot;action&quot;:&quot;go to dashboard&quot;,&quot;label&quot;:&quot;icon:logo&quot;,&quot;originating_url&quot;:&quot;https://github.com/jenkinsci/docker/blob/master/jenkins-plugin-cli.sh&quot;,&quot;user_id&quot;:36673283}}" data-hydro-click-hmac="5688059ff8e58694994ec019dca8fb15368e7392eddea6b6572e61ec4a08cf82"
 >
   <svg height="32" aria-hidden="true" viewBox="0 0 16 16" version="1.1" width="32" data-view-component="true" class="octicon octicon-mark-github v-align-middle">
     <path fill-rule="evenodd" d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z"></path>
@@ -251,7 +251,7 @@
           spellcheck="false"
           autocomplete="off"
         >
-        <input type="hidden" value="S2bqb/4MBMdGK203//dzfYquZdFVjJCSPQhMMjNAKIcY6mOX+dtEPHPlgNRUJa8pHOEHMN3peojJdvETBL8A3w==" data-csrf="true" class="js-data-jump-to-suggestions-path-csrf" />
+        <input type="hidden" value="jaYl5s02gpOARjoeqF6OMqcItrYOvDmB/xn8PFtstmzeKqweyuHCaLWI1/0DjFJmMUfUV4bZ05sLZ0EdbJOeNA==" data-csrf="true" class="js-data-jump-to-suggestions-path-csrf" />
         <input type="hidden" class="js-site-search-type-field" name="type" >
             <svg xmlns="http://www.w3.org/2000/svg" width="22" height="20" aria-hidden="true" class="mr-1 header-search-key-slash"><path fill="none" stroke="#979A9C" opacity=".4" d="M3.5.5h12c1.7 0 3 1.3 3 3v13c0 1.7-1.3 3-3 3h-12c-1.7 0-3-1.3-3-3v-13c0-1.7 1.3-3 3-3z"></path><path fill="#979A9C" d="M11.8 6L8 15.1h-.9L10.8 6h1z"></path></svg>
 
@@ -455,7 +455,7 @@
     <a class="js-selected-navigation-item Header-link d-block d-md-none py-2 py-md-3 border-top border-md-top-0 border-white-fade" data-ga-click="Header, click, Nav menu - item:workspaces context:user" data-selected-links="/codespaces /codespaces" href="/codespaces">
       Codespaces
 </a>
-      <a class="js-selected-navigation-item Header-link d-block d-md-none py-2 py-md-3 border-top border-md-top-0 border-white-fade" data-ga-click="Header, click, Nav menu - item:Sponsors" data-hydro-click="{&quot;event_type&quot;:&quot;sponsors.button_click&quot;,&quot;payload&quot;:{&quot;button&quot;:&quot;HEADER_SPONSORS_DASHBOARD&quot;,&quot;sponsorable_login&quot;:&quot;aarondvail&quot;,&quot;originating_url&quot;:&quot;https://github.com/jenkinsci/docker/blob/master/jenkins.sh&quot;,&quot;user_id&quot;:36673283}}" data-hydro-click-hmac="9c4ace4c691d98880068d2ce38ff759d863e2753034991fd8199b61167b8eed9" data-selected-links=" /sponsors/accounts" href="/sponsors/accounts">Sponsors</a>
+      <a class="js-selected-navigation-item Header-link d-block d-md-none py-2 py-md-3 border-top border-md-top-0 border-white-fade" data-ga-click="Header, click, Nav menu - item:Sponsors" data-hydro-click="{&quot;event_type&quot;:&quot;sponsors.button_click&quot;,&quot;payload&quot;:{&quot;button&quot;:&quot;HEADER_SPONSORS_DASHBOARD&quot;,&quot;sponsorable_login&quot;:&quot;aarondvail&quot;,&quot;originating_url&quot;:&quot;https://github.com/jenkinsci/docker/blob/master/jenkins-plugin-cli.sh&quot;,&quot;user_id&quot;:36673283}}" data-hydro-click-hmac="83bed7ab9c692abdfb2183326e00765a02d34679cd2ff8bf11bbc17e328e1c68" data-selected-links=" /sponsors/accounts" href="/sponsors/accounts">Sponsors</a>
 
     <a class="Header-link d-block d-md-none mr-0 mr-md-3 py-2 py-md-3 border-top border-md-top-0 border-white-fade" href="/settings/profile">
       Settings
@@ -464,12 +464,12 @@
       <img class="avatar avatar-user" loading="lazy" decoding="async" src="https://avatars.githubusercontent.com/u/36673283?s=40&amp;v=4" width="20" height="20" alt="@aarondvail" />
       aarondvail
 </a>
-    <!-- '"` --><!-- </textarea></xmp> --></option></form><form action="/logout" accept-charset="UTF-8" method="post"><input type="hidden" name="authenticity_token" value="Uk7FFbzr/k2Q7dv1/spV0OJsmACefB5bZM15RnNoWzuYQJCtQ3w6tpDGwUjnLfB8e2qlP9iww3POWFGorPYHkg==" />
+    <!-- '"` --><!-- </textarea></xmp> --></option></form><form action="/logout" accept-charset="UTF-8" method="post"><input type="hidden" name="authenticity_token" value="kPueQDFDpPJ0b+mNfwqcm+tD46eNTjo3VyN+moctTgFa9cv4ztRgCXRE8zBm7Tk3ckXemMuC5x/9tlZ0WLMSqA==" />
       <button
         type="submit"
         class="Header-link mr-0 mr-md-3 py-2 py-md-3 border-top border-md-top-0 border-white-fade d-md-none btn-link d-block width-full text-left"
         style="padding-left: 2px;"
-        data-hydro-click="{&quot;event_type&quot;:&quot;analytics.event&quot;,&quot;payload&quot;:{&quot;category&quot;:&quot;Header&quot;,&quot;action&quot;:&quot;sign out&quot;,&quot;label&quot;:&quot;icon:logout&quot;,&quot;originating_url&quot;:&quot;https://github.com/jenkinsci/docker/blob/master/jenkins.sh&quot;,&quot;user_id&quot;:36673283}}" data-hydro-click-hmac="1bb7be58d130a165e7e63b1a31bc373bd8b7569df55e8c83bb9c9a59e4530e15"
+        data-hydro-click="{&quot;event_type&quot;:&quot;analytics.event&quot;,&quot;payload&quot;:{&quot;category&quot;:&quot;Header&quot;,&quot;action&quot;:&quot;sign out&quot;,&quot;label&quot;:&quot;icon:logout&quot;,&quot;originating_url&quot;:&quot;https://github.com/jenkinsci/docker/blob/master/jenkins-plugin-cli.sh&quot;,&quot;user_id&quot;:36673283}}" data-hydro-click-hmac="2dde229701951ce5042305f17c97c303cf34b783b08051d7c616ae297ec6664b"
       >
         <svg aria-hidden="true" height="16" viewBox="0 0 16 16" version="1.1" width="16" data-view-component="true" class="octicon octicon-sign-out v-align-middle">
     <path fill-rule="evenodd" d="M2 2.75C2 1.784 2.784 1 3.75 1h2.5a.75.75 0 010 1.5h-2.5a.25.25 0 00-.25.25v10.5c0 .138.112.25.25.25h2.5a.75.75 0 010 1.5h-2.5A1.75 1.75 0 012 13.25V2.75zm10.44 4.5H6.75a.75.75 0 000 1.5h5.69l-1.97 1.97a.75.75 0 101.06 1.06l3.25-3.25a.75.75 0 000-1.06l-3.25-3.25a.75.75 0 10-1.06 1.06l1.97 1.97z"></path>
@@ -486,7 +486,7 @@
   href="https://github.com/"
   data-hotkey="g d"
   aria-label="Homepage "
-  data-hydro-click="{&quot;event_type&quot;:&quot;analytics.event&quot;,&quot;payload&quot;:{&quot;category&quot;:&quot;Header&quot;,&quot;action&quot;:&quot;go to dashboard&quot;,&quot;label&quot;:&quot;icon:logo&quot;,&quot;originating_url&quot;:&quot;https://github.com/jenkinsci/docker/blob/master/jenkins.sh&quot;,&quot;user_id&quot;:36673283}}" data-hydro-click-hmac="35b21036edd341e6b38bbaecf656bd028db293095e05c24d2f98f5ee8fcf1c21"
+  data-hydro-click="{&quot;event_type&quot;:&quot;analytics.event&quot;,&quot;payload&quot;:{&quot;category&quot;:&quot;Header&quot;,&quot;action&quot;:&quot;go to dashboard&quot;,&quot;label&quot;:&quot;icon:logo&quot;,&quot;originating_url&quot;:&quot;https://github.com/jenkinsci/docker/blob/master/jenkins-plugin-cli.sh&quot;,&quot;user_id&quot;:36673283}}" data-hydro-click-hmac="5688059ff8e58694994ec019dca8fb15368e7392eddea6b6572e61ec4a08cf82"
 >
   <svg height="32" aria-hidden="true" viewBox="0 0 16 16" version="1.1" width="32" data-view-component="true" class="octicon octicon-mark-github v-align-middle">
     <path fill-rule="evenodd" d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z"></path>
@@ -502,7 +502,7 @@
       <notification-indicator
         class="js-socket-channel"
         data-test-selector="notifications-indicator"
-        data-channel="eyJjIjoibm90aWZpY2F0aW9uLWNoYW5nZWQ6MzY2NzMyODMiLCJ0IjoxNjMyNzYyNDgyfQ==--289ed6873535fdd82b176e2e8f176df5aee6af81fef9e43aeff4736b1c75e545">
+        data-channel="eyJjIjoibm90aWZpY2F0aW9uLWNoYW5nZWQ6MzY2NzMyODMiLCJ0IjoxNjMyNzYyNjg4fQ==--ef38cbfdb3eac7f94f66e1c27327f1f638b28aa34dc54524c9043eb249455541">
         <a href="/notifications"
           class="Header-link notification-indicator position-relative tooltipped tooltipped-sw"
           
@@ -525,7 +525,7 @@
   <summary
     class="Header-link"
     aria-label="Create new…"
-    data-hydro-click="{&quot;event_type&quot;:&quot;analytics.event&quot;,&quot;payload&quot;:{&quot;category&quot;:&quot;Header&quot;,&quot;action&quot;:&quot;create new&quot;,&quot;label&quot;:&quot;icon:add&quot;,&quot;originating_url&quot;:&quot;https://github.com/jenkinsci/docker/blob/master/jenkins.sh&quot;,&quot;user_id&quot;:36673283}}" data-hydro-click-hmac="89fd54e05340b236176e51b0ef10b3eab0727b4984e7f263d43cf03daab08da6"
+    data-hydro-click="{&quot;event_type&quot;:&quot;analytics.event&quot;,&quot;payload&quot;:{&quot;category&quot;:&quot;Header&quot;,&quot;action&quot;:&quot;create new&quot;,&quot;label&quot;:&quot;icon:add&quot;,&quot;originating_url&quot;:&quot;https://github.com/jenkinsci/docker/blob/master/jenkins-plugin-cli.sh&quot;,&quot;user_id&quot;:36673283}}" data-hydro-click-hmac="4da03ced2fcb9643b357dce74e5e190439bcd67985b25ae9b8b4435937f50360"
   >
       <svg aria-hidden="true" height="16" viewBox="0 0 16 16" version="1.1" width="16" data-view-component="true" class="octicon octicon-plus">
     <path fill-rule="evenodd" d="M7.75 2a.75.75 0 01.75.75V7h4.25a.75.75 0 110 1.5H8.5v4.25a.75.75 0 11-1.5 0V8.5H2.75a.75.75 0 010-1.5H7V2.75A.75.75 0 017.75 2z"></path>
@@ -563,7 +563,7 @@
   <summary
     class="Header-link"
     aria-label="View profile and more"
-    data-hydro-click="{&quot;event_type&quot;:&quot;analytics.event&quot;,&quot;payload&quot;:{&quot;category&quot;:&quot;Header&quot;,&quot;action&quot;:&quot;show menu&quot;,&quot;label&quot;:&quot;icon:avatar&quot;,&quot;originating_url&quot;:&quot;https://github.com/jenkinsci/docker/blob/master/jenkins.sh&quot;,&quot;user_id&quot;:36673283}}" data-hydro-click-hmac="9e0ff1544a55ce3a83549bb8d3388b88143113535492d02dae24c4fe496d5164"
+    data-hydro-click="{&quot;event_type&quot;:&quot;analytics.event&quot;,&quot;payload&quot;:{&quot;category&quot;:&quot;Header&quot;,&quot;action&quot;:&quot;show menu&quot;,&quot;label&quot;:&quot;icon:avatar&quot;,&quot;originating_url&quot;:&quot;https://github.com/jenkinsci/docker/blob/master/jenkins-plugin-cli.sh&quot;,&quot;user_id&quot;:36673283}}" data-hydro-click-hmac="519854224c6dcccc9210b4ae79ef8de34bb3c666ea03a2e415e6506bd698cf5e"
   >
     <img src="https://avatars.githubusercontent.com/u/36673283?s=40&amp;v=4" alt="@aarondvail" size="20" height="20" width="20" data-view-component="true" class="avatar-user avatar avatar-small"></img>
       <span class="feature-preview-indicator js-feature-preview-indicator" style="top: 1px;" hidden></span>
@@ -685,7 +685,7 @@
         data-action="toggle:notifications-list-subscription-form#detailsToggled"
       >
 
-      <summary class="btn btn-sm rounded-right-0" data-hydro-click="{&quot;event_type&quot;:&quot;repository.click&quot;,&quot;payload&quot;:{&quot;target&quot;:&quot;WATCH_BUTTON&quot;,&quot;repository_id&quot;:21969270,&quot;originating_url&quot;:&quot;https://github.com/jenkinsci/docker/blob/master/jenkins.sh&quot;,&quot;user_id&quot;:36673283}}" data-hydro-click-hmac="ca00cbd53902392f19b2d00b6ee52f96d9d32b414b3730c7ba2b07bd6b1f42ac" data-ga-click="Repository, click Watch settings, action:blob#show" aria-label="Notifications settings">
+      <summary class="btn btn-sm rounded-right-0" data-hydro-click="{&quot;event_type&quot;:&quot;repository.click&quot;,&quot;payload&quot;:{&quot;target&quot;:&quot;WATCH_BUTTON&quot;,&quot;repository_id&quot;:21969270,&quot;originating_url&quot;:&quot;https://github.com/jenkinsci/docker/blob/master/jenkins-plugin-cli.sh&quot;,&quot;user_id&quot;:36673283}}" data-hydro-click-hmac="facd119ca82741ca95b195a1c16d3c2d223b4950b7e90ae8907d98ab83961512" data-ga-click="Repository, click Watch settings, action:blob#show" aria-label="Notifications settings">
           <span data-menu-button>
             <span
               hidden
@@ -737,7 +737,7 @@
             </header>
 
             <div class="SelectMenu-list">
-              <form data-target="notifications-list-subscription-form.form" data-action="submit:notifications-list-subscription-form#submitForm" action="/notifications/subscribe" accept-charset="UTF-8" method="post"><input type="hidden" name="authenticity_token" value="o1J0s1KmbLcAGB0DrFU25xcR0HDXYpXY4dzVwvOfDghzIWeKvWhOyLmvxKJObpkvY+85l/nEd27Mc0WIq/boqQ==" />
+              <form data-target="notifications-list-subscription-form.form" data-action="submit:notifications-list-subscription-form#submitForm" action="/notifications/subscribe" accept-charset="UTF-8" method="post"><input type="hidden" name="authenticity_token" value="2nXVxReLk6mHLvIlf/I0vcsVmY5CviLEG1RHb1e5uekKBsb8+EWx1j6ZK4SdyZt1v+twaWwYwHI2+9clD9BfSA==" />
 
                 <input type="hidden" name="repository_id" value="21969270">
 
@@ -860,7 +860,7 @@
 
         <details-dialog class="notifications-component-dialog " data-target="notifications-list-subscription-form.customDialog" hidden>
           <div class="SelectMenu-modal notifications-component-dialog-modal overflow-visible">
-            <form data-target="notifications-list-subscription-form.customform" data-action="submit:notifications-list-subscription-form#submitCustomForm" action="/notifications/subscribe" accept-charset="UTF-8" method="post"><input type="hidden" name="authenticity_token" value="fp8sl9a0b+kExhQK3wmL1sjUKmqdkdt/dkd9TiErDDKu7D+uOXpNlr1xzas9MiQevCrDjbM3Oclb6O0EeULqkw==" />
+            <form data-target="notifications-list-subscription-form.customform" data-action="submit:notifications-list-subscription-form#submitCustomForm" action="/notifications/subscribe" accept-charset="UTF-8" method="post"><input type="hidden" name="authenticity_token" value="iqu9+/JwgSj2iUvB9QG5tsF6lQM6jdy5ZqIoRWz8exNa2K7CHb6jV08+kmAXOhZ+tYR85BQrPg9LDbgPNJWdsg==" />
 
               <input type="hidden" name="repository_id" value="21969270">
 
@@ -1019,9 +1019,9 @@
 
   <li>
         <div class="d-block js-toggler-container js-social-container starring-container ">
-    <form class="starred js-social-form" action="/jenkinsci/docker/unstar" accept-charset="UTF-8" method="post"><input type="hidden" name="authenticity_token" value="qm2qc4Snc/ESjGabFItnSI96irdX4TcRRcdABhEkNo2bv0xny/L+SYmZv4U4OmS2ZhRcrWyvUXCdsevlcQHnuA==" />
+    <form class="starred js-social-form" action="/jenkinsci/docker/unstar" accept-charset="UTF-8" method="post"><input type="hidden" name="authenticity_token" value="MlwFrGQwS9fei5F3lPNWxHl0jEoYOuAvjhd7ItGv4UADjuO4K2XGb0WeSGm4QlU6kBpaUCN0hk5WYdDBsYowdQ==" />
       <input type="hidden" name="context" value="repository">
-      <button type="submit" class="btn btn-sm btn-with-count  js-toggler-target" aria-label="Unstar this repository" title="Unstar jenkinsci/docker" data-hydro-click="{&quot;event_type&quot;:&quot;repository.click&quot;,&quot;payload&quot;:{&quot;target&quot;:&quot;UNSTAR_BUTTON&quot;,&quot;repository_id&quot;:21969270,&quot;originating_url&quot;:&quot;https://github.com/jenkinsci/docker/blob/master/jenkins.sh&quot;,&quot;user_id&quot;:36673283}}" data-hydro-click-hmac="e639ac4f2f81d871bdeaca4d2c29a17931a1ba27c1173ba0371826b604fabb16" data-ga-click="Repository, click unstar button, action:blob#show; text:Unstar">        <svg aria-hidden="true" height="16" viewBox="0 0 16 16" version="1.1" width="16" data-view-component="true" class="octicon octicon-star-fill mr-1">
+      <button type="submit" class="btn btn-sm btn-with-count  js-toggler-target" aria-label="Unstar this repository" title="Unstar jenkinsci/docker" data-hydro-click="{&quot;event_type&quot;:&quot;repository.click&quot;,&quot;payload&quot;:{&quot;target&quot;:&quot;UNSTAR_BUTTON&quot;,&quot;repository_id&quot;:21969270,&quot;originating_url&quot;:&quot;https://github.com/jenkinsci/docker/blob/master/jenkins-plugin-cli.sh&quot;,&quot;user_id&quot;:36673283}}" data-hydro-click-hmac="8c7f39352238717b4ae3786ba83ab89b20bc719fabd27083e74f2f04f65205d0" data-ga-click="Repository, click unstar button, action:blob#show; text:Unstar">        <svg aria-hidden="true" height="16" viewBox="0 0 16 16" version="1.1" width="16" data-view-component="true" class="octicon octicon-star-fill mr-1">
     <path fill-rule="evenodd" d="M8 .25a.75.75 0 01.673.418l1.882 3.815 4.21.612a.75.75 0 01.416 1.279l-3.046 2.97.719 4.192a.75.75 0 01-1.088.791L8 12.347l-3.766 1.98a.75.75 0 01-1.088-.79l.72-4.194L.818 6.374a.75.75 0 01.416-1.28l4.21-.611L7.327.668A.75.75 0 018 .25z"></path>
 </svg>
         <span data-view-component="true">
@@ -1031,9 +1031,9 @@
            4.7k
         </a>
 </form>
-    <form class="unstarred js-social-form" action="/jenkinsci/docker/star" accept-charset="UTF-8" method="post"><input type="hidden" name="authenticity_token" value="UKVQ3rvek0JEXa+0wYcWqjpPlabXsgY1d3awFz9WfIw4jVAGB7AHgw1lTdovFrG+poaMDkP/2fcSQM5hkmV1lQ==" />
+    <form class="unstarred js-social-form" action="/jenkinsci/docker/star" accept-charset="UTF-8" method="post"><input type="hidden" name="authenticity_token" value="FViVgytvNXK5Iv6xUAxGBh5b53r4eZA3rmC2sbw1lHh9cJVblwGhs/AaHN++neESgpL+0mw0T/XLVsjHEQadYQ==" />
       <input type="hidden" name="context" value="repository">
-      <button type="submit" class="btn btn-sm btn-with-count  js-toggler-target" aria-label="Star this repository" title="Star jenkinsci/docker" data-hydro-click="{&quot;event_type&quot;:&quot;repository.click&quot;,&quot;payload&quot;:{&quot;target&quot;:&quot;STAR_BUTTON&quot;,&quot;repository_id&quot;:21969270,&quot;originating_url&quot;:&quot;https://github.com/jenkinsci/docker/blob/master/jenkins.sh&quot;,&quot;user_id&quot;:36673283}}" data-hydro-click-hmac="82ab9aa93c9bda477948bb8a8254bf083b1287cf8cc41b4ff9a272641c5c2309" data-ga-click="Repository, click star button, action:blob#show; text:Star">        <svg aria-hidden="true" height="16" viewBox="0 0 16 16" version="1.1" width="16" data-view-component="true" class="octicon octicon-star mr-1">
+      <button type="submit" class="btn btn-sm btn-with-count  js-toggler-target" aria-label="Star this repository" title="Star jenkinsci/docker" data-hydro-click="{&quot;event_type&quot;:&quot;repository.click&quot;,&quot;payload&quot;:{&quot;target&quot;:&quot;STAR_BUTTON&quot;,&quot;repository_id&quot;:21969270,&quot;originating_url&quot;:&quot;https://github.com/jenkinsci/docker/blob/master/jenkins-plugin-cli.sh&quot;,&quot;user_id&quot;:36673283}}" data-hydro-click-hmac="f9c403f4ad59e4c0d42acd2e576c23c98877e325924233638c3cf0742c0e7549" data-ga-click="Repository, click star button, action:blob#show; text:Star">        <svg aria-hidden="true" height="16" viewBox="0 0 16 16" version="1.1" width="16" data-view-component="true" class="octicon octicon-star mr-1">
     <path fill-rule="evenodd" d="M8 .25a.75.75 0 01.673.418l1.882 3.815 4.21.612a.75.75 0 01.416 1.279l-3.046 2.97.719 4.192a.75.75 0 01-1.088.791L8 12.347l-3.766 1.98a.75.75 0 01-1.088-.79l.72-4.194L.818 6.374a.75.75 0 01.416-1.28l4.21-.611L7.327.668A.75.75 0 018 .25zm0 2.445L6.615 5.5a.75.75 0 01-.564.41l-3.097.45 2.24 2.184a.75.75 0 01.216.664l-.528 3.084 2.769-1.456a.75.75 0 01.698 0l2.77 1.456-.53-3.084a.75.75 0 01.216-.664l2.24-2.183-3.096-.45a.75.75 0 01-.564-.41L8 2.694v.001z"></path>
 </svg>
         <span data-view-component="true">
@@ -1052,7 +1052,7 @@
                       <summary
                     class="btn btn-sm btn-with-count"
                     title="Fork your own copy of jenkinsci/docker to your account"
-                    data-hydro-click="{&quot;event_type&quot;:&quot;repository.click&quot;,&quot;payload&quot;:{&quot;target&quot;:&quot;FORK_BUTTON&quot;,&quot;repository_id&quot;:21969270,&quot;originating_url&quot;:&quot;https://github.com/jenkinsci/docker/blob/master/jenkins.sh&quot;,&quot;user_id&quot;:36673283}}" data-hydro-click-hmac="ef1858fe4a62bce08c27a9f810304ddac612f6a55ad82dfcaaddd81ba479d89f" data-ga-click="Repository, show fork modal, action:blob#show; text:Fork">
+                    data-hydro-click="{&quot;event_type&quot;:&quot;repository.click&quot;,&quot;payload&quot;:{&quot;target&quot;:&quot;FORK_BUTTON&quot;,&quot;repository_id&quot;:21969270,&quot;originating_url&quot;:&quot;https://github.com/jenkinsci/docker/blob/master/jenkins-plugin-cli.sh&quot;,&quot;user_id&quot;:36673283}}" data-hydro-click-hmac="eab5655ca20aae0ad7d5be685f834e388e3634842095ad7f563f8a2b57cb89f5" data-ga-click="Repository, show fork modal, action:blob#show; text:Fork">
                     <svg aria-hidden="true" height="16" viewBox="0 0 16 16" version="1.1" width="16" data-view-component="true" class="octicon octicon-repo-forked">
     <path fill-rule="evenodd" d="M5 3.25a.75.75 0 11-1.5 0 .75.75 0 011.5 0zm0 2.122a2.25 2.25 0 10-1.5 0v.878A2.25 2.25 0 005.75 8.5h1.5v2.128a2.251 2.251 0 101.5 0V8.5h1.5a2.25 2.25 0 002.25-2.25v-.878a2.25 2.25 0 10-1.5 0v.878a.75.75 0 01-.75.75h-4.5A.75.75 0 015 6.25v-.878zm3.75 7.378a.75.75 0 11-1.5 0 .75.75 0 011.5 0zm3-8.75a.75.75 0 100-1.5.75.75 0 000 1.5z"></path>
 </svg>
@@ -1258,9 +1258,9 @@
   
 
 
-    <a class="d-none js-permalink-shortcut" data-hotkey="y" href="/jenkinsci/docker/blob/b9fe51cbc1e1faa1555c593c37ea29558f55b5b2/jenkins.sh">Permalink</a>
+    <a class="d-none js-permalink-shortcut" data-hotkey="y" href="/jenkinsci/docker/blob/b9fe51cbc1e1faa1555c593c37ea29558f55b5b2/jenkins-plugin-cli.sh">Permalink</a>
 
-    <!-- blob contrib key: blob_contributors:v22:e1d732a1aa66a181e384ab13c3b5be79a0306bfcf6210d100d2306522b1231aa -->
+    <!-- blob contrib key: blob_contributors:v22:f90eaeae27f6f31bbe2ea5beee200bf289bda0020c3aad58af49459acd13dfad -->
 
     <div class="d-flex flex-items-start flex-shrink-0 pb-3 flex-wrap flex-md-nowrap flex-justify-between flex-md-justify-start">
       
@@ -1345,7 +1345,7 @@
             </div>
 
               <template data-target="ref-selector.itemTemplate">
-  <a href="https://github.com/jenkinsci/docker/blob/{{ urlEncodedRefName }}/jenkins.sh" class="SelectMenu-item" role="menuitemradio" rel="nofollow" aria-checked="{{ isCurrent }}" data-index="{{ index }}">
+  <a href="https://github.com/jenkinsci/docker/blob/{{ urlEncodedRefName }}/jenkins-plugin-cli.sh" class="SelectMenu-item" role="menuitemradio" rel="nofollow" aria-checked="{{ isCurrent }}" data-index="{{ index }}">
     <svg aria-hidden="true" height="16" viewBox="0 0 16 16" version="1.1" width="16" data-view-component="true" class="octicon octicon-check SelectMenu-icon SelectMenu-icon--check">
     <path fill-rule="evenodd" d="M13.78 4.22a.75.75 0 010 1.06l-7.25 7.25a.75.75 0 01-1.06 0L2.22 9.28a.75.75 0 011.06-1.06L6 10.94l6.72-6.72a.75.75 0 011.06 0z"></path>
 </svg>
@@ -1385,7 +1385,7 @@
             </template>
 
               <template data-target="ref-selector.itemTemplate">
-  <a href="https://github.com/jenkinsci/docker/blob/{{ urlEncodedRefName }}/jenkins.sh" class="SelectMenu-item" role="menuitemradio" rel="nofollow" aria-checked="{{ isCurrent }}" data-index="{{ index }}">
+  <a href="https://github.com/jenkinsci/docker/blob/{{ urlEncodedRefName }}/jenkins-plugin-cli.sh" class="SelectMenu-item" role="menuitemradio" rel="nofollow" aria-checked="{{ isCurrent }}" data-index="{{ index }}">
     <svg aria-hidden="true" height="16" viewBox="0 0 16 16" version="1.1" width="16" data-view-component="true" class="octicon octicon-check SelectMenu-icon SelectMenu-icon--check">
     <path fill-rule="evenodd" d="M13.78 4.22a.75.75 0 010 1.06l-7.25 7.25a.75.75 0 01-1.06 0L2.22 9.28a.75.75 0 011.06-1.06L6 10.94l6.72-6.72a.75.75 0 011.06 0z"></path>
 </svg>
@@ -1416,7 +1416,7 @@
 </div>
 
       <h2 id="blob-path" class="breadcrumb flex-auto flex-self-center min-width-0 text-normal mx-2 width-full width-md-auto flex-order-1 flex-md-order-none mt-3 mt-md-0">
-        <span class="js-repo-root text-bold"><span class="js-path-segment d-inline-block wb-break-all"><a data-pjax="#repo-content-pjax-container" href="/jenkinsci/docker"><span>docker</span></a></span></span><span class="separator">/</span><strong class="final-path">jenkins.sh</strong>
+        <span class="js-repo-root text-bold"><span class="js-path-segment d-inline-block wb-break-all"><a data-pjax="#repo-content-pjax-container" href="/jenkinsci/docker"><span>docker</span></a></span></span><span class="separator">/</span><strong class="final-path">jenkins-plugin-cli.sh</strong>
       </h2>
       <a href="/jenkinsci/docker/find/master"
             class="js-pjax-capture-input btn mr-2 d-none d-md-block"
@@ -1437,7 +1437,7 @@
 </summary>
   <div data-view-component="true">          <ul class="dropdown-menu dropdown-menu-sw">
             <li class="d-block d-md-none">
-              <a class="dropdown-item d-flex flex-items-baseline" data-hydro-click="{&quot;event_type&quot;:&quot;repository.click&quot;,&quot;payload&quot;:{&quot;target&quot;:&quot;FIND_FILE_BUTTON&quot;,&quot;repository_id&quot;:21969270,&quot;originating_url&quot;:&quot;https://github.com/jenkinsci/docker/blob/master/jenkins.sh&quot;,&quot;user_id&quot;:36673283}}" data-hydro-click-hmac="64c4fa8c9fdcf0a32844a27c7464fa858221b4eec5b3c5e61332bd5c219b70ca" data-ga-click="Repository, find file, location:repo overview" data-hotkey="t" data-pjax="true" href="/jenkinsci/docker/find/master">
+              <a class="dropdown-item d-flex flex-items-baseline" data-hydro-click="{&quot;event_type&quot;:&quot;repository.click&quot;,&quot;payload&quot;:{&quot;target&quot;:&quot;FIND_FILE_BUTTON&quot;,&quot;repository_id&quot;:21969270,&quot;originating_url&quot;:&quot;https://github.com/jenkinsci/docker/blob/master/jenkins-plugin-cli.sh&quot;,&quot;user_id&quot;:36673283}}" data-hydro-click-hmac="a2c330d10d10e5d544f46895b416704147a9698bb39fc1cd643799376688569a" data-ga-click="Repository, find file, location:repo overview" data-hotkey="t" data-pjax="true" href="/jenkinsci/docker/find/master">
                 <span class="flex-auto">Go to file</span>
                 <span class="text-small color-text-secondary" aria-hidden="true">T</span>
 </a>            </li>
@@ -1455,13 +1455,13 @@
 </button>            </li>
             <li class="dropdown-divider" role="none"></li>
             <li>
-              <clipboard-copy data-toggle-for="blob-more-options-details" aria-label="Copy path" value="jenkins.sh" data-view-component="true" class="dropdown-item cursor-pointer">
+              <clipboard-copy data-toggle-for="blob-more-options-details" aria-label="Copy path" value="jenkins-plugin-cli.sh" data-view-component="true" class="dropdown-item cursor-pointer">
     
                 Copy path
 
 </clipboard-copy>            </li>
             <li>
-              <clipboard-copy data-toggle-for="blob-more-options-details" aria-label="Copy permalink" value="https://github.com/jenkinsci/docker/blob/b9fe51cbc1e1faa1555c593c37ea29558f55b5b2/jenkins.sh" data-view-component="true" class="dropdown-item cursor-pointer">
+              <clipboard-copy data-toggle-for="blob-more-options-details" aria-label="Copy permalink" value="https://github.com/jenkinsci/docker/blob/b9fe51cbc1e1faa1555c593c37ea29558f55b5b2/jenkins-plugin-cli.sh" data-view-component="true" class="dropdown-item cursor-pointer">
     
                 <span class="d-flex flex-items-baseline">
                   <span class="flex-auto">Copy permalink</span>
@@ -1476,7 +1476,7 @@
 
 
     <div class="Box d-flex flex-column flex-shrink-0 mb-3">
-      <include-fragment src="/jenkinsci/docker/contributors/master/jenkins.sh" class="commit-loader">
+      <include-fragment src="/jenkinsci/docker/contributors/master/jenkins-plugin-cli.sh" class="commit-loader">
         <div class="Box-header d-flex flex-items-center">
           <div class="Skeleton avatar avatar-user flex-shrink-0 ml-n1 mr-n1 mt-n1 mb-n1" style="width:24px;height:24px;"></div>
           <div class="Skeleton Skeleton--text col-5 ml-2">&nbsp;</div>
@@ -1510,25 +1510,25 @@
 
 
   <div class="text-mono f6 flex-auto pr-3 flex-order-2 flex-md-order-1">
-      <include-fragment src="/jenkinsci/docker/codeowners/master/jenkins.sh"></include-fragment>
+      <include-fragment src="/jenkinsci/docker/codeowners/master/jenkins-plugin-cli.sh"></include-fragment>
 
       <span class="file-mode" title="File mode">executable file</span>
       <span class="file-info-divider"></span>
-      52 lines (43 sloc)
+      3 lines (2 sloc)
       <span class="file-info-divider"></span>
-    2.17 KB
+    89 Bytes
   </div>
 
   <div class="d-flex py-1 py-md-0 flex-auto flex-order-1 flex-md-order-2 flex-sm-grow-0 flex-justify-between hide-sm hide-md">
 
     <div class="BtnGroup">
-      <a href="/jenkinsci/docker/raw/master/jenkins.sh" id="raw-url" role="button" data-view-component="true" class="btn-sm btn BtnGroup-item">
+      <a href="/jenkinsci/docker/raw/master/jenkins-plugin-cli.sh" id="raw-url" role="button" data-view-component="true" class="btn-sm btn BtnGroup-item">
   
   Raw
   
 
 </a>
-        <a href="/jenkinsci/docker/blame/master/jenkins.sh" data-hotkey="b" role="button" data-view-component="true" class="js-update-url-with-hash btn-sm btn BtnGroup-item">
+        <a href="/jenkinsci/docker/blame/master/jenkins-plugin-cli.sh" data-hotkey="b" role="button" data-view-component="true" class="js-update-url-with-hash btn-sm btn BtnGroup-item">
   
   Blame
   
@@ -1547,11 +1547,11 @@
 </svg>
           </a>
 
-          <remote-clipboard-copy class="d-inline-block btn-octicon" style="height: 26px" data-src="/jenkinsci/docker/raw/master/jenkins.sh" data-action="click:remote-clipboard-copy#remoteCopy">
+          <remote-clipboard-copy class="d-inline-block btn-octicon" style="height: 26px" data-src="/jenkinsci/docker/raw/master/jenkins-plugin-cli.sh" data-action="click:remote-clipboard-copy#remoteCopy">
   
 
 
-  <span data-target="remote-clipboard-copy.idle">              <span class="tooltipped tooltipped-nw cursor-pointer" data-hydro-click="{&quot;event_type&quot;:&quot;repository.click&quot;,&quot;payload&quot;:{&quot;target&quot;:&quot;COPY_RAW_CONTENTS_BUTTON&quot;,&quot;repository_id&quot;:21969270,&quot;originating_url&quot;:&quot;https://github.com/jenkinsci/docker/blob/master/jenkins.sh&quot;,&quot;user_id&quot;:36673283}}" data-hydro-click-hmac="52472adf88613d8e1d896d1cef92df5261acaf6f5efc0a4477b1eeae3e33d8cd" aria-label="Copy raw contents">
+  <span data-target="remote-clipboard-copy.idle">              <span class="tooltipped tooltipped-nw cursor-pointer" data-hydro-click="{&quot;event_type&quot;:&quot;repository.click&quot;,&quot;payload&quot;:{&quot;target&quot;:&quot;COPY_RAW_CONTENTS_BUTTON&quot;,&quot;repository_id&quot;:21969270,&quot;originating_url&quot;:&quot;https://github.com/jenkinsci/docker/blob/master/jenkins-plugin-cli.sh&quot;,&quot;user_id&quot;:36673283}}" data-hydro-click-hmac="fd3fe06a9992543b47a2552737f69723b8698ab6d29d1c516033aca8cb8279ea" aria-label="Copy raw contents">
                 <svg aria-hidden="true" height="16" viewBox="0 0 16 16" version="1.1" width="16" data-view-component="true" class="octicon octicon-copy">
     <path fill-rule="evenodd" d="M0 6.75C0 5.784.784 5 1.75 5h1.5a.75.75 0 010 1.5h-1.5a.25.25 0 00-.25.25v7.5c0 .138.112.25.25.25h7.5a.25.25 0 00.25-.25v-1.5a.75.75 0 011.5 0v1.5A1.75 1.75 0 019.25 16h-7.5A1.75 1.75 0 010 14.25v-7.5z"></path><path fill-rule="evenodd" d="M5 1.75C5 .784 5.784 0 6.75 0h7.5C15.216 0 16 .784 16 1.75v7.5A1.75 1.75 0 0114.25 11h-7.5A1.75 1.75 0 015 9.25v-7.5zm1.75-.25a.25.25 0 00-.25.25v7.5c0 .138.112.25.25.25h7.5a.25.25 0 00.25-.25v-7.5a.25.25 0 00-.25-.25h-7.5z"></path>
 </svg>
@@ -1574,7 +1574,7 @@
               </span>
 </span>
 </remote-clipboard-copy>
-          <!-- '"` --><!-- </textarea></xmp> --></option></form><form class="inline-form js-update-url-with-hash" action="/jenkinsci/docker/edit/master/jenkins.sh" accept-charset="UTF-8" method="post"><input type="hidden" name="authenticity_token" value="3IriN0cs8m8Y5cWgNB8FXKU2wOCEcEVKtds91LDsAipnPruqIs9e6iCInKjmbHVp0KpSHna3gDjTBrUGYB2LOQ==" />
+          <!-- '"` --><!-- </textarea></xmp> --></option></form><form class="inline-form js-update-url-with-hash" action="/jenkinsci/docker/edit/master/jenkins-plugin-cli.sh" accept-charset="UTF-8" method="post"><input type="hidden" name="authenticity_token" value="pzZBSO9g92NgATTcWXwiV8jwYfJLKpPvLh6e7GhX5PbDdM+tiBRK+L+X17O8WIZi5GovYf6Rw5wS2kAKfxFbEQ==" />
             <button class="btn-octicon tooltipped tooltipped-nw" type="submit"
               aria-label="Fork this project and edit the file" data-hotkey="e" data-disable-with>
               <svg aria-hidden="true" height="16" viewBox="0 0 16 16" version="1.1" width="16" data-view-component="true" class="octicon octicon-pencil">
@@ -1582,7 +1582,7 @@
 </svg>
             </button>
 </form>
-          <!-- '"` --><!-- </textarea></xmp> --></option></form><form class="inline-form" action="/jenkinsci/docker/delete/master/jenkins.sh" accept-charset="UTF-8" method="post"><input type="hidden" name="authenticity_token" value="pIIIHK3k2KfrrVKi48tBSfRVV5enLnfQaqzfQAXZMydnbruuFg83w8WGM5V7LU6r6uuWRx96Zelw4cym0dNbxw==" />
+          <!-- '"` --><!-- </textarea></xmp> --></option></form><form class="inline-form" action="/jenkinsci/docker/delete/master/jenkins-plugin-cli.sh" accept-charset="UTF-8" method="post"><input type="hidden" name="authenticity_token" value="MfnqaJ2tXWbAPoUMNrV81i1UoWsjTmu0DAP6UiS7Zg1m2zLIxAOB8wFD1EcqMYm+6HEZKpjVVSJOozSMwAFAdw==" />
             <button class="btn-octicon btn-octicon-danger tooltipped tooltipped-nw" type="submit"
               aria-label="Fork this project and delete the file" data-disable-with>
               <svg aria-hidden="true" height="16" viewBox="0 0 16 16" version="1.1" width="16" data-view-component="true" class="octicon octicon-trash">
@@ -1610,15 +1610,15 @@
                 </a>
             </li>
           <li>
-            <a class="dropdown-item" href="/jenkinsci/docker/raw/master/jenkins.sh">
+            <a class="dropdown-item" href="/jenkinsci/docker/raw/master/jenkins-plugin-cli.sh">
               View raw
             </a>
           </li>
               <li>
-                <remote-clipboard-copy class="dropdown-item" data-src="/jenkinsci/docker/raw/master/jenkins.sh" data-action="click:remote-clipboard-copy#remoteCopy">
+                <remote-clipboard-copy class="dropdown-item" data-src="/jenkinsci/docker/raw/master/jenkins-plugin-cli.sh" data-action="click:remote-clipboard-copy#remoteCopy">
   
 
-  <span data-target="remote-clipboard-copy.idle">                    <span class="cursor-pointer" data-hydro-click="{&quot;event_type&quot;:&quot;repository.click&quot;,&quot;payload&quot;:{&quot;target&quot;:&quot;COPY_RAW_CONTENTS_BUTTON&quot;,&quot;repository_id&quot;:21969270,&quot;originating_url&quot;:&quot;https://github.com/jenkinsci/docker/blob/master/jenkins.sh&quot;,&quot;user_id&quot;:36673283}}" data-hydro-click-hmac="52472adf88613d8e1d896d1cef92df5261acaf6f5efc0a4477b1eeae3e33d8cd">
+  <span data-target="remote-clipboard-copy.idle">                    <span class="cursor-pointer" data-hydro-click="{&quot;event_type&quot;:&quot;repository.click&quot;,&quot;payload&quot;:{&quot;target&quot;:&quot;COPY_RAW_CONTENTS_BUTTON&quot;,&quot;repository_id&quot;:21969270,&quot;originating_url&quot;:&quot;https://github.com/jenkinsci/docker/blob/master/jenkins-plugin-cli.sh&quot;,&quot;user_id&quot;:36673283}}" data-hydro-click-hmac="fd3fe06a9992543b47a2552737f69723b8698ab6d29d1c516033aca8cb8279ea">
                       Copy raw contents
 </span></span>
   <span data-target="remote-clipboard-copy.fetching" hidden="hidden">                    Copy raw contents
@@ -1641,17 +1641,17 @@
 </span>
 </remote-clipboard-copy>              </li>
             <li>
-              <a class="dropdown-item" href="/jenkinsci/docker/blame/master/jenkins.sh">
+              <a class="dropdown-item" href="/jenkinsci/docker/blame/master/jenkins-plugin-cli.sh">
                 View blame
               </a>
             </li>
 
               <li class="dropdown-divider" role="none"></li>
               <li>
-                <a class="dropdown-item" href="/jenkinsci/docker/edit/master/jenkins.sh">Edit file</a>
+                <a class="dropdown-item" href="/jenkinsci/docker/edit/master/jenkins-plugin-cli.sh">Edit file</a>
               </li>
               <li>
-                <a class="dropdown-item menu-item-danger" href="/jenkinsci/docker/delete/master/jenkins.sh">Delete file</a>
+                <a class="dropdown-item menu-item-danger" href="/jenkinsci/docker/delete/master/jenkins-plugin-cli.sh">Delete file</a>
               </li>
         </ul>
       </details>
@@ -1666,7 +1666,7 @@
 <table class="highlight tab-size js-file-line-container" data-tab-size="8" data-paste-markdown-skip>
       <tr>
         <td id="L1" class="blob-num js-line-number" data-line-number="1"></td>
-        <td id="LC1" class="blob-code blob-code-inner js-file-line"><span class="pl-c"><span class="pl-c">#!</span> /bin/bash -e</span></td>
+        <td id="LC1" class="blob-code blob-code-inner js-file-line"><span class="pl-c"><span class="pl-c">#!</span>/bin/bash</span></td>
       </tr>
       <tr>
         <td id="L2" class="blob-num js-line-number" data-line-number="2"></td>
@@ -1675,211 +1675,7 @@
       </tr>
       <tr>
         <td id="L3" class="blob-num js-line-number" data-line-number="3"></td>
-        <td id="LC3" class="blob-code blob-code-inner js-file-line"><span class="pl-c1">:</span> <span class="pl-s"><span class="pl-pds">&quot;</span><span class="pl-smi">${JENKINS_WAR<span class="pl-k">:=</span><span class="pl-s"><span class="pl-pds">&quot;</span>/usr/share/jenkins/jenkins.war<span class="pl-pds">&quot;</span></span>}</span><span class="pl-pds">&quot;</span></span></td>
-      </tr>
-      <tr>
-        <td id="L4" class="blob-num js-line-number" data-line-number="4"></td>
-        <td id="LC4" class="blob-code blob-code-inner js-file-line"><span class="pl-c1">:</span> <span class="pl-s"><span class="pl-pds">&quot;</span><span class="pl-smi">${JENKINS_HOME<span class="pl-k">:=</span><span class="pl-s"><span class="pl-pds">&quot;</span>/var/jenkins_home<span class="pl-pds">&quot;</span></span>}</span><span class="pl-pds">&quot;</span></span></td>
-      </tr>
-      <tr>
-        <td id="L5" class="blob-num js-line-number" data-line-number="5"></td>
-        <td id="LC5" class="blob-code blob-code-inner js-file-line"><span class="pl-c1">:</span> <span class="pl-s"><span class="pl-pds">&quot;</span><span class="pl-smi">${COPY_REFERENCE_FILE_LOG<span class="pl-k">:=</span><span class="pl-s"><span class="pl-pds">&quot;</span><span class="pl-smi">${JENKINS_HOME}</span>/copy_reference_file.log<span class="pl-pds">&quot;</span></span>}</span><span class="pl-pds">&quot;</span></span></td>
-      </tr>
-      <tr>
-        <td id="L6" class="blob-num js-line-number" data-line-number="6"></td>
-        <td id="LC6" class="blob-code blob-code-inner js-file-line"><span class="pl-c1">:</span> <span class="pl-s"><span class="pl-pds">&quot;</span><span class="pl-smi">${REF<span class="pl-k">:=</span><span class="pl-s"><span class="pl-pds">&quot;</span>/usr/share/jenkins/ref<span class="pl-pds">&quot;</span></span>}</span><span class="pl-pds">&quot;</span></span></td>
-      </tr>
-      <tr>
-        <td id="L7" class="blob-num js-line-number" data-line-number="7"></td>
-        <td id="LC7" class="blob-code blob-code-inner js-file-line">touch <span class="pl-s"><span class="pl-pds">&quot;</span><span class="pl-smi">${COPY_REFERENCE_FILE_LOG}</span><span class="pl-pds">&quot;</span></span> <span class="pl-k">||</span> { <span class="pl-c1">echo</span> <span class="pl-s"><span class="pl-pds">&quot;</span>Can not write to <span class="pl-smi">${COPY_REFERENCE_FILE_LOG}</span>. Wrong volume permissions?<span class="pl-pds">&quot;</span></span><span class="pl-k">;</span> <span class="pl-c1">exit</span> 1<span class="pl-k">;</span> }</td>
-      </tr>
-      <tr>
-        <td id="L8" class="blob-num js-line-number" data-line-number="8"></td>
-        <td id="LC8" class="blob-code blob-code-inner js-file-line"><span class="pl-c1">echo</span> <span class="pl-s"><span class="pl-pds">&quot;</span>--- Copying files at <span class="pl-s"><span class="pl-pds">$(</span>date<span class="pl-pds">)</span></span><span class="pl-pds">&quot;</span></span> <span class="pl-k">&gt;&gt;</span> <span class="pl-s"><span class="pl-pds">&quot;</span><span class="pl-smi">$COPY_REFERENCE_FILE_LOG</span><span class="pl-pds">&quot;</span></span></td>
-      </tr>
-      <tr>
-        <td id="L9" class="blob-num js-line-number" data-line-number="9"></td>
-        <td id="LC9" class="blob-code blob-code-inner js-file-line">find <span class="pl-s"><span class="pl-pds">&quot;</span><span class="pl-smi">${REF}</span><span class="pl-pds">&quot;</span></span> <span class="pl-cce">\(</span> -type f -o -type l <span class="pl-cce">\)</span> -exec bash -c <span class="pl-s"><span class="pl-pds">&#39;</span>. /usr/local/bin/jenkins-support; for arg; do copy_reference_file &quot;$arg&quot;; done<span class="pl-pds">&#39;</span></span> _ {} +</td>
-      </tr>
-      <tr>
-        <td id="L10" class="blob-num js-line-number" data-line-number="10"></td>
-        <td id="LC10" class="blob-code blob-code-inner js-file-line">
-</td>
-      </tr>
-      <tr>
-        <td id="L11" class="blob-num js-line-number" data-line-number="11"></td>
-        <td id="LC11" class="blob-code blob-code-inner js-file-line"><span class="pl-c"><span class="pl-c">#</span> if `docker run` first argument start with `--` the user is passing jenkins launcher arguments</span></td>
-      </tr>
-      <tr>
-        <td id="L12" class="blob-num js-line-number" data-line-number="12"></td>
-        <td id="LC12" class="blob-code blob-code-inner js-file-line"><span class="pl-k">if</span> [[ <span class="pl-smi">$#</span> <span class="pl-k">-lt</span> 1 ]] <span class="pl-k">||</span> [[ <span class="pl-s"><span class="pl-pds">&quot;</span><span class="pl-smi">$1</span><span class="pl-pds">&quot;</span></span> <span class="pl-k">==</span> <span class="pl-s"><span class="pl-pds">&quot;</span>--<span class="pl-pds">&quot;</span></span><span class="pl-k">*</span> ]]<span class="pl-k">;</span> <span class="pl-k">then</span></td>
-      </tr>
-      <tr>
-        <td id="L13" class="blob-num js-line-number" data-line-number="13"></td>
-        <td id="LC13" class="blob-code blob-code-inner js-file-line">
-</td>
-      </tr>
-      <tr>
-        <td id="L14" class="blob-num js-line-number" data-line-number="14"></td>
-        <td id="LC14" class="blob-code blob-code-inner js-file-line">  <span class="pl-c"><span class="pl-c">#</span> read JAVA_OPTS and JENKINS_OPTS into arrays to avoid need for eval (and associated vulnerabilities)</span></td>
-      </tr>
-      <tr>
-        <td id="L15" class="blob-num js-line-number" data-line-number="15"></td>
-        <td id="LC15" class="blob-code blob-code-inner js-file-line">  java_opts_array=()</td>
-      </tr>
-      <tr>
-        <td id="L16" class="blob-num js-line-number" data-line-number="16"></td>
-        <td id="LC16" class="blob-code blob-code-inner js-file-line">  <span class="pl-k">while</span> IFS= <span class="pl-c1">read</span> -r -d <span class="pl-s"><span class="pl-pds">&#39;</span><span class="pl-pds">&#39;</span></span> item<span class="pl-k">;</span> <span class="pl-k">do</span></td>
-      </tr>
-      <tr>
-        <td id="L17" class="blob-num js-line-number" data-line-number="17"></td>
-        <td id="LC17" class="blob-code blob-code-inner js-file-line">    java_opts_array+=( <span class="pl-s"><span class="pl-pds">&quot;</span><span class="pl-smi">$item</span><span class="pl-pds">&quot;</span></span> )</td>
-      </tr>
-      <tr>
-        <td id="L18" class="blob-num js-line-number" data-line-number="18"></td>
-        <td id="LC18" class="blob-code blob-code-inner js-file-line">  <span class="pl-k">done</span> <span class="pl-k">&lt;</span> <span class="pl-s"><span class="pl-pds">&lt;(</span>[[ <span class="pl-smi">$JAVA_OPTS</span> ]] <span class="pl-k">&amp;&amp;</span> xargs <span class="pl-c1">printf</span> <span class="pl-s"><span class="pl-pds">&#39;</span>%s\0<span class="pl-pds">&#39;</span></span> <span class="pl-k">&lt;&lt;&lt;</span><span class="pl-s"><span class="pl-pds">&quot;</span>$JAVA_OPTS<span class="pl-pds">&quot;</span></span><span class="pl-pds">)</span></span></td>
-      </tr>
-      <tr>
-        <td id="L19" class="blob-num js-line-number" data-line-number="19"></td>
-        <td id="LC19" class="blob-code blob-code-inner js-file-line">
-</td>
-      </tr>
-      <tr>
-        <td id="L20" class="blob-num js-line-number" data-line-number="20"></td>
-        <td id="LC20" class="blob-code blob-code-inner js-file-line">  <span class="pl-k">readonly</span> agent_port_property=<span class="pl-s"><span class="pl-pds">&#39;</span>jenkins.model.Jenkins.slaveAgentPort<span class="pl-pds">&#39;</span></span></td>
-      </tr>
-      <tr>
-        <td id="L21" class="blob-num js-line-number" data-line-number="21"></td>
-        <td id="LC21" class="blob-code blob-code-inner js-file-line">  <span class="pl-k">if</span> [ <span class="pl-k">-n</span> <span class="pl-s"><span class="pl-pds">&quot;</span><span class="pl-smi">${JENKINS_SLAVE_AGENT_PORT<span class="pl-k">:-</span>}</span><span class="pl-pds">&quot;</span></span> ] <span class="pl-k">&amp;&amp;</span> [[ <span class="pl-s"><span class="pl-pds">&quot;</span><span class="pl-smi">${JAVA_OPTS<span class="pl-k">:-</span>}</span><span class="pl-pds">&quot;</span></span> <span class="pl-k">!=</span> <span class="pl-k">*</span><span class="pl-s"><span class="pl-pds">&quot;</span><span class="pl-smi">${agent_port_property}</span><span class="pl-pds">&quot;</span></span><span class="pl-k">*</span> ]]<span class="pl-k">;</span> <span class="pl-k">then</span></td>
-      </tr>
-      <tr>
-        <td id="L22" class="blob-num js-line-number" data-line-number="22"></td>
-        <td id="LC22" class="blob-code blob-code-inner js-file-line">    java_opts_array+=( <span class="pl-s"><span class="pl-pds">&quot;</span>-D<span class="pl-smi">${agent_port_property}</span>=<span class="pl-smi">${JENKINS_SLAVE_AGENT_PORT}</span><span class="pl-pds">&quot;</span></span> )</td>
-      </tr>
-      <tr>
-        <td id="L23" class="blob-num js-line-number" data-line-number="23"></td>
-        <td id="LC23" class="blob-code blob-code-inner js-file-line">  <span class="pl-k">fi</span></td>
-      </tr>
-      <tr>
-        <td id="L24" class="blob-num js-line-number" data-line-number="24"></td>
-        <td id="LC24" class="blob-code blob-code-inner js-file-line">
-</td>
-      </tr>
-      <tr>
-        <td id="L25" class="blob-num js-line-number" data-line-number="25"></td>
-        <td id="LC25" class="blob-code blob-code-inner js-file-line">  <span class="pl-k">if</span> [[ <span class="pl-s"><span class="pl-pds">&quot;</span><span class="pl-smi">$DEBUG</span><span class="pl-pds">&quot;</span></span> ]] <span class="pl-k">;</span> <span class="pl-k">then</span></td>
-      </tr>
-      <tr>
-        <td id="L26" class="blob-num js-line-number" data-line-number="26"></td>
-        <td id="LC26" class="blob-code blob-code-inner js-file-line">    java_opts_array+=( \</td>
-      </tr>
-      <tr>
-        <td id="L27" class="blob-num js-line-number" data-line-number="27"></td>
-        <td id="LC27" class="blob-code blob-code-inner js-file-line">      <span class="pl-s"><span class="pl-pds">&#39;</span>-Xdebug<span class="pl-pds">&#39;</span></span> \</td>
-      </tr>
-      <tr>
-        <td id="L28" class="blob-num js-line-number" data-line-number="28"></td>
-        <td id="LC28" class="blob-code blob-code-inner js-file-line">      <span class="pl-s"><span class="pl-pds">&#39;</span>-Xrunjdwp:server=y,transport=dt_socket,address=*:5005,suspend=y<span class="pl-pds">&#39;</span></span> \</td>
-      </tr>
-      <tr>
-        <td id="L29" class="blob-num js-line-number" data-line-number="29"></td>
-        <td id="LC29" class="blob-code blob-code-inner js-file-line">    )</td>
-      </tr>
-      <tr>
-        <td id="L30" class="blob-num js-line-number" data-line-number="30"></td>
-        <td id="LC30" class="blob-code blob-code-inner js-file-line">  <span class="pl-k">fi</span></td>
-      </tr>
-      <tr>
-        <td id="L31" class="blob-num js-line-number" data-line-number="31"></td>
-        <td id="LC31" class="blob-code blob-code-inner js-file-line">
-</td>
-      </tr>
-      <tr>
-        <td id="L32" class="blob-num js-line-number" data-line-number="32"></td>
-        <td id="LC32" class="blob-code blob-code-inner js-file-line">  jenkins_opts_array=( )</td>
-      </tr>
-      <tr>
-        <td id="L33" class="blob-num js-line-number" data-line-number="33"></td>
-        <td id="LC33" class="blob-code blob-code-inner js-file-line">  <span class="pl-k">while</span> IFS= <span class="pl-c1">read</span> -r -d <span class="pl-s"><span class="pl-pds">&#39;</span><span class="pl-pds">&#39;</span></span> item<span class="pl-k">;</span> <span class="pl-k">do</span></td>
-      </tr>
-      <tr>
-        <td id="L34" class="blob-num js-line-number" data-line-number="34"></td>
-        <td id="LC34" class="blob-code blob-code-inner js-file-line">    jenkins_opts_array+=( <span class="pl-s"><span class="pl-pds">&quot;</span><span class="pl-smi">$item</span><span class="pl-pds">&quot;</span></span> )</td>
-      </tr>
-      <tr>
-        <td id="L35" class="blob-num js-line-number" data-line-number="35"></td>
-        <td id="LC35" class="blob-code blob-code-inner js-file-line">  <span class="pl-k">done</span> <span class="pl-k">&lt;</span> <span class="pl-s"><span class="pl-pds">&lt;(</span>[[ <span class="pl-smi">$JENKINS_OPTS</span> ]] <span class="pl-k">&amp;&amp;</span> xargs <span class="pl-c1">printf</span> <span class="pl-s"><span class="pl-pds">&#39;</span>%s\0<span class="pl-pds">&#39;</span></span> <span class="pl-k">&lt;&lt;&lt;</span><span class="pl-s"><span class="pl-pds">&quot;</span>$JENKINS_OPTS<span class="pl-pds">&quot;</span></span><span class="pl-pds">)</span></span></td>
-      </tr>
-      <tr>
-        <td id="L36" class="blob-num js-line-number" data-line-number="36"></td>
-        <td id="LC36" class="blob-code blob-code-inner js-file-line">
-</td>
-      </tr>
-      <tr>
-        <td id="L37" class="blob-num js-line-number" data-line-number="37"></td>
-        <td id="LC37" class="blob-code blob-code-inner js-file-line">  FUTURE_OPTS=<span class="pl-s"><span class="pl-pds">&quot;</span><span class="pl-pds">&quot;</span></span></td>
-      </tr>
-      <tr>
-        <td id="L38" class="blob-num js-line-number" data-line-number="38"></td>
-        <td id="LC38" class="blob-code blob-code-inner js-file-line">  <span class="pl-k">if</span> [[ <span class="pl-s"><span class="pl-pds">&quot;</span><span class="pl-smi">$JENKINS_ENABLE_FUTURE_JAVA</span><span class="pl-pds">&quot;</span></span> ]] <span class="pl-k">;</span> <span class="pl-k">then</span></td>
-      </tr>
-      <tr>
-        <td id="L39" class="blob-num js-line-number" data-line-number="39"></td>
-        <td id="LC39" class="blob-code blob-code-inner js-file-line">    FUTURE_OPTS=<span class="pl-s"><span class="pl-pds">&quot;</span>--add-opens java.base/java.lang=ALL-UNNAMED</span></td>
-      </tr>
-      <tr>
-        <td id="L40" class="blob-num js-line-number" data-line-number="40"></td>
-        <td id="LC40" class="blob-code blob-code-inner js-file-line"><span class="pl-s">        --add-opens=java.base/java.io=ALL-UNNAMED</span></td>
-      </tr>
-      <tr>
-        <td id="L41" class="blob-num js-line-number" data-line-number="41"></td>
-        <td id="LC41" class="blob-code blob-code-inner js-file-line"><span class="pl-s">        --add-opens java.base/java.util=ALL-UNNAMED</span></td>
-      </tr>
-      <tr>
-        <td id="L42" class="blob-num js-line-number" data-line-number="42"></td>
-        <td id="LC42" class="blob-code blob-code-inner js-file-line"><span class="pl-s">        --add-opens java.base/java.util.concurrent=ALL-UNNAMED</span></td>
-      </tr>
-      <tr>
-        <td id="L43" class="blob-num js-line-number" data-line-number="43"></td>
-        <td id="LC43" class="blob-code blob-code-inner js-file-line"><span class="pl-s">        <span class="pl-pds">&quot;</span></span></td>
-      </tr>
-      <tr>
-        <td id="L44" class="blob-num js-line-number" data-line-number="44"></td>
-        <td id="LC44" class="blob-code blob-code-inner js-file-line">  <span class="pl-k">fi</span></td>
-      </tr>
-      <tr>
-        <td id="L45" class="blob-num js-line-number" data-line-number="45"></td>
-        <td id="LC45" class="blob-code blob-code-inner js-file-line">
-</td>
-      </tr>
-      <tr>
-        <td id="L46" class="blob-num js-line-number" data-line-number="46"></td>
-        <td id="LC46" class="blob-code blob-code-inner js-file-line">  <span class="pl-c"><span class="pl-c">#</span> --add-opens won&#39;t get expanded properly with quotes around it</span></td>
-      </tr>
-      <tr>
-        <td id="L47" class="blob-num js-line-number" data-line-number="47"></td>
-        <td id="LC47" class="blob-code blob-code-inner js-file-line">  <span class="pl-c"><span class="pl-c">#</span> shellcheck disable=SC2086</span></td>
-      </tr>
-      <tr>
-        <td id="L48" class="blob-num js-line-number" data-line-number="48"></td>
-        <td id="LC48" class="blob-code blob-code-inner js-file-line">  <span class="pl-c1">exec</span> java -Duser.home=<span class="pl-s"><span class="pl-pds">&quot;</span><span class="pl-smi">$JENKINS_HOME</span><span class="pl-pds">&quot;</span></span> <span class="pl-smi">${FUTURE_OPTS}</span> <span class="pl-s"><span class="pl-pds">&quot;</span><span class="pl-smi">${java_opts_array[@]}</span><span class="pl-pds">&quot;</span></span> -jar <span class="pl-smi">${JENKINS_WAR}</span> <span class="pl-s"><span class="pl-pds">&quot;</span><span class="pl-smi">${jenkins_opts_array[@]}</span><span class="pl-pds">&quot;</span></span> <span class="pl-s"><span class="pl-pds">&quot;</span><span class="pl-smi">$@</span><span class="pl-pds">&quot;</span></span></td>
-      </tr>
-      <tr>
-        <td id="L49" class="blob-num js-line-number" data-line-number="49"></td>
-        <td id="LC49" class="blob-code blob-code-inner js-file-line"><span class="pl-k">fi</span></td>
-      </tr>
-      <tr>
-        <td id="L50" class="blob-num js-line-number" data-line-number="50"></td>
-        <td id="LC50" class="blob-code blob-code-inner js-file-line">
-</td>
-      </tr>
-      <tr>
-        <td id="L51" class="blob-num js-line-number" data-line-number="51"></td>
-        <td id="LC51" class="blob-code blob-code-inner js-file-line"><span class="pl-c"><span class="pl-c">#</span> As argument is not jenkins, assume user want to run his own process, for example a `bash` shell to explore this image</span></td>
-      </tr>
-      <tr>
-        <td id="L52" class="blob-num js-line-number" data-line-number="52"></td>
-        <td id="LC52" class="blob-code blob-code-inner js-file-line"><span class="pl-c1">exec</span> <span class="pl-s"><span class="pl-pds">&quot;</span><span class="pl-smi">$@</span><span class="pl-pds">&quot;</span></span></td>
+        <td id="LC3" class="blob-code blob-code-inner js-file-line"><span class="pl-c1">exec</span> /bin/bash -c <span class="pl-s"><span class="pl-pds">&quot;</span>java <span class="pl-smi">$JAVA_OPTS</span> -jar /opt/jenkins-plugin-manager.jar <span class="pl-smi">$*</span><span class="pl-pds">&quot;</span></span></td>
       </tr>
 </table>
 
@@ -1904,7 +1700,7 @@
             Copy permalink
           </clipboard-copy>
         </li>
-        <li><a class="dropdown-item js-update-url-with-hash" id="js-view-git-blame" role="menuitem" href="/jenkinsci/docker/blame/b9fe51cbc1e1faa1555c593c37ea29558f55b5b2/jenkins.sh">View git blame</a></li>
+        <li><a class="dropdown-item js-update-url-with-hash" id="js-view-git-blame" role="menuitem" href="/jenkinsci/docker/blame/b9fe51cbc1e1faa1555c593c37ea29558f55b5b2/jenkins-plugin-cli.sh">View git blame</a></li>
           <li><a class="dropdown-item" id="js-new-issue" role="menuitem" href="/jenkinsci/docker/issues/new">Reference in new issue</a></li>
       </ul>
     </details-menu>
@@ -1949,10 +1745,10 @@
   <div class="position-relative d-flex flex-row-reverse flex-lg-row flex-wrap flex-lg-nowrap flex-justify-center flex-lg-justify-between pt-6 pb-2 mt-6 f6 color-text-secondary border-top color-border-secondary ">
     <ul class="list-style-none d-flex flex-wrap col-12 col-lg-5 flex-justify-center flex-lg-justify-between mb-2 mb-lg-0">
       <li class="mr-3 mr-lg-0">&copy; 2021 GitHub, Inc.</li>
-        <li class="mr-3 mr-lg-0"><a href="https://docs.github.com/en/github/site-policy/github-terms-of-service" data-hydro-click="{&quot;event_type&quot;:&quot;analytics.event&quot;,&quot;payload&quot;:{&quot;category&quot;:&quot;Footer&quot;,&quot;action&quot;:&quot;go to terms&quot;,&quot;label&quot;:&quot;text:terms&quot;,&quot;originating_url&quot;:&quot;https://github.com/jenkinsci/docker/blob/master/jenkins.sh&quot;,&quot;user_id&quot;:36673283}}" data-hydro-click-hmac="9350af352727c5a0ddadf8918d92d5401ca6d33b8e5f8e3dd8649794446e7645">Terms</a></li>
-        <li class="mr-3 mr-lg-0"><a href="https://docs.github.com/en/github/site-policy/github-privacy-statement" data-hydro-click="{&quot;event_type&quot;:&quot;analytics.event&quot;,&quot;payload&quot;:{&quot;category&quot;:&quot;Footer&quot;,&quot;action&quot;:&quot;go to privacy&quot;,&quot;label&quot;:&quot;text:privacy&quot;,&quot;originating_url&quot;:&quot;https://github.com/jenkinsci/docker/blob/master/jenkins.sh&quot;,&quot;user_id&quot;:36673283}}" data-hydro-click-hmac="24c90970f45294c74731479fc2cc69b0b0e8fcf2d1500496ca128626606823da">Privacy</a></li>
-        <li class="mr-3 mr-lg-0"><a data-hydro-click="{&quot;event_type&quot;:&quot;analytics.event&quot;,&quot;payload&quot;:{&quot;category&quot;:&quot;Footer&quot;,&quot;action&quot;:&quot;go to security&quot;,&quot;label&quot;:&quot;text:security&quot;,&quot;originating_url&quot;:&quot;https://github.com/jenkinsci/docker/blob/master/jenkins.sh&quot;,&quot;user_id&quot;:36673283}}" data-hydro-click-hmac="7a13a8fbf6a206dd445f61bd5765dbf5b540f0048a9f91e7125017f908f870f5" href="https://github.com/security">Security</a></li>
-        <li class="mr-3 mr-lg-0"><a href="https://www.githubstatus.com/" data-hydro-click="{&quot;event_type&quot;:&quot;analytics.event&quot;,&quot;payload&quot;:{&quot;category&quot;:&quot;Footer&quot;,&quot;action&quot;:&quot;go to status&quot;,&quot;label&quot;:&quot;text:status&quot;,&quot;originating_url&quot;:&quot;https://github.com/jenkinsci/docker/blob/master/jenkins.sh&quot;,&quot;user_id&quot;:36673283}}" data-hydro-click-hmac="732502b87c46774ab6ad4b3e45889e853a8eeddd986e837529fd83ecaac0a0d0">Status</a></li>
+        <li class="mr-3 mr-lg-0"><a href="https://docs.github.com/en/github/site-policy/github-terms-of-service" data-hydro-click="{&quot;event_type&quot;:&quot;analytics.event&quot;,&quot;payload&quot;:{&quot;category&quot;:&quot;Footer&quot;,&quot;action&quot;:&quot;go to terms&quot;,&quot;label&quot;:&quot;text:terms&quot;,&quot;originating_url&quot;:&quot;https://github.com/jenkinsci/docker/blob/master/jenkins-plugin-cli.sh&quot;,&quot;user_id&quot;:36673283}}" data-hydro-click-hmac="ed8c5bea2d78d916c8406c7618a09b887ee9c4fcf10042c176499a6ca5346d63">Terms</a></li>
+        <li class="mr-3 mr-lg-0"><a href="https://docs.github.com/en/github/site-policy/github-privacy-statement" data-hydro-click="{&quot;event_type&quot;:&quot;analytics.event&quot;,&quot;payload&quot;:{&quot;category&quot;:&quot;Footer&quot;,&quot;action&quot;:&quot;go to privacy&quot;,&quot;label&quot;:&quot;text:privacy&quot;,&quot;originating_url&quot;:&quot;https://github.com/jenkinsci/docker/blob/master/jenkins-plugin-cli.sh&quot;,&quot;user_id&quot;:36673283}}" data-hydro-click-hmac="41cf8fc28edabb207cf952a564e5263aedf5154565261660f9246281d72cd6bf">Privacy</a></li>
+        <li class="mr-3 mr-lg-0"><a data-hydro-click="{&quot;event_type&quot;:&quot;analytics.event&quot;,&quot;payload&quot;:{&quot;category&quot;:&quot;Footer&quot;,&quot;action&quot;:&quot;go to security&quot;,&quot;label&quot;:&quot;text:security&quot;,&quot;originating_url&quot;:&quot;https://github.com/jenkinsci/docker/blob/master/jenkins-plugin-cli.sh&quot;,&quot;user_id&quot;:36673283}}" data-hydro-click-hmac="c8c281f30d6e1fad8f51b6a0ab505db7cf75e15ad09be019d648582df07f29ee" href="https://github.com/security">Security</a></li>
+        <li class="mr-3 mr-lg-0"><a href="https://www.githubstatus.com/" data-hydro-click="{&quot;event_type&quot;:&quot;analytics.event&quot;,&quot;payload&quot;:{&quot;category&quot;:&quot;Footer&quot;,&quot;action&quot;:&quot;go to status&quot;,&quot;label&quot;:&quot;text:status&quot;,&quot;originating_url&quot;:&quot;https://github.com/jenkinsci/docker/blob/master/jenkins-plugin-cli.sh&quot;,&quot;user_id&quot;:36673283}}" data-hydro-click-hmac="a6c1a7dff42fa281512cc3ed92421063891f5c82d4f24d86de104c20b98af8e9">Status</a></li>
         <li><a data-ga-click="Footer, go to help, text:Docs" href="https://docs.github.com">Docs</a></li>
     </ul>
 
@@ -1962,11 +1758,11 @@
 </svg>
 </a>
     <ul class="list-style-none d-flex flex-wrap col-12 col-lg-5 flex-justify-center flex-lg-justify-between mb-2 mb-lg-0">
-        <li class="mr-3 mr-lg-0"><a href="https://support.github.com?tags=dotcom-footer" data-hydro-click="{&quot;event_type&quot;:&quot;analytics.event&quot;,&quot;payload&quot;:{&quot;category&quot;:&quot;Footer&quot;,&quot;action&quot;:&quot;go to contact&quot;,&quot;label&quot;:&quot;text:contact&quot;,&quot;originating_url&quot;:&quot;https://github.com/jenkinsci/docker/blob/master/jenkins.sh&quot;,&quot;user_id&quot;:36673283}}" data-hydro-click-hmac="89a45be0f714990493e966c7c7efe33963faa0516b2b1ef2fd704c80f9d3db42">Contact GitHub</a></li>
-        <li class="mr-3 mr-lg-0"><a href="https://github.com/pricing" data-hydro-click="{&quot;event_type&quot;:&quot;analytics.event&quot;,&quot;payload&quot;:{&quot;category&quot;:&quot;Footer&quot;,&quot;action&quot;:&quot;go to Pricing&quot;,&quot;label&quot;:&quot;text:Pricing&quot;,&quot;originating_url&quot;:&quot;https://github.com/jenkinsci/docker/blob/master/jenkins.sh&quot;,&quot;user_id&quot;:36673283}}" data-hydro-click-hmac="af99fe786b857aee28a0db8ebda44075902e7a1d50f501bdeafda252c08e78ab">Pricing</a></li>
-      <li class="mr-3 mr-lg-0"><a href="https://docs.github.com" data-hydro-click="{&quot;event_type&quot;:&quot;analytics.event&quot;,&quot;payload&quot;:{&quot;category&quot;:&quot;Footer&quot;,&quot;action&quot;:&quot;go to api&quot;,&quot;label&quot;:&quot;text:api&quot;,&quot;originating_url&quot;:&quot;https://github.com/jenkinsci/docker/blob/master/jenkins.sh&quot;,&quot;user_id&quot;:36673283}}" data-hydro-click-hmac="0b852705dfd882a1e5e591767c48ff7e85bf6d7117f4ad98b56448f3728cf20c">API</a></li>
-      <li class="mr-3 mr-lg-0"><a href="https://services.github.com" data-hydro-click="{&quot;event_type&quot;:&quot;analytics.event&quot;,&quot;payload&quot;:{&quot;category&quot;:&quot;Footer&quot;,&quot;action&quot;:&quot;go to training&quot;,&quot;label&quot;:&quot;text:training&quot;,&quot;originating_url&quot;:&quot;https://github.com/jenkinsci/docker/blob/master/jenkins.sh&quot;,&quot;user_id&quot;:36673283}}" data-hydro-click-hmac="608bcb9426d360fc630a2bb3fcc52e1d95cbae99b164721bca2fbbf3a67a2786">Training</a></li>
-        <li class="mr-3 mr-lg-0"><a href="https://github.blog" data-hydro-click="{&quot;event_type&quot;:&quot;analytics.event&quot;,&quot;payload&quot;:{&quot;category&quot;:&quot;Footer&quot;,&quot;action&quot;:&quot;go to blog&quot;,&quot;label&quot;:&quot;text:blog&quot;,&quot;originating_url&quot;:&quot;https://github.com/jenkinsci/docker/blob/master/jenkins.sh&quot;,&quot;user_id&quot;:36673283}}" data-hydro-click-hmac="7580be01adbeda7e2a5d4f5ce1b02eb6f4a3ca9b5ef9dd86ab660d233bd45237">Blog</a></li>
+        <li class="mr-3 mr-lg-0"><a href="https://support.github.com?tags=dotcom-footer" data-hydro-click="{&quot;event_type&quot;:&quot;analytics.event&quot;,&quot;payload&quot;:{&quot;category&quot;:&quot;Footer&quot;,&quot;action&quot;:&quot;go to contact&quot;,&quot;label&quot;:&quot;text:contact&quot;,&quot;originating_url&quot;:&quot;https://github.com/jenkinsci/docker/blob/master/jenkins-plugin-cli.sh&quot;,&quot;user_id&quot;:36673283}}" data-hydro-click-hmac="2bc0cc0d0dd51b85a8047cd2dafdad3e5bac63cc5dcd0a9a0e93ddcf3f032349">Contact GitHub</a></li>
+        <li class="mr-3 mr-lg-0"><a href="https://github.com/pricing" data-hydro-click="{&quot;event_type&quot;:&quot;analytics.event&quot;,&quot;payload&quot;:{&quot;category&quot;:&quot;Footer&quot;,&quot;action&quot;:&quot;go to Pricing&quot;,&quot;label&quot;:&quot;text:Pricing&quot;,&quot;originating_url&quot;:&quot;https://github.com/jenkinsci/docker/blob/master/jenkins-plugin-cli.sh&quot;,&quot;user_id&quot;:36673283}}" data-hydro-click-hmac="e3652dcdfb24db24e394246811a7da99423066c67a8812c23f26194d36cf65ef">Pricing</a></li>
+      <li class="mr-3 mr-lg-0"><a href="https://docs.github.com" data-hydro-click="{&quot;event_type&quot;:&quot;analytics.event&quot;,&quot;payload&quot;:{&quot;category&quot;:&quot;Footer&quot;,&quot;action&quot;:&quot;go to api&quot;,&quot;label&quot;:&quot;text:api&quot;,&quot;originating_url&quot;:&quot;https://github.com/jenkinsci/docker/blob/master/jenkins-plugin-cli.sh&quot;,&quot;user_id&quot;:36673283}}" data-hydro-click-hmac="81120dace28eb9f57d948309e3139f045c6b52656a995a452c9011cdda5f7b22">API</a></li>
+      <li class="mr-3 mr-lg-0"><a href="https://services.github.com" data-hydro-click="{&quot;event_type&quot;:&quot;analytics.event&quot;,&quot;payload&quot;:{&quot;category&quot;:&quot;Footer&quot;,&quot;action&quot;:&quot;go to training&quot;,&quot;label&quot;:&quot;text:training&quot;,&quot;originating_url&quot;:&quot;https://github.com/jenkinsci/docker/blob/master/jenkins-plugin-cli.sh&quot;,&quot;user_id&quot;:36673283}}" data-hydro-click-hmac="3562ebb600db4209d66347ee052db0499d30410108b80c133ca5c58248ac809d">Training</a></li>
+        <li class="mr-3 mr-lg-0"><a href="https://github.blog" data-hydro-click="{&quot;event_type&quot;:&quot;analytics.event&quot;,&quot;payload&quot;:{&quot;category&quot;:&quot;Footer&quot;,&quot;action&quot;:&quot;go to blog&quot;,&quot;label&quot;:&quot;text:blog&quot;,&quot;originating_url&quot;:&quot;https://github.com/jenkinsci/docker/blob/master/jenkins-plugin-cli.sh&quot;,&quot;user_id&quot;:36673283}}" data-hydro-click-hmac="d6053b450c5fe3398f91c1e01c6e211b7053d09f0eec257877f3cf33daaff169">Blog</a></li>
         <li><a data-ga-click="Footer, go to about, text:about" href="https://github.com/about">About</a></li>
     </ul>
   </div>

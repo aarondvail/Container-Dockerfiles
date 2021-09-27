@@ -13,9 +13,11 @@ ARG gid=1000
 ARG http_port=8080
 ARG agent_port=50000
 ARG JENKINS_HOME=/var/jenkins_home
+ARG REF=/usr/share/jenkins/ref
 
 ENV JENKINS_HOME $JENKINS_HOME
 ENV JENKINS_SLAVE_AGENT_PORT ${agent_port}
+ENV REF $REF
 
 ## removing for apt-get
 ## Install git lfs per https://github.com/git-lfs/git-lfs#from-binary
@@ -36,20 +38,22 @@ RUN mkdir -p $JENKINS_HOME \
 # can be persisted and survive image upgrades
 VOLUME $JENKINS_HOME
 
-# `/usr/share/jenkins/ref/` contains all reference configuration we want
+# $REF (defaults to `/usr/share/jenkins/ref/`) contains all reference configuration we want
 # to set on a fresh new installation. Use it to bundle additional plugins
 # or config file with your custom jenkins Docker image.
-RUN mkdir -p /usr/share/jenkins/ref/init.groovy.d
+RUN mkdir -p ${REF}/init.groovy.d
 
 # Use tini as subreaper in Docker container to adopt zombie processes
-ARG TINI_VERSION=v0.16.1
-COPY jenkins/jenkins-tini_pub.gpg ${JENKINS_HOME}/tini_pub.gpg
-RUN curl -fsSL https://github.com/krallin/tini/releases/download/${TINI_VERSION}/tini-static-$(dpkg --print-architecture) -o /sbin/tini \
-  && curl -fsSL https://github.com/krallin/tini/releases/download/${TINI_VERSION}/tini-static-$(dpkg --print-architecture).asc -o /sbin/tini.asc \
-  && gpg --no-tty --import ${JENKINS_HOME}/tini_pub.gpg \
-  && gpg --verify /sbin/tini.asc \
-  && rm -rf /sbin/tini.asc /root/.gnupg \
-  && chmod +x /sbin/tini
+ARG TINI_VERSION=v0.19.0
+COPY jenkins/tini_pub.gpg "${JENKINS_HOME}/tini_pub.gpg"
+RUN cat ${JENKINS_HOME}/tini_pub.gpg
+RUN echo curl -fsSL https://github.com/krallin/tini/releases/download/${TINI_VERSION}/tini-static-$(dpkg --print-architecture) -o /sbin/tini 
+RUN curl -fsSL https://github.com/krallin/tini/releases/download/${TINI_VERSION}/tini-static-$(dpkg --print-architecture) -o /sbin/tini 
+RUN curl -fsSL https://github.com/krallin/tini/releases/download/${TINI_VERSION}/tini-static-$(dpkg --print-architecture).asc -o /sbin/tini.asc 
+RUN gpg --no-tty --import ${JENKINS_HOME}/tini_pub.gpg 
+RUN gpg --verify /sbin/tini.asc 
+RUN rm -rf /sbin/tini.asc /root/.gnupg 
+RUN chmod +x /sbin/tini
 
 ### differentiating at this point
 ## jenkins version being bundled in this docker image
@@ -70,7 +74,11 @@ RUN apt-get install -y jenkins python3 qemu git-lfs default-jdk
 ENV JENKINS_UC https://updates.jenkins.io
 ENV JENKINS_UC_EXPERIMENTAL=https://updates.jenkins.io/experimental
 ENV JENKINS_INCREMENTALS_REPO_MIRROR=https://repo.jenkins-ci.org/incrementals
-RUN chown -R ${user} "$JENKINS_HOME" /usr/share/jenkins/ref
+RUN chown -R ${user} "$JENKINS_HOME" "$REF"
+
+ARG PLUGIN_CLI_VERSION=2.9.3
+ARG PLUGIN_CLI_URL=https://github.com/jenkinsci/plugin-installation-manager-tool/releases/download/${PLUGIN_CLI_VERSION}/jenkins-plugin-manager-${PLUGIN_CLI_VERSION}.jar
+RUN curl -fsSL ${PLUGIN_CLI_URL} -o /opt/jenkins-plugin-manager.jar
 
 # for main web interface:
 EXPOSE ${http_port}
