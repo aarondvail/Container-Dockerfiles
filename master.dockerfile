@@ -1,10 +1,6 @@
-#FROM eclipse-temurin:8u302-b08-jdk-focal as jre-build
-
 FROM debian:buster-slim
 
-RUN apt-get update && \
-    apt-get install -y git curl gpg unzip libfreetype6 libfontconfig1 && \
-    rm -rf /var/lib/apt/lists/*
+RUN apt-get update && apt-get install -y git curl gpg unzip libfreetype6 libfontconfig1 && rm -rf /var/lib/apt/lists/*
 
 ENV LANG C.UTF-8
 
@@ -13,19 +9,7 @@ ARG GIT_LFS_VERSION=2.13.3
 RUN apt-get update && apt-get upgrade -y && apt-get install -y git curl dpkg gpg tar wget && rm -rf /var/lib/apt/lists/*
 RUN wget -q -O - https://pkg.jenkins.io/debian/jenkins.io.key | apt-key add - && echo "deb https://pkg.jenkins.io/debian binary/" >> /etc/apt/sources.list && apt-get update && apt-get upgrade -y && mkdir -p /usr/share/man/man1
 
-# required for multi-arch support, revert to package cloud after:
-# https://github.com/git-lfs/git-lfs/issues/4546
 COPY jenkins/git_lfs_pub.gpg /tmp/git_lfs_pub.gpg
-#RUN GIT_LFS_ARCHIVE="git-lfs-linux-${TARGETARCH}-v${GIT_LFS_VERSION}.tar.gz" \
-#    GIT_LFS_RELEASE_URL="https://github.com/git-lfs/git-lfs/releases/download/v${GIT_LFS_VERSION}/${GIT_LFS_ARCHIVE}"\
-#    set -x; curl --fail --silent --location --show-error --output "/tmp/${GIT_LFS_ARCHIVE}" "${GIT_LFS_RELEASE_URL}" && \
-#    curl --fail --silent --location --show-error --output "/tmp/git-lfs-sha256sums.asc" https://github.com/git-lfs/git-lfs/releases/download/v${GIT_LFS_VERSION}/sha256sums.asc && \
-#    gpg --no-tty --import /tmp/git_lfs_pub.gpg && \
-#    gpg -d /tmp/git-lfs-sha256sums.asc | grep "${GIT_LFS_ARCHIVE}" | (cd /tmp; sha256sum -c ) && \
-#    mkdir -p /tmp/git-lfs && \
-#    tar xzvf "/tmp/${GIT_LFS_ARCHIVE}" -C /tmp/git-lfs && \
-#    bash -x /tmp/git-lfs/install.sh && \
-#    rm -rf /tmp/git-lfs*
 
 ARG user=jenkins
 ARG group=jenkins
@@ -58,32 +42,7 @@ VOLUME $JENKINS_HOME
 RUN mkdir -p ${REF}/init.groovy.d
 
 # Use tini as subreaper in Docker container to adopt zombie processes
-ARG TINI_VERSION=v0.19.0
 COPY jenkins/tini_pub.gpg "${JENKINS_HOME}/tini_pub.gpg"
-RUN cat ${JENKINS_HOME}/tini_pub.gpg
-#RUN echo curl -fsSL "https://github.com/krallin/tini/releases/download/${TINI_VERSION}/tini-static-${TARGETARCH}" -o /sbin/tini 
-#RUN curl -fsSL "https://github.com/krallin/tini/releases/download/${TINI_VERSION}/tini-static-${TARGETARCH}" -o /sbin/tini 
-#RUN curl -fsSL "https://github.com/krallin/tini/releases/download/${TINI_VERSION}/tini-static-${TARGETARCH}.asc" -o /sbin/tini.asc 
-#RUN gpg --no-tty --import "${JENKINS_HOME}/tini_pub.gpg" 
-#RUN gpg --verify /sbin/tini.asc 
-#RUN rm -rf /sbin/tini.asc /root/.gnupg 
-#RUN chmod +x /sbin/tini
-
-### differentiating at this point
-## jenkins version being bundled in this docker image
-#ARG JENKINS_VERSION
-#ENV JENKINS_VERSION ${JENKINS_VERSION:-2.303}
-
-## jenkins.war checksum, download will be validated using it
-#ARG JENKINS_SHA=4dfe49cd7422ec4317a7c7a7c083f40fa475a58a7747bd94187b2cf222006ac0
-
-## Can be used to customize where jenkins.war get downloaded from
-#ARG JENKINS_URL=https://repo.jenkins-ci.org/public/org/jenkins-ci/main/jenkins-war/${JENKINS_VERSION}/jenkins-war-${JENKINS_VERSION}.war
-
-## could use ADD but this one does not check Last-Modified header neither does it allow to control checksum
-## see https://github.com/docker/docker/issues/8331
-#RUN curl -fsSL ${JENKINS_URL} -o /usr/share/jenkins/jenkins.war && echo "${JENKINS_SHA}  /usr/share/jenkins/jenkins.war" | sha256sum -c -
-#RUN apt-get install -y tini jenkins python3 qemu git-lfs openjdk-11-jdk
 RUN apt-get install -y tini jenkins python3 qemu git-lfs default-jdk
 
 ENV JENKINS_UC https://updates.jenkins.io
@@ -93,8 +52,6 @@ RUN chown -R ${user} "$JENKINS_HOME" "$REF"
 
 ARG PLUGIN_CLI_VERSION=2.11.0
 ARG PLUGIN_CLI_URL=https://github.com/jenkinsci/plugin-installation-manager-tool/releases/download/${PLUGIN_CLI_VERSION}/jenkins-plugin-manager-${PLUGIN_CLI_VERSION}.jar
-#ARG PLUGIN_CLI_URL=https://github.com/jenkinsci/plugin-installation-manager-tool/releases/download/2.11.0/jenkins-plugin-manager-2.11.0.jar
-RUN echo curl -fsSL ${PLUGIN_CLI_URL} -o /opt/jenkins-plugin-manager.jar
 RUN curl -fsSL ${PLUGIN_CLI_URL} -o /opt/jenkins-plugin-manager.jar
 
 # for main web interface:
@@ -107,8 +64,6 @@ ENV COPY_REFERENCE_FILE_LOG $JENKINS_HOME/copy_reference_file.log
 
 ENV JAVA_HOME=/opt/java/openjdk
 ENV PATH "${JAVA_HOME}/bin:${PATH}"
-#COPY --from=jre-build /opt/java/openjdk $JAVA_HOME
-
 USER ${user}
 
 COPY jenkins/jenkins-support /usr/local/bin/jenkins-support
@@ -124,8 +79,8 @@ COPY jenkins/install-plugins.sh /usr/local/bin/install-plugins.sh
 # metadata labels
 LABEL \
     org.opencontainers.image.vendor="Jenkins project" \
-    org.opencontainers.image.title="Official Jenkins Docker image" \
-    org.opencontainers.image.description="The Jenkins Continuous Integration and Delivery server" \
+    org.opencontainers.image.title="Unofficial Jenkins Docker image with Python, QEMU, and Java 11" \
+    org.opencontainers.image.description="The Jenkins Continuous Integration and Delivery server with Python, QEMU, and Java 11" \
     org.opencontainers.image.version="${JENKINS_VERSION}" \
     org.opencontainers.image.url="https://www.jenkins.io/" \
     org.opencontainers.image.source="https://github.com/jenkinsci/docker" \

@@ -1,10 +1,15 @@
-#Setting ARCH type argument
-ARG ARCH
-# Placeholder for the specified arch that gets parsed in the publish-experimental.sh script. Using Buster-slim for now
-FROM ${ARCH}debian:buster-slim
+FROM debian:buster-slim
 
+RUN apt-get update && apt-get install -y git curl gpg unzip libfreetype6 libfontconfig1 && rm -rf /var/lib/apt/lists/*
+
+ENV LANG C.UTF-8
+
+ARG TARGETARCH
+ARG GIT_LFS_VERSION=2.13.3
 RUN apt-get update && apt-get upgrade -y && apt-get install -y git curl dpkg gpg tar wget && rm -rf /var/lib/apt/lists/*
 RUN wget -q -O - https://pkg.jenkins.io/debian/jenkins.io.key | apt-key add - && echo "deb https://pkg.jenkins.io/debian binary/" >> /etc/apt/sources.list && apt-get update && apt-get upgrade -y && mkdir -p /usr/share/man/man1
+
+COPY jenkins/git_lfs_pub.gpg /tmp/git_lfs_pub.gpg
 
 ARG user=jenkins
 ARG group=jenkins
@@ -18,13 +23,6 @@ ARG REF=/usr/share/jenkins/ref
 ENV JENKINS_HOME $JENKINS_HOME
 ENV JENKINS_SLAVE_AGENT_PORT ${agent_port}
 ENV REF $REF
-
-## removing for apt-get
-## Install git lfs per https://github.com/git-lfs/git-lfs#from-binary
-## Avoid JENKINS-59569 - git LFS 2.7.1 fails clone with reference repository
-#ARG GIT_LFS_VERSION=v2.11.0
-#ENV GIT_LFS_VERSION $GIT_LFS_VERSION
-#RUN curl -fsSLO https://github.com/git-lfs/git-lfs/releases/download/${GIT_LFS_VERSION}/git-lfs-linux-$(dpkg --print-architecture)-${GIT_LFS_VERSION}.tar.gz  && curl -fsSLO https://github.com/git-lfs/git-lfs/releases/download/${GIT_LFS_VERSION}/sha256sums.asc   && curl -L https://github.com/bk2204.gpg | gpg --no-tty --import   && gpg -d sha256sums.asc | grep git-lfs-linux-$(dpkg --print-architecture)-${GIT_LFS_VERSION}.tar.gz | sha256sum -c && tar -zvxf git-lfs-linux-$(dpkg --print-architecture)-${GIT_LFS_VERSION}.tar.gz git-lfs   && mv git-lfs /usr/bin/   && rm -rf git-lfs-linux-$(dpkg --print-architecture)-${GIT_LFS_VERSION}.tar.gz sha256sums.asc /root/.gnupg
 
 # Jenkins is run with user `jenkins`, uid = 1000
 # If you bind mount a volume from the host or a data container,
@@ -44,39 +42,15 @@ VOLUME $JENKINS_HOME
 RUN mkdir -p ${REF}/init.groovy.d
 
 # Use tini as subreaper in Docker container to adopt zombie processes
-ARG TINI_VERSION=v0.19.0
 COPY jenkins/tini_pub.gpg "${JENKINS_HOME}/tini_pub.gpg"
-RUN cat ${JENKINS_HOME}/tini_pub.gpg
-RUN echo curl -fsSL https://github.com/krallin/tini/releases/download/${TINI_VERSION}/tini-static-$(dpkg --print-architecture) -o /sbin/tini 
-RUN curl -fsSL https://github.com/krallin/tini/releases/download/${TINI_VERSION}/tini-static-$(dpkg --print-architecture) -o /sbin/tini 
-RUN curl -fsSL https://github.com/krallin/tini/releases/download/${TINI_VERSION}/tini-static-$(dpkg --print-architecture).asc -o /sbin/tini.asc 
-RUN gpg --no-tty --import ${JENKINS_HOME}/tini_pub.gpg 
-RUN gpg --verify /sbin/tini.asc 
-RUN rm -rf /sbin/tini.asc /root/.gnupg 
-RUN chmod +x /sbin/tini
-
-### differentiating at this point
-## jenkins version being bundled in this docker image
-#ARG JENKINS_VERSION
-#ENV JENKINS_VERSION ${JENKINS_VERSION:-2.235.4}
-
-## jenkins.war checksum, download will be validated using it
-#ARG JENKINS_SHA=e5688a8f07cc3d79ba3afa3cab367d083dd90daab77cebd461ba8e83a1e3c177
-
-## Can be used to customize where jenkins.war get downloaded from
-#ARG JENKINS_URL=https://repo.jenkins-ci.org/public/org/jenkins-ci/main/jenkins-war/${JENKINS_VERSION}/jenkins-war-${JENKINS_VERSION}.war
-
-## could use ADD but this one does not check Last-Modified header neither does it allow to control checksum
-## see https://github.com/docker/docker/issues/8331
-#RUN curl -fsSL ${JENKINS_URL} -o /usr/share/jenkins/jenkins.war && echo "${JENKINS_SHA}  /usr/share/jenkins/jenkins.war" | sha256sum -c -
-RUN apt-get install -y jenkins python3 qemu git-lfs default-jdk
+RUN apt-get install -y tini jenkins python3 qemu git-lfs default-jdk
 
 ENV JENKINS_UC https://updates.jenkins.io
 ENV JENKINS_UC_EXPERIMENTAL=https://updates.jenkins.io/experimental
 ENV JENKINS_INCREMENTALS_REPO_MIRROR=https://repo.jenkins-ci.org/incrementals
 RUN chown -R ${user} "$JENKINS_HOME" "$REF"
 
-ARG PLUGIN_CLI_VERSION=2.9.3
+ARG PLUGIN_CLI_VERSION=2.11.0
 ARG PLUGIN_CLI_URL=https://github.com/jenkinsci/plugin-installation-manager-tool/releases/download/${PLUGIN_CLI_VERSION}/jenkins-plugin-manager-${PLUGIN_CLI_VERSION}.jar
 RUN curl -fsSL ${PLUGIN_CLI_URL} -o /opt/jenkins-plugin-manager.jar
 
@@ -88,16 +62,26 @@ EXPOSE ${agent_port}
 
 ENV COPY_REFERENCE_FILE_LOG $JENKINS_HOME/copy_reference_file.log
 
+ENV JAVA_HOME=/opt/java/openjdk
+ENV PATH "${JAVA_HOME}/bin:${PATH}"
 USER ${user}
-
-# Invoke Git LFS
-RUN git lfs install
 
 COPY jenkins/jenkins-support /usr/local/bin/jenkins-support
 COPY jenkins/jenkins.sh /usr/local/bin/jenkins.sh
-COPY jenkins/jenkins-tini-shim.sh /bin/tini
+COPY jenkins/tini-shim.sh /bin/tini
+COPY jenkins/jenkins-plugin-cli.sh /bin/jenkins-plugin-cli
+
 ENTRYPOINT ["/sbin/tini", "--", "/usr/local/bin/jenkins.sh"]
 
-# from a derived Dockerfile, can use `RUN install-plugins.sh active.txt` to setup /usr/share/jenkins/ref/plugins from a support bundle
-COPY jenkins/jenkins-install-plugins.sh /usr/local/bin/install-plugins.sh
-# RUN chown -R ${user} "$JENKINS_HOME" /usr/local/bin/
+# from a derived Dockerfile, can use `RUN install-plugins.sh active.txt` to setup $REF/plugins from a support bundle
+COPY jenkins/install-plugins.sh /usr/local/bin/install-plugins.sh
+
+# metadata labels
+LABEL \
+    org.opencontainers.image.vendor="Jenkins project" \
+    org.opencontainers.image.title="Unofficial Jenkins Docker image with Python, QEMU, and Java 11" \
+    org.opencontainers.image.description="The Jenkins Continuous Integration and Delivery server with Python, QEMU, and Java 11" \
+    org.opencontainers.image.version="${JENKINS_VERSION}" \
+    org.opencontainers.image.url="https://www.jenkins.io/" \
+    org.opencontainers.image.source="https://github.com/jenkinsci/docker" \
+    org.opencontainers.image.licenses="MIT"
