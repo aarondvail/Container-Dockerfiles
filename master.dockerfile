@@ -59,12 +59,13 @@ RUN mkdir -p ${REF}/init.groovy.d
 ARG TINI_VERSION=v0.19.0
 COPY jenkins/tini_pub.gpg "${JENKINS_HOME}/tini_pub.gpg"
 RUN cat ${JENKINS_HOME}/tini_pub.gpg
-RUN curl -fsSL "https://github.com/krallin/tini/releases/download/${TINI_VERSION}/tini-static-${TARGETARCH}" -o /sbin/tini \
-  && curl -fsSL "https://github.com/krallin/tini/releases/download/${TINI_VERSION}/tini-static-${TARGETARCH}.asc" -o /sbin/tini.asc \
-  && gpg --no-tty --import "${JENKINS_HOME}/tini_pub.gpg" \
-  && gpg --verify /sbin/tini.asc \
-  && rm -rf /sbin/tini.asc /root/.gnupg \
-  && chmod +x /sbin/tini
+#RUN echo curl -fsSL "https://github.com/krallin/tini/releases/download/${TINI_VERSION}/tini-static-${TARGETARCH}" -o /sbin/tini 
+#RUN curl -fsSL "https://github.com/krallin/tini/releases/download/${TINI_VERSION}/tini-static-${TARGETARCH}" -o /sbin/tini 
+#RUN curl -fsSL "https://github.com/krallin/tini/releases/download/${TINI_VERSION}/tini-static-${TARGETARCH}.asc" -o /sbin/tini.asc 
+#RUN gpg --no-tty --import "${JENKINS_HOME}/tini_pub.gpg" 
+#RUN gpg --verify /sbin/tini.asc 
+#RUN rm -rf /sbin/tini.asc /root/.gnupg 
+#RUN chmod +x /sbin/tini
 
 ### differentiating at this point
 ## jenkins version being bundled in this docker image
@@ -80,7 +81,7 @@ RUN curl -fsSL "https://github.com/krallin/tini/releases/download/${TINI_VERSION
 ## could use ADD but this one does not check Last-Modified header neither does it allow to control checksum
 ## see https://github.com/docker/docker/issues/8331
 #RUN curl -fsSL ${JENKINS_URL} -o /usr/share/jenkins/jenkins.war && echo "${JENKINS_SHA}  /usr/share/jenkins/jenkins.war" | sha256sum -c -
-RUN apt-get install -y jenkins python3 qemu git-lfs openjdk-11-jdk
+RUN apt-get install -y tini jenkins python3 qemu git-lfs openjdk-11-jdk
 
 ENV JENKINS_UC https://updates.jenkins.io
 ENV JENKINS_UC_EXPERIMENTAL=https://updates.jenkins.io/experimental
