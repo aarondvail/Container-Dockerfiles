@@ -35,7 +35,7 @@ pipeline {
 //                        sh "docker buildx create --append --name ${BRANCH_NAME} node-arm64"
 //                        sh "docker buildx create --append --name ${BRANCH_NAME} node-arm"
                         sh "docker run --rm --privileged docker/binfmt:820fdd95a9972a5308930a2bdfb8573dd4447ad3"
-                        sh "cat /proc/sys/fs/binfmt_misc/qemu-aarch64"
+//                        sh "cat /proc/sys/fs/binfmt_misc/qemu-aarch64"
                         sh "docker buildx create --name mybuilder"
                         sh "docker buildx use mybuilder"
                         sh "docker buildx inspect --bootstrap"
