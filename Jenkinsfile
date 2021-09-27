@@ -26,18 +26,18 @@ pipeline {
 //            } 
 //        }
         stage('Buildx image') {
-//            steps { 
-//                script { 
-//                    def dockerfile = "${BRANCH_NAME}.dockerfile"
-//                    echo "${registry}:${amd64tag} - ${dockerfile}" 
-//                    docker.withRegistry( '', registryCredential ) { 
-//                        sh "docker buildx create --use --name ${BRANCH_NAME} node-amd64"
-//                        sh "docker buildx create --append --name ${BRANCH_NAME} node-arm64"
-//                        sh "docker buildx create --append --name ${BRANCH_NAME} node-arm"
-//                        sh "docker buildx build --platform=linux/arm/v7,linux/arm64/v8,linux/amd64 --tag ${registry}:latest -f ${dockerfile} ."
-//                    }
-//                }
-//            } 
+            steps { 
+                script { 
+                    def dockerfile = "${BRANCH_NAME}.dockerfile"
+                    echo "${registry}:${amd64tag} - ${dockerfile}" 
+                    docker.withRegistry( '', registryCredential ) { 
+                        sh "docker buildx create --use --name ${BRANCH_NAME} node-amd64"
+                        sh "docker buildx create --append --name ${BRANCH_NAME} node-arm64"
+                        sh "docker buildx create --append --name ${BRANCH_NAME} node-arm"
+                        sh "docker buildx build --platform=linux/arm/v7,linux/arm64/v8,linux/amd64 --tag ${registry}:latest -f ${dockerfile} ."
+                    }
+                }
+            } 
         }
 //        stage('Build amd64 image') {
 //            steps { 
