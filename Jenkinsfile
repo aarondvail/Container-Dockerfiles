@@ -61,7 +61,8 @@ pipeline {
                         sh "docker buildx create --name mybuilder"
                         sh "docker buildx use mybuilder"
 //                        sh "docker buildx build --platform=linux/arm/v7,linux/arm/v6,linux/arm64,linux/386,linux/amd64 --tag ${registry}:latest -f ${dockerfile} . --push"
-                        sh "docker buildx build --platform=linux/arm/v7,linux/arm64,linux/amd64 --tag ${registry}:latest -f ${dockerfile} . --push"
+//                        sh "docker buildx build --platform=linux/arm/v7,linux/arm64,linux/amd64 --tag ${registry}:latest -f ${dockerfile} . --push"
+                        sh "docker buildx build --platform=linux/arm64,linux/amd64 --tag ${registry}:latest -f ${dockerfile} . --push"
                     }
                 }
             } 
