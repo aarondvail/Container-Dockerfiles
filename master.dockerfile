@@ -84,18 +84,14 @@ RUN cat ${JENKINS_HOME}/tini_pub.gpg
 ## see https://github.com/docker/docker/issues/8331
 #RUN curl -fsSL ${JENKINS_URL} -o /usr/share/jenkins/jenkins.war && echo "${JENKINS_SHA}  /usr/share/jenkins/jenkins.war" | sha256sum -c -
 #RUN apt-get install -y tini jenkins python3 qemu git-lfs openjdk-11-jdk
-RUN apt-get install -y jenkins 
-RUN apt-get install -y python3 
-RUN apt-get install -y qemu 
-RUN apt-get install -y git-lfs 
-RUN apt-get install -y default-jdk
+RUN apt-get install -y tini jenkins python3 qemu git-lfs default-jdk
 
 ENV JENKINS_UC https://updates.jenkins.io
 ENV JENKINS_UC_EXPERIMENTAL=https://updates.jenkins.io/experimental
 ENV JENKINS_INCREMENTALS_REPO_MIRROR=https://repo.jenkins-ci.org/incrementals
 RUN chown -R ${user} "$JENKINS_HOME" "$REF"
 
-ARG PLUGIN_CLI_VERSION=2.9.3
+ARG PLUGIN_CLI_VERSION=2.11.0
 ARG PLUGIN_CLI_URL=https://github.com/jenkinsci/plugin-installation-manager-tool/releases/download/${PLUGIN_CLI_VERSION}/jenkins-plugin-manager-${PLUGIN_CLI_VERSION}.jar
 RUN curl -fsSL ${PLUGIN_CLI_URL} -o /opt/jenkins-plugin-manager.jar
 
