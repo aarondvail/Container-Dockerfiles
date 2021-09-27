@@ -10,6 +10,8 @@ ENV LANG C.UTF-8
 
 ARG TARGETARCH
 ARG GIT_LFS_VERSION=2.13.3
+RUN apt-get update && apt-get upgrade -y && apt-get install -y git curl dpkg gpg tar wget && rm -rf /var/lib/apt/lists/*
+RUN wget -q -O - https://pkg.jenkins.io/debian/jenkins.io.key | apt-key add - && echo "deb https://pkg.jenkins.io/debian binary/" >> /etc/apt/sources.list && apt-get update && apt-get upgrade -y && mkdir -p /usr/share/man/man1
 
 # required for multi-arch support, revert to package cloud after:
 # https://github.com/git-lfs/git-lfs/issues/4546
