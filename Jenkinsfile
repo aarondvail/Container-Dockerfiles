@@ -18,7 +18,7 @@ pipeline {
             steps { 
                 script { 
                     def dockerfile = "${BRANCH_NAME}.dockerfile"
-                    echo "${registry}:${amd64tag} - ${dockerfile}" 
+                    echo "${registry}:${BUILD_NUMBER} - ${dockerfile}" 
                     docker.withRegistry( '', registryCredential ) { 
                         sh "docker run --rm --privileged docker/binfmt:820fdd95a9972a5308930a2bdfb8573dd4447ad3"
                         sh "docker buildx create --name mybuilder"
