@@ -3,14 +3,13 @@ pipeline {
         registry = "aarondvail/$BRANCH_NAME" 
         registryCredential = 'DockerHub' 
         dockerImage = '' 
-		VERSION_NUMBER = ''
     }
     agent any
 	//triggers {
 	//	cron('0 2 * * 3')
 	//}
 	parameters {
-		text(name: 'VERSION_NUMBER', defaultValue: '', description: 'Enter the Version Number for a manual run')
+		string(name: 'VERSION_NUMBER', defaultValue: '', description: 'Enter the Version Number for a manual run')
 	}
     stages { 
         stage('Clone repository') {
