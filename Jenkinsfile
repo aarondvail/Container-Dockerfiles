@@ -3,6 +3,7 @@ pipeline {
         registry = "aarondvail/$BRANCH_NAME" 
         registryCredential = 'DockerHub' 
         dockerImage = '' 
+		VERSION_NUMBER = ''
     }
     agent any
 	//triggers {
