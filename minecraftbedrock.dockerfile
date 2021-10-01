@@ -24,14 +24,6 @@ EXPOSE 19132/udp
 COPY minecraftbedrock/startup2.sh /home/bedrock
 RUN ["chmod", "+x", "/home/bedrock/startup2.sh"]
 
-# If you enable the USER below, there will be permission issues with shared volumes
-# USER bedrock
-
-# Added bash so you can drop to a shell to resolve errors
-#ENTRYPOINT /home/bedrock/startup.sh && /bin/bash
-
-#RUN cd /home/bedrock/bedrock_server && curl --fail -O $BEDROCK_DOWNLOAD_ZIP && unzip -n $ZIPFILE
-
 ENTRYPOINT /home/bedrock/startup2.sh && /bin/bash
 
 
