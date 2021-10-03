@@ -3,6 +3,7 @@ FROM ubuntu
 #FROM ubuntu:16.04
 #FROM phusion/baseimage:0.11
 
+ARG VERSION_NUMBER
 ENV DEBIAN_FRONTEND=teletype
 ENV LANG en_US.UTF-8  
 ENV LANGUAGE en_US:en  
@@ -25,5 +26,3 @@ COPY minecraftbedrock/startup2.sh /home/bedrock
 RUN ["chmod", "+x", "/home/bedrock/startup2.sh"]
 
 ENTRYPOINT /home/bedrock/startup2.sh && /bin/bash
-
-
