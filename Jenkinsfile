@@ -30,7 +30,7 @@ pipeline {
                         sh "docker buildx create --name mybuilder"
                         sh "docker buildx use mybuilder"
 						if ("${VERSION_NUMBER}"==''){
-							sh "docker buildx build --platform=linux/arm64,linux/amd64 --tag ${registry}:${BUILD_NUMBER} -f ${dockerfile} . --push"
+							sh "docker buildx build --build-arg VERSION_NUMBER=VERSION_NUMBER--platform=linux/arm64,linux/amd64 --tag ${registry}:${BUILD_NUMBER} -f ${dockerfile} . --push"
 						}
 						if ("${VERSION_NUMBER}"!=''){
 							sh "docker buildx build --platform=linux/arm64,linux/amd64 --tag ${registry}:${VERSION_NUMBER} -f ${dockerfile} . --push"
