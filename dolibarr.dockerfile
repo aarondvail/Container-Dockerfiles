@@ -42,6 +42,7 @@ RUN apt-get update -y \
         libzip-dev \
         default-mysql-client \
         postgresql-client \
+        libpq-dev \
     && apt-get autoremove -y \
     && docker-php-ext-configure gd --with-freetype --with-jpeg \
     && docker-php-ext-install -j$(nproc) calendar intl pgsql pdo_pgsql mysqli pdo_mysql gd soap zip \
