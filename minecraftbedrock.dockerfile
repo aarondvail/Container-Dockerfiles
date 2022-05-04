@@ -18,6 +18,7 @@ ENV BEDROCK_DOWNLOAD_ZIP=https://minecraft.azureedge.net/bin-linux/$ZIPFILE
 
 # ...put your own build instructions here...
 RUN rm -fr /var/lib/apt/lists
+RUN rm -fr /var/cache/apt
 RUN apt-get update && apt-get upgrade -y 
 RUN apt-get -y install curl nano wget unzip libcurl4 libssl-dev 
 #RUN echo $TZ > /etc/timezone 
