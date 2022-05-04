@@ -1,6 +1,6 @@
 # Dockerfile YouTube-DL install (run from /port/docker/file)
-#FROM ubuntu
-FROM ubuntu:21.10
+FROM ubuntu
+#FROM ubuntu:21.10
 #FROM ubuntu:16.04
 #FROM phusion/baseimage:0.11
 
@@ -20,7 +20,7 @@ ENV BEDROCK_DOWNLOAD_ZIP=https://minecraft.azureedge.net/bin-linux/$ZIPFILE
 RUN rm -fr /var/lib/apt/lists
 RUN apt-get update && apt-get upgrade -y 
 RUN apt-get -y install curl nano wget unzip libcurl4 libssl-dev 
-RUN echo $TZ > /etc/timezone 
+#RUN echo $TZ > /etc/timezone 
 RUN apt-get update && DEBIAN_FRONTEND=noninteractive apt-get install -y tzdata && rm /etc/localtime && ln -snf /usr/share/zoneinfo/$TZ /etc/localtime 
 RUN dpkg-reconfigure -f noninteractive tzdata && apt-get clean && useradd -ms /bin/bash bedrock 
 RUN wget $BEDROCK_DOWNLOAD_ZIP && unzip $ZIPFILE -d /home/bedrock/bedrock_server && chown -R bedrock:bedrock /home/bedrock/bedrock_server && su - bedrock -c "mkdir -p bedrock_server/data/worlds" && chown -R bedrock:bedrock /home/bedrock/bedrock_server/data/worlds && apt-get clean && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
