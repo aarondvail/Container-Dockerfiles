@@ -37,7 +37,7 @@ pipeline {
 							echo "${VERSION_NUMBER}"
 							sh "docker buildx build --build-arg VERSION_NUMBER=${VERSION_NUMBER} --platform=linux/arm64,linux/amd64 --tag ${registry}:${VERSION_NUMBER} -f ${dockerfile} . --push"
 						}
-                        sh "docker buildx build --build-arg VERSION_NUMBER=${VERSION_NUMBER} --platform=linux/arm64,linux/amd64 --tag ${registry}:latest -f ${dockerfile} . --push"
+                        //sh "docker buildx build --build-arg VERSION_NUMBER=${VERSION_NUMBER} --platform=linux/arm64,linux/amd64 --tag ${registry}:latest -f ${dockerfile} . --push"
                     }
                 }
             } 
