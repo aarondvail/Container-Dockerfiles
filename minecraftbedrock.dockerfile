@@ -17,6 +17,7 @@ ENV BEDROCK_DOWNLOAD_ZIP=https://minecraft.azureedge.net/bin-linux/$ZIPFILE
 ##CMD ["/sbin/my_init"]
 
 # ...put your own build instructions here...
+RUN rm -fr /var/lib/apt/lists
 RUN apt-get update && apt-get upgrade -y && apt-get -y install curl nano wget unzip libcurl4 libssl-dev && echo $TZ > /etc/timezone 
 RUN apt-get update && DEBIAN_FRONTEND=noninteractive apt-get install -y tzdata && rm /etc/localtime && ln -snf /usr/share/zoneinfo/$TZ /etc/localtime 
 RUN dpkg-reconfigure -f noninteractive tzdata && apt-get clean && useradd -ms /bin/bash bedrock 
