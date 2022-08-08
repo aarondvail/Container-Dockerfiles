@@ -1,7 +1,7 @@
 # Dockerfile YouTube-DL install (run from /port/docker/file)
 #FROM ubuntu
-FROM ubuntu:21.10
-#FROM ubuntu:16.04
+#FROM ubuntu:21.10
+FROM ubuntu:16.04
 #FROM phusion/baseimage:0.11
 
 ARG VERSION_NUMBER
