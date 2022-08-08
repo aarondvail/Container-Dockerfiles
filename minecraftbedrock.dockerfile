@@ -1,7 +1,8 @@
 # Dockerfile YouTube-DL install (run from /port/docker/file)
+FROM debian
 #FROM ubuntu
 #FROM ubuntu:21.10
-FROM ubuntu:16.04
+#FROM ubuntu:16.04
 #FROM phusion/baseimage:0.11
 
 ARG VERSION_NUMBER
@@ -18,7 +19,7 @@ ENV BEDROCK_DOWNLOAD_ZIP=https://minecraft.azureedge.net/bin-linux/$ZIPFILE
 
 # ...put your own build instructions here...
 RUN rm -fr /var/lib/apt/lists && rm -fr /var/cache/apt
-RUN cp  /etc/apt/sources.list /etc/apt/sources.list.bak && sudo sed -i -re 's/([a-z]{2}\.)?archive.ubuntu.com|security.ubuntu.com/old-releases.ubuntu.com/g' /etc/apt/sources.list
+#RUN cp  /etc/apt/sources.list /etc/apt/sources.list.bak && sudo sed -i -re 's/([a-z]{2}\.)?archive.ubuntu.com|security.ubuntu.com/old-releases.ubuntu.com/g' /etc/apt/sources.list
 RUN apt-get update && apt-get upgrade -y 
 RUN apt-get -y install curl nano wget unzip libcurl4 libssl-dev 
 #RUN echo $TZ > /etc/timezone 
