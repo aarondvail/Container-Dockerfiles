@@ -20,7 +20,13 @@ pipeline {
 				}
             }
         }
-        stage('Buildx image') {
+	stage('SonarQube Analysis') {
+    		def scannerHome = tool 'SonarScanner';
+		withSonarQubeEnv() {
+      			sh "${scannerHome}/bin/sonar-scanner"
+		}
+	}
+	stage('Buildx image') {
             steps { 
                 script { 
                     def dockerfile = "${BRANCH_NAME}.dockerfile"
