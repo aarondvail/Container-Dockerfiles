@@ -1,6 +1,7 @@
 @Library('Vail-Industries-SharedLib') _
 	mainPipeline {
 		repoName="Container-Dockerfiles"
+		org="Vail-Industries"
 		Email_Notifications="aaron.d.vail@vail-industries.com"
 		Jenkins_Node="any"	
 	}
