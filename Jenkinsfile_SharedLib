@@ -2,7 +2,7 @@
 	mainPipeline {
 		repo_Name="Container-Dockerfiles"
 		org="Vail-Industries"
-		Email_Notifications="aaron.d.vail@vail-industries.com"
+		Email_Notification="aaron.d.vail@vail-industries.com"
 		Jenkins_Node="any"	
 	}
 	
