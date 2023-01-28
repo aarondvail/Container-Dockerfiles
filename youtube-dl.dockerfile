@@ -23,7 +23,7 @@ RUN apt-get update -y && apt-get install -y --allow-unauthenticated build-essent
 RUN curl -L https://yt-dl.org/downloads/latest/youtube-dl -o /usr/local/bin/youtube-dl && chmod a+rx /usr/local/bin/youtube-dl 
 
 #Get UDemy-DL
-RUN git clone https://github.com/r0oth3x49/udemy-dl.git && cd udemy-dl && pip install -r requirements.txt
+RUN git clone https://github.com/r0oth3x49/udemy-dl.git && cd udemy-dl && pip3 install -r requirements.txt
 
 #Get youtube filelist
 RUN touch /root/findYouTube.sh
