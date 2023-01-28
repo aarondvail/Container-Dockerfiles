@@ -20,7 +20,7 @@ RUN apt-get update -y && apt-get install -y --allow-unauthenticated build-essent
 
 #Install UDemy-DL dependencies
 #RUN apt-get update -y && apt-get install -y --allow-unauthenticated install python3 python3-dev python3-minimal python3-pip libffi-dev libffi6 gcc && curl https://sh.rustup.rs -sSf | bash -s -- -y && echo 'source $HOME/.cargo/env' >> $HOME/.bashrc
-RUN apt-get update -y && apt-get install -y --allow-unauthenticated libffi-dev libffi6 gcc openssl libssl-dev
+RUN apt-get update -y && apt-get install -y --allow-unauthenticated libffi-dev libffi6 gcc openssl libssl-dev python3 python3-dev python3-minimal python3-pip
 RUN curl https://sh.rustup.rs -sSf | bash -s -- -y
 ENV PATH="/root/.cargo/bin:${PATH}"
 
