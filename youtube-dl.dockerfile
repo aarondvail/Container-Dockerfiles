@@ -19,7 +19,7 @@ RUN apt-get update -y && apt-get install -y --allow-unauthenticated build-essent
 #RUN apt-get update -y && apt-get install -y --allow-unauthenticated build-essential net-tools libmp3lame-dev libvorbis-dev libtheora-dev libspeex-dev yasm pkg-config libx264-dev ffmpeg apache2 curl python python-dev python3 python3-dev python3-minimal python3-pip
 
 #Install UDemy-DL dependencies
-RUN apt-get install libffi-dev libffi6 gcc build-essentials && curl https://sh.rustup.rs -sSf | bash -s -- -y && echo 'source $HOME/.cargo/env' >> $HOME/.bashrc
+RUN apt-get install libffi-dev libffi6 gcc && curl https://sh.rustup.rs -sSf | bash -s -- -y && echo 'source $HOME/.cargo/env' >> $HOME/.bashrc
 
 #Get YouTube-DL
 RUN curl -L https://yt-dl.org/downloads/latest/youtube-dl -o /usr/local/bin/youtube-dl && chmod a+rx /usr/local/bin/youtube-dl 
