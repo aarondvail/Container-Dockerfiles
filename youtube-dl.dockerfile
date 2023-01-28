@@ -1,7 +1,8 @@
 #Setting ARCH type argument
 #ARG ARCH
 # Dockerfile YouTube-DL install (run from /port/docker/file)
-FROM debian:buster-slim
+FROM debian:bullseye-slim
+#FROM debian:buster-slim
 
 #Set Language and Location
 ENV LANG=en_US.UTF-8  
@@ -13,7 +14,7 @@ RUN apt-get update -y && apt-get upgrade -y && apt-get install nano apt-utils lo
 RUN apt-get install curl apt-transport-https wget net-tools perl -y --allow-unauthenticated && update-locale LANG=en_US.UTF-8 && update-locale LANGUAGE=en_US:en && update-locale LC_ALL=en_US.UTF-8 
 
 #Install YouTube-DL dependencies
-RUN apt-get update -y && apt-get install -y --allow-unauthenticated build-essential net-tools libmp3lame-dev libvorbis-dev libtheora-dev libspeex-dev yasm pkg-config libx264-dev ffmpeg apache2 curl python python-dev python-minimal python-pip
+RUN apt-get update -y && apt-get install -y --allow-unauthenticated build-essential net-tools libmp3lame-dev libvorbis-dev libtheora-dev libspeex-dev yasm pkg-config libx264-dev ffmpeg apache2 curl python python-dev python-minimal python-pip python3 python3-dev python3-minimal python3-pip
 
 #Get YouTube-DL
 RUN curl -L https://yt-dl.org/downloads/latest/youtube-dl -o /usr/local/bin/youtube-dl && chmod a+rx /usr/local/bin/youtube-dl 
