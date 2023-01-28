@@ -20,7 +20,8 @@ RUN apt-get update -y && apt-get install -y --allow-unauthenticated build-essent
 
 #Install UDemy-DL dependencies
 #RUN apt-get install libffi-dev libffi6 gcc && curl https://sh.rustup.rs -sSf | bash -s -- -y && echo 'source $HOME/.cargo/env' >> $HOME/.bashrc
-RUN apt-get install libffi-dev libffi6 gcc && curl https://sh.rustup.rs -sSf | bash -s -- -y && ENV PATH="/root/.cargo/bin:${PATH}"
+RUN apt-get install libffi-dev libffi6 gcc && curl https://sh.rustup.rs -sSf | bash -s -- -y
+ENV PATH="/root/.cargo/bin:${PATH}"
 
 #Get YouTube-DL
 RUN curl -L https://yt-dl.org/downloads/latest/youtube-dl -o /usr/local/bin/youtube-dl && chmod a+rx /usr/local/bin/youtube-dl 
