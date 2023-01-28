@@ -18,17 +18,17 @@ RUN apt-get update -y && apt-get install -y --allow-unauthenticated build-essent
 #RUN apt-get update -y && apt-get install -y --allow-unauthenticated build-essential net-tools libmp3lame-dev libvorbis-dev libtheora-dev libspeex-dev yasm pkg-config libx264-dev ffmpeg apache2 curl python python-dev python-minimal python-pip python3 python3-dev python3-minimal python3-pip
 #RUN apt-get update -y && apt-get install -y --allow-unauthenticated build-essential net-tools libmp3lame-dev libvorbis-dev libtheora-dev libspeex-dev yasm pkg-config libx264-dev ffmpeg apache2 curl python python-dev python3 python3-dev python3-minimal python3-pip
 
-#Install UDemy-DL dependencies
-#RUN apt-get update -y && apt-get install -y --allow-unauthenticated install python3 python3-dev python3-minimal python3-pip libffi-dev libffi6 gcc && curl https://sh.rustup.rs -sSf | bash -s -- -y && echo 'source $HOME/.cargo/env' >> $HOME/.bashrc
-RUN apt-get update -y && apt-get install -y --allow-unauthenticated libffi-dev libffi6 gcc openssl libssl-dev python3 python3-dev python3-minimal python3-pip
-RUN curl https://sh.rustup.rs -sSf | bash -s -- -y
-ENV PATH="/root/.cargo/bin:${PATH}"
+##Install UDemy-DL dependencies
+##RUN apt-get update -y && apt-get install -y --allow-unauthenticated install python3 python3-dev python3-minimal python3-pip libffi-dev libffi6 gcc && curl https://sh.rustup.rs -sSf | bash -s -- -y && echo 'source $HOME/.cargo/env' >> $HOME/.bashrc
+#RUN apt-get update -y && apt-get install -y --allow-unauthenticated libffi-dev libffi6 gcc openssl libssl-dev python3 python3-dev python3-minimal python3-pip
+#RUN curl https://sh.rustup.rs -sSf | bash -s -- -y
+#ENV PATH="/root/.cargo/bin:${PATH}"
 
 #Get YouTube-DL
 RUN curl -L https://yt-dl.org/downloads/latest/youtube-dl -o /usr/local/bin/youtube-dl && chmod a+rx /usr/local/bin/youtube-dl 
 
-#Get UDemy-DL
-RUN git clone https://github.com/r0oth3x49/udemy-dl.git && cd udemy-dl && pip3 install -r requirements.txt
+##Get UDemy-DL
+#RUN git clone https://github.com/r0oth3x49/udemy-dl.git && cd udemy-dl && pip3 install -r requirements.txt
 
 #Get youtube filelist
 RUN touch /root/findYouTube.sh
