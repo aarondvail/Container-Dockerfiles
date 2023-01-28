@@ -11,7 +11,7 @@ ENV LC_ALL=en_US.UTF-8
 
 #Install Tools
 RUN apt-get update -y && apt-get upgrade -y && apt-get install nano apt-utils locales -y --allow-unauthenticated && sed -i 's/^# *\(en_US.UTF-8\)/\1/' /etc/locale.gen && locale-gen && locale-gen en_US.UTF-8 
-RUN apt-get install curl apt-transport-https wget net-tools perl git -y --allow-unauthenticated && update-locale LANG=en_US.UTF-8 && update-locale LANGUAGE=en_US:en && update-locale LC_ALL=en_US.UTF-8 
+RUN apt-get install curl apt-transport-https wget net-tools perl git libffi-dev libffi6 -y --allow-unauthenticated && update-locale LANG=en_US.UTF-8 && update-locale LANGUAGE=en_US:en && update-locale LC_ALL=en_US.UTF-8 
 
 #Install YouTube-DL dependencies
 RUN apt-get update -y && apt-get install -y --allow-unauthenticated build-essential net-tools libmp3lame-dev libvorbis-dev libtheora-dev libspeex-dev yasm pkg-config libx264-dev ffmpeg apache2 curl python3 python3-dev python3-minimal python3-pip
