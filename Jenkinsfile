@@ -38,11 +38,11 @@ pipeline {
                         sh "docker buildx use mybuilder"
 						if ("${VERSION_NUMBER}"==''){
 							echo "${VERSION_NUMBER}"
-							sh "docker buildx build --build-arg VERSION_NUMBER=${VERSION_NUMBER} --platform=linux/arm64/v8,linux/amd64 --tag ${registry}:${BUILD_NUMBER} -f ${dockerfile} . --push"
+							sh "docker buildx build --build-arg VERSION_NUMBER=${VERSION_NUMBER} --platform=linux/amd64 --tag ${registry}:${BUILD_NUMBER} -f ${dockerfile} . --push"
 						}
 						if ("${VERSION_NUMBER}"!=''){
 							echo "${VERSION_NUMBER}"
-							sh "docker buildx build --build-arg VERSION_NUMBER=${VERSION_NUMBER} --platform=linux/arm64/v8,linux/amd64 --tag ${registry}:${VERSION_NUMBER} -f ${dockerfile} . --push"
+							sh "docker buildx build --build-arg VERSION_NUMBER=${VERSION_NUMBER} --platform=linux/amd64 --tag ${registry}:${VERSION_NUMBER} -f ${dockerfile} . --push"
 							sh "docker tag ${registry}:${VERSION_NUMBER} ${registry}:latest"
 							newImage = docker.image("${registry}:latest")
 							newImage.push
