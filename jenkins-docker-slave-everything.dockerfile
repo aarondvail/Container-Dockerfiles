@@ -1,4 +1,4 @@
-FROM debian:bookworm
+FROM debian:bullseye-slim
 
 LABEL maintainer="Aaron D. Vail <aarondvail@gmail.com>"
 
