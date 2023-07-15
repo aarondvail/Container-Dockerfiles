@@ -2,8 +2,11 @@ FROM debian:bookworm
 
 LABEL maintainer="Aaron D. Vail <aarondvail@gmail.com>"
 
-# Make sure the package repository is up to date. # Install a basic SSH server 
-RUN apt-get update && apt-get -qy full-upgrade && apt-get install -qy git nano && apt-get install -qy openssh-server && sed -i 's|session    required     pam_loginuid.so|session    optional     pam_loginuid.so|g' /etc/pam.d/sshd && mkdir -p /var/run/sshd && 
+# Make sure the package repository is up to date. 
+RUN apt-get update && apt-get -qy full-upgrade && apt-get install -qy git nano 
+# Install a basic SSH server 
+RUN apt-get install -qy openssh-server 
+RUN sed -i 's|session    required     pam_loginuid.so|session    optional     pam_loginuid.so|g' /etc/pam.d/sshd && mkdir -p /var/run/sshd
 
 # Install JDK 17 
 RUN apt-get install -qy openjdk-17-jdk
