@@ -24,6 +24,9 @@ RUN adduser --quiet jenkins
 RUN echo "jenkins:jenkins" | chpasswd && mkdir /home/jenkins/.m2
 
 ## ADD settings.xml /home/jenkins/.m2/
+# Copy ssh stuff
+RUN cp -R ~/.ssh
+
 ### Copy authorized keys
 # COPY .ssh/authorized_keys /home/jenkins/.ssh/authorized_keys
 
