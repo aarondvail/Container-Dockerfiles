@@ -25,7 +25,8 @@ RUN echo "jenkins:jenkins" | chpasswd && mkdir /home/jenkins/.m2
 
 ## ADD settings.xml /home/jenkins/.m2/
 # Copy ssh stuff
-RUN ls -larX / && cp -R /var/jenkins_home/.ssh /home/jenkins/
+RUN ls -larX / 
+RUN ls -larX /var && cp -R /var/jenkins_home/.ssh /home/jenkins/
 
 ### Copy authorized keys
 # COPY .ssh/authorized_keys /home/jenkins/.ssh/authorized_keys
