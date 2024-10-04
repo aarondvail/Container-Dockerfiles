@@ -12,7 +12,7 @@ ENV LANGUAGE en_US:en
 ENV LC_ALL en_US.UTF-8  
 ENV TZ='US/Eastern'
 ENV ZIPFILE=bedrock-server-$VERSION_NUMBER.zip
-ENV BEDROCK_DOWNLOAD_ZIP=https://minecraft.azureedge.net/bin-linux/$ZIPFILE
+ENV BEDROCK_DOWNLOAD_ZIP=https://www.minecraft.net/bedrockdedicatedserver/bin-linux/$ZIPFILE
 
 ## Use baseimage-docker's init system.
 ##CMD ["/sbin/my_init"]
