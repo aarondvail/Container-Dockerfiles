@@ -31,20 +31,38 @@ pipeline {
                 script { 
                     def dockerfile = "${BRANCH_NAME}.dockerfile"
                     echo "${registry}:${BUILD_NUMBER} - ${dockerfile}" 
-                    docker.withRegistry( '', registryCredential ) { 
-                        sh "docker run --rm --privileged docker/binfmt:820fdd95a9972a5308930a2bdfb8573dd4447ad3"
-                        sh "docker buildx prune"
-                        sh "docker buildx create --name mybuilder"
-                        sh "docker buildx use mybuilder"
-						if ("${VERSION_NUMBER}"==''){
-							echo "${VERSION_NUMBER}"
-							sh "docker buildx build --build-arg VERSION_NUMBER=${VERSION_NUMBER} --platform=linux/amd64 --tag ${registry}:${BUILD_NUMBER} -f ${dockerfile} . --push"
-						}
-						if ("${VERSION_NUMBER}"!=''){
-							echo "${VERSION_NUMBER}"
-							sh "docker buildx build --build-arg VERSION_NUMBER=${VERSION_NUMBER} --platform=linux/amd64 --tag ${registry}:${VERSION_NUMBER} -f ${dockerfile} . --push"
-						}
-                        sh "docker buildx build --build-arg VERSION_NUMBER=${VERSION_NUMBER} --platform=linux/amd64 --tag ${registry}:latest -f ${dockerfile} . --push"
+		    if (dockerfile == "mincraftbedrock.dockerfile"){ 
+                        docker.withRegistry( '', registryCredential ) { 
+                            sh "docker run --rm --privileged docker/binfmt:820fdd95a9972a5308930a2bdfb8573dd4447ad3"
+                            sh "docker buildx prune"
+                            sh "docker buildx create --name mybuilder"
+                            sh "docker buildx use mybuilder"
+			        if ("${VERSION_NUMBER}"==''){
+				    echo "${VERSION_NUMBER}"
+				    sh "docker buildx build --build-arg VERSION_NUMBER=${VERSION_NUMBER} --platform=linux/amd64 --tag ${registry}:${BUILD_NUMBER} -f ${dockerfile} . --push"
+				}
+				if ("${VERSION_NUMBER}"!=''){
+				    echo "${VERSION_NUMBER}"
+				    sh "docker buildx build --build-arg VERSION_NUMBER=${VERSION_NUMBER} --platform=linux/amd64 --tag ${registry}:${VERSION_NUMBER} -f ${dockerfile} . --push"
+				}
+                            sh "docker buildx build --build-arg VERSION_NUMBER=${VERSION_NUMBER} --platform=linux/amd64 --tag ${registry}:latest -f ${dockerfile} . --push"
+			}
+		    } else {
+                        docker.withRegistry( '', registryCredential ) { 
+                            sh "docker run --rm --privileged docker/binfmt:820fdd95a9972a5308930a2bdfb8573dd4447ad3"
+                            sh "docker buildx prune"
+                            sh "docker buildx create --name mybuilder"
+                            sh "docker buildx use mybuilder"
+			        if ("${VERSION_NUMBER}"==''){
+				    echo "${VERSION_NUMBER}"
+				    sh "docker buildx build --build-arg VERSION_NUMBER=${VERSION_NUMBER} --platform=linux/amd64 --tag ${registry}:${BUILD_NUMBER} -f ${dockerfile} . --push"
+				}
+				if ("${VERSION_NUMBER}"!=''){
+				    echo "${VERSION_NUMBER}"
+				    sh "docker buildx build --build-arg VERSION_NUMBER=${VERSION_NUMBER} --platform=linux/amd64 --tag ${registry}:${VERSION_NUMBER} -f ${dockerfile} . --push"
+				}
+                            sh "docker buildx build --build-arg VERSION_NUMBER=${VERSION_NUMBER} --platform=linux/amd64 --tag ${registry}:latest -f ${dockerfile} . --push"
+			}
                     }
                 }
             } 
