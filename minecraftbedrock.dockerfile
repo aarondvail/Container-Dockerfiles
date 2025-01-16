@@ -12,7 +12,7 @@ ENV LANGUAGE en_US:en
 ENV LC_ALL en_US.UTF-8  
 ENV TZ='US/Eastern'
 ENV ZIPFILE=bedrock-server-$VERSION_NUMBER.zip
-ENV BEDROCK_DOWNLOAD_ZIP=https://www.minecraft.net/bedrockdedicatedserver/bin-linux/$ZIPFILE
+#ENV BEDROCK_DOWNLOAD_ZIP=https://www.minecraft.net/bedrockdedicatedserver/bin-linux/$ZIPFILE
 
 ## Use baseimage-docker's init system.
 ##CMD ["/sbin/my_init"]
@@ -27,7 +27,7 @@ RUN apt-get -y install curl nano wget unzip libcurl4 libssl-dev
 RUN apt-get update && DEBIAN_FRONTEND=noninteractive apt-get install -y tzdata && rm /etc/localtime && ln -snf /usr/share/zoneinfo/$TZ /etc/localtime 
 RUN dpkg-reconfigure -f noninteractive tzdata && apt-get clean && useradd -ms /bin/bash bedrock 
 #RUN wget --no-check-certificate $BEDROCK_DOWNLOAD_ZIP && unzip $ZIPFILE -d /home/bedrock/bedrock_server && chown -R bedrock:bedrock /home/bedrock/bedrock_server && su - bedrock -c "mkdir -p bedrock_server/data/worlds" && chown -R bedrock:bedrock /home/bedrock/bedrock_server/data/worlds && apt-get clean && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
-RUN cp $BEDROCK_DOWNLOAD_ZIP $ZIPFILE && unzip $ZIPFILE -d /home/bedrock/bedrock_server && chown -R bedrock:bedrock /home/bedrock/bedrock_server && su - bedrock -c "mkdir -p bedrock_server/data/worlds" && chown -R bedrock:bedrock /home/bedrock/bedrock_server/data/worlds && apt-get clean && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
+RUN cp $ZIPFILE $ZIPFILE && unzip $ZIPFILE -d /home/bedrock/bedrock_server && chown -R bedrock:bedrock /home/bedrock/bedrock_server && su - bedrock -c "mkdir -p bedrock_server/data/worlds" && chown -R bedrock:bedrock /home/bedrock/bedrock_server/data/worlds && apt-get clean && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
 
 EXPOSE 19132/udp
 
