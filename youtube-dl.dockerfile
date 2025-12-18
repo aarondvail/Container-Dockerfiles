@@ -1,7 +1,8 @@
 #Setting ARCH type argument
 #ARG ARCH
 # Dockerfile YouTube-DL install (run from /port/docker/file)
-FROM debian:bullseye-slim
+FROM debian:trixie-slim
+#FROM debian:bullseye-slim
 #FROM debian:buster-slim
 
 #Set Language and Location
