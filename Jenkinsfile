@@ -31,6 +31,7 @@ pipeline {
                 script {
                     def dockerfile = "${BRANCH_NAME}.dockerfile"
                     echo "${registry}:${BUILD_NUMBER} - ${dockerfile}"
+                    sh "curl --output bedrock-server-${VERSION_NUMBER}.zip 'http://172.16.248.11:8092/repository/minecraft/${VERSION_NUMBER}/bedrock-server-${VERSION_NUMBER}.zip'"
                     if (dockerfile == "mincraftbedrock.dockerfile"){ 
                         docker.withRegistry( '', registryCredential ) {
                             sh "docker run --rm --privileged docker/binfmt:820fdd95a9972a5308930a2bdfb8573dd4447ad3"
