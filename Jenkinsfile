@@ -31,8 +31,11 @@ pipeline {
                 script {
                     def dockerfile = "${BRANCH_NAME}.dockerfile"
                     echo "${registry}:${BUILD_NUMBER} - ${dockerfile}"
-                    sh "curl --output bedrock-server-${VERSION_NUMBER}.zip 'http://172.16.248.11:8092/repository/minecraft/${VERSION_NUMBER}/bedrock-server-${VERSION_NUMBER}.zip'"
+                    //sh "curl --output bedrock-server-${VERSION_NUMBER}.zip 'http://172.16.248.11:8092/repository/minecraft/${VERSION_NUMBER}/bedrock-server-${VERSION_NUMBER}.zip'"
                     if (dockerfile == "mincraftbedrock.dockerfile"){ 
+                        withCredentials([usernamePassword(credentialsId: 'Nexus_Integration', usernameVariable: 'NEXUS_USER', passwordVariable: 'NEXUS_PASS')]) {
+                            sh "curl -fSL -u \"\$NEXUS_USER:\$NEXUS_PASS\" --output bedrock-server-${VERSION_NUMBER}.zip 'http://172.16.248.11:8092/repository/minecraft/${VERSION_NUMBER}/bedrock-server-${VERSION_NUMBER}.zip'"
+                        }
                         docker.withRegistry( '', registryCredential ) {
                             sh "docker run --rm --privileged docker/binfmt:820fdd95a9972a5308930a2bdfb8573dd4447ad3"
                             sh "docker buildx prune"
