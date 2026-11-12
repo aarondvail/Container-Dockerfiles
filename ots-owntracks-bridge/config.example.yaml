@@ -1,0 +1,88 @@
+# OTS -> OwnTracks bridge configuration
+# Lives at /opt/port/OTS-OT-Bridge/conf/config.yaml
+# Secrets can come from bridge.env instead: RABBITMQ_PASSWORD, MQTT_PASSWORD, OTS_PASSWORD, OTS_KEY_PASSWORD
+
+# Where positions come from:
+#   rabbitmq - OTS's "firehose" exchange: every CoT OTS handles (iTAK, ATAK, Meshtastic),
+#              regardless of TAK groups. Recommended.
+#   tak      - connect as a TAK client on 8088/8089. Only sees the groups that client is in,
+#              so over plain TCP it usually sees nothing but its own ping.
+input: rabbitmq
+
+rabbitmq:
+  host: 127.0.0.1           # OTS's RabbitMQ (port must be reachable from the host)
+  port: 5672
+  username: guest           # OTS default; RabbitMQ refuses guest unless it connects via localhost
+  password: guest           # see README for creating a dedicated owntracks-bridge user
+  vhost: /
+  exchange: firehose
+
+# Only used when input: tak
+ots:
+  host: 127.0.0.1          # OTS host (container uses --network=host)
+  # Option A: plain TCP streaming port (simplest, LAN only)
+  port: 8088
+  tls: false
+  # Option B: SSL port with a client certificate issued by OTS
+  # port: 8089
+  # tls: true
+  # ca_file: /config/certs/ca.pem
+  # cert_file: /config/certs/bridge.pem
+  # key_file: /config/certs/bridge.key
+  # key_password: atakatak   # or set OTS_KEY_PASSWORD
+
+  # Only if your OTS TCP port requires a username/password:
+  # username: owntracks-bridge
+  # password: changeme
+
+  callsign: OwnTracks-Bridge
+  #ping_interval: 30
+  # If the bridge connects but never logs any positions, set announce: true.
+  # It makes the bridge show up as a fixed "server" marker at this location.
+  announce: false
+  #announce_lat: 0.0
+  #announce_lon: 0.0
+
+mqtt:
+  host: 127.0.0.1
+  port: 1883
+  username: owntracks-bridge
+  # password: set MQTT_PASSWORD in the environment
+  topic_prefix: owntracks   # must match what the Recorder / openHAB subscribe to
+  qos: 1
+  retain: true
+  publish_cards: true       # publishes the callsign as the OwnTracks display name
+  status_topic: ots-owntracks-bridge/status   # online/offline (retained, with LWT)
+
+filter:
+  type_prefixes: ["a-"]     # units only
+  machine_only: true        # device-reported positions only (skips hand-dropped markers)
+  min_interval: 15          # seconds between updates per device
+  max_age: 900              # ignore reports older than 15 min (OTS replays history on connect)
+  include_uids: []          # regexes; leave empty to allow all
+  exclude_uids: []          # e.g. ["^!a1b235e8$"] to skip the M7 base station
+  exclude_callsigns: []
+
+mapping:
+  # Topic layout: <topic_prefix>/<source>/<name>
+  #   iTAK phone "Vail Max"          -> owntracks/itak/vail-max
+  #   Meshtastic node !xxxxf131      -> owntracks/mesh/f131
+  group_sources:            # TAK team -> source (first topic level)
+    Orange: mesh            # Meshtastic nodes
+    Green: itak             # iTAK / ATAK phones
+  meshtastic_source: mesh   # fallback when a mesh node has no team
+  default_source: tak       # anything else
+  mesh_name: node_id        # node_id = last 4 hex of the node ID (Meshtastic's default short name)
+                            # callsign = the name OTS shows for the node
+  tak_name: callsign        # callsign ("Vail Max" -> vail-max) or uid
+  overrides: {}
+  # Pin a callsign or uid to a specific topic / tracker ID:
+  # overrides:
+  #   "Vail Max":
+  #     name: vail
+  #     tid: VM
+  #   "!a1b235e8":
+  #     source: base
+  #     name: m7
+
+log_level: INFO             # DEBUG shows why each event was skipped

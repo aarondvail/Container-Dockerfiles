@@ -5,49 +5,45 @@ pipeline {
         dockerImage = '' 
     }
     agent any
-	//triggers {
-	//	cron('0 2 * * 3')
-	//}
-	parameters {
-		string(name: 'VERSION_NUMBER', defaultValue: '', description: 'Enter the Version Number for a manual run')
-	}
+    //triggers {
+    //    cron('0 2 * * 3')
+    //}
+    parameters {
+        string(name: 'VERSION_NUMBER', defaultValue: '', description: 'Enter the Version Number for a manual run')
+    }
     stages { 
         stage('Clone repository') {
             steps { 
                 withCredentials([usernamePassword(credentialsId: 'Github', usernameVariable: 'Username', passwordVariable: 'Password')]) {
-					git 'https://github.com/aarondvail/Container-Dockerfiles.git' 
-					sh "find . -name \"*.sh\" -exec chmod +x {} \\;"
-				}
+                    git 'https://github.com/aarondvail/Container-Dockerfiles.git' 
+                    sh "find . -name \"*.sh\" -exec chmod +x {} \\;"
+                }
             }
         }
-//	stage('SonarQube Analysis') {
-//    		def scannerHome = tool 'SonarScanner';
-//		withSonarQubeEnv() {
-//      			sh "${scannerHome}/bin/sonar-scanner"
-//		}
-//	}
-	stage('Buildx image') {
+//    stage('SonarQube Analysis') {
+//            def scannerHome = tool 'SonarScanner';
+//        withSonarQubeEnv() {
+//                  sh "${scannerHome}/bin/sonar-scanner"
+//        }
+//    }
+    stage('Buildx image') {
             steps { 
                 script { 
                     def dockerfile = "${BRANCH_NAME}.dockerfile"
-                    echo "${registry}:${BUILD_NUMBER} - ${dockerfile}" 
-					if (${dockerfile} == "minecraftbedrock.dockerfile"){
-						sh "curl --output bedrock-server-${VERSION_NUMBER}.zip 'http://172.16.248.11:8092/repository/minecraft/${VERSION_NUMBER}/bedrock-server-${VERSION_NUMBER}.zip'"
-					}
+                    // Docker Hub repository names must be lowercase (branch OpenTAKServer -> aarondvail/opentakserver)
+                    def image = registry.toLowerCase()
+                    echo "${image}:${BUILD_NUMBER} - ${dockerfile}" 
+                    if (dockerfile == "minecraftbedrock.dockerfile"){
+                        sh "curl --output bedrock-server-${VERSION_NUMBER}.zip 'http://172.16.248.11:8092/repository/minecraft/${VERSION_NUMBER}/bedrock-server-${VERSION_NUMBER}.zip'"
+                    }
                     docker.withRegistry( '', registryCredential ) { 
                         sh "docker run --rm --privileged docker/binfmt:820fdd95a9972a5308930a2bdfb8573dd4447ad3"
-                        sh "docker buildx prune"
-                        sh "docker buildx create --name mybuilder"
+                        sh "docker buildx prune -f"
+                        sh "docker buildx inspect mybuilder >/dev/null 2>&1 || docker buildx create --name mybuilder"
                         sh "docker buildx use mybuilder"
-						if ("${VERSION_NUMBER}"==''){
-							echo "${VERSION_NUMBER}"
-							sh "docker buildx build --build-arg VERSION_NUMBER=${VERSION_NUMBER} --platform=linux/amd64 --tag ${registry}:${BUILD_NUMBER} -f ${dockerfile} . --push"
-						}
-						if ("${VERSION_NUMBER}"!=''){
-							echo "${VERSION_NUMBER}"
-							sh "docker buildx build --build-arg VERSION_NUMBER=${VERSION_NUMBER} --platform=linux/amd64 --tag ${registry}:${VERSION_NUMBER} -f ${dockerfile} . --push"
-						}
-                        sh "docker buildx build --build-arg VERSION_NUMBER=${VERSION_NUMBER} --platform=linux/amd64 --tag ${registry}:latest -f ${dockerfile} . --push"
+                        // One build, two tags: the version (or build number) and latest
+                        def versionTag = ("${VERSION_NUMBER}" == '') ? "${BUILD_NUMBER}" : "${VERSION_NUMBER}"
+                        sh "docker buildx build --build-arg VERSION_NUMBER=${VERSION_NUMBER} --platform=linux/amd64 --tag ${image}:${versionTag} --tag ${image}:latest -f ${dockerfile} . --push"
                     }
                 }
             } 
