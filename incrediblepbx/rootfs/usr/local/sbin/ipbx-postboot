@@ -1,0 +1,27 @@
+#!/usr/bin/env bash
+# Runs under systemd after the database is reachable, before FreePBX starts.
+# Applies per-container settings that live in the database.
+set -uo pipefail
+[[ -f /etc/ipbx.env ]] && set -a && . /etc/ipbx.env && set +a
+log(){ echo "[ipbx-postboot] $*"; }
+
+amp(){  # read a value, undoing PHP single-quote escaping
+  sed -n "s/^\s*\$amp_conf\['$1'\]\s*=\s*'\(.*\)';.*/\1/p" /etc/freepbx.conf | head -1 \
+    | sed -e "s/\\\\'/'/g" -e 's/\\\\/\\/g'
+}
+H=$(amp AMPDBHOST); P=$(amp AMPDBPORT); U=$(amp AMPDBUSER); W=$(amp AMPDBPASS)
+DB=(mariadb --skip-ssl-verify-server-cert -h "${H:-localhost}" -P "${P:-3306}" -u "$U" "-p$W" asterisk)
+[[ ${H:-localhost} == localhost ]] && DB=(mariadb -u "$U" "-p$W" asterisk)
+
+for i in $(seq 60); do "${DB[@]}" -e 'SELECT 1' >/dev/null 2>&1 && break
+  [[ $i == 60 ]] && { log "database not reachable"; exit 1; }; sleep 2; done
+
+sqlq(){ local s=${1//\\/\\\\}; printf '%s' "${s//\'/\\\'}"; }
+
+if [[ -n ${IPBX_ADMIN_PASSWORD:-} ]]; then
+  "${DB[@]}" -e "INSERT INTO ampusers (username,password_sha1,sections)
+                 VALUES ('admin', SHA1('$(sqlq "$IPBX_ADMIN_PASSWORD")'), '*')
+                 ON DUPLICATE KEY UPDATE password_sha1=VALUES(password_sha1);" \
+    && log "FreePBX GUI 'admin' password set from IPBX_ADMIN_PASSWORD"
+fi
+exit 0

@@ -1,0 +1,299 @@
+#!/usr/bin/env bash
+# Container entrypoint: runs before systemd.
+#  1. seeds empty (bind-mounted) directories from the image
+#  2. configures local vs external database from env
+#  3. masks host-affecting units unless IPBX_FIREWALL=1
+#  4. execs systemd
+set -uo pipefail
+SEED=/usr/share/ipbx-seed
+log(){ echo "[ipbx-entrypoint] $*"; }
+
+DB_HOST=${DB_HOST:-}
+DB_PORT=${DB_PORT:-3306}
+DB_ADMIN_USER=${DB_ADMIN_USER:-root}
+DB_ADMIN_PASS=${DB_ADMIN_PASS:-}
+FPBX_DB_USER=${FPBX_DB_USER:-freepbxuser}
+FPBX_DB_PASS=${FPBX_DB_PASS:-}
+FPBX_DB_CLIENT_HOST=${FPBX_DB_CLIENT_HOST:-%}
+IPBX_FIREWALL=${IPBX_FIREWALL:-0}
+
+# Hand settings to systemd units (ipbx-postboot)
+umask 077
+: > /etc/ipbx.env
+for v in $(compgen -e); do
+  case $v in IPBX_*|DB_*|FPBX_*|TZ) printf '%s=%q\n' "$v" "${!v}" >> /etc/ipbx.env ;; esac
+done
+umask 022
+
+# --- 1. seed bind mounts ---------------------------------------------------
+PERSIST=(/etc/asterisk /var/lib/asterisk /var/spool/asterisk /var/log/asterisk /var/www/html
+         /var/spool/hylafax)
+[[ -z $DB_HOST ]] && PERSIST+=(/var/lib/mysql)
+for p in "${PERSIST[@]}"; do
+  [[ -d $SEED$p ]] || continue
+  mkdir -p "$p"
+  if [[ -z $(ls -A "$p" 2>/dev/null) ]]; then
+    log "seeding $p"
+    cp -a "$SEED$p/." "$p/"
+    chown --reference="$SEED$p" "$p"; chmod --reference="$SEED$p" "$p"
+  fi
+done
+
+# --- 2. database mode --------------------------------------------------------
+set_amp(){  # key value  -> /etc/freepbx.conf
+  local v=${2//\\/\\\\}; v=${v//\'/\\\'}               # PHP single-quote escaping
+  v=${v//\\/\\\\}; v=${v//|/\\|}; v=${v//&/\\&}          # sed replacement escaping
+  if grep -q "\['$1'\]" /etc/freepbx.conf; then
+    sed -i "s|^\(\s*\$amp_conf\['$1'\]\s*=\s*\).*;|\1'$v';|" /etc/freepbx.conf
+  else
+    sed -i "/\$amp_conf\['AMPDBNAME'\]/a \$amp_conf['$1'] = '$v';" /etc/freepbx.conf
+  fi
+}
+sqlq(){ local s=${1//\\/\\\\}; printf '%s' "${s//\'/\\\'}"; }
+
+if [[ -z $DB_HOST ]]; then
+  log "database: local MariaDB"
+  for f in freepbx.conf amportal.conf odbc.ini; do
+    [[ -f $SEED/local/$f ]] && cp -a "$SEED/local/$f" "/etc/$f"
+  done
+  systemctl unmask mariadb.service >/dev/null 2>&1
+  systemctl enable mariadb.service >/dev/null 2>&1
+else
+  log "database: external $DB_HOST:$DB_PORT"
+  : "${FPBX_DB_PASS:?FPBX_DB_PASS is required with DB_HOST}"
+  systemctl mask mariadb.service >/dev/null 2>&1
+
+  CLI=(mariadb --skip-ssl-verify-server-cert -h "$DB_HOST" -P "$DB_PORT" --connect-timeout=5)
+  ADMIN=("${CLI[@]}" -u "$DB_ADMIN_USER" "-p$DB_ADMIN_PASS")
+  APP=("${CLI[@]}" -u "$FPBX_DB_USER" "-p$FPBX_DB_PASS")
+
+  if [[ -n $DB_ADMIN_PASS ]]; then PROBE=("${ADMIN[@]}"); else PROBE=("${APP[@]}"); fi
+  for i in $(seq 60); do "${PROBE[@]}" -e 'SELECT 1' >/dev/null 2>&1 && break
+    [[ $i == 60 ]] && { log "ERROR: cannot reach $DB_HOST:$DB_PORT"; exit 1; }
+    log "waiting for $DB_HOST:$DB_PORT ($i)"; sleep 2; done
+
+  VER=$("${PROBE[@]}" -N -e 'SELECT VERSION()')
+  IS_MARIADB=0; [[ $VER == *MariaDB* ]] && IS_MARIADB=1
+  log "external server version: $VER"
+
+  if [[ -n $DB_ADMIN_PASS ]]; then
+    U="'$(sqlq "$FPBX_DB_USER")'@'$(sqlq "$FPBX_DB_CLIENT_HOST")'"
+    P="'$(sqlq "$FPBX_DB_PASS")'"
+    AUTH="IDENTIFIED BY $P"
+    if (( ! IS_MARIADB )); then
+      # PHP's mysqlnd + MySQL 8 caching_sha2 without TLS is flaky; prefer native if available
+      NATIVE=$("${ADMIN[@]}" -N -e "SELECT COUNT(*) FROM information_schema.plugins WHERE plugin_name='mysql_native_password' AND plugin_status='ACTIVE'")
+      [[ $NATIVE == 1 ]] && AUTH="IDENTIFIED WITH mysql_native_password BY $P"
+    fi
+    "${ADMIN[@]}" <<SQL || { log "ERROR: creating databases/user failed"; exit 1; }
+CREATE DATABASE IF NOT EXISTS asterisk      CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
+CREATE DATABASE IF NOT EXISTS asteriskcdrdb CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
+CREATE USER IF NOT EXISTS $U $AUTH;
+ALTER USER $U $AUTH;
+GRANT ALL PRIVILEGES ON asterisk.*      TO $U;
+GRANT ALL PRIVILEGES ON asteriskcdrdb.* TO $U;
+FLUSH PRIVILEGES;
+SQL
+    IMPORT=("${ADMIN[@]}")
+  else
+    IMPORT=("${APP[@]}")
+  fi
+
+  HAVE=$("${APP[@]}" -N -e "SELECT COUNT(*) FROM information_schema.tables WHERE table_schema='asterisk' AND table_name='freepbx_settings'" 2>/dev/null || echo 0)
+  if [[ $HAVE != 1 ]]; then
+    log "importing initial Incredible PBX database into $DB_HOST"
+    SQLF=$(mktemp)
+    sed -E 's/DEFINER=`[^`]+`@`[^`]+`//g' "$SEED/ipbx.sql" > "$SQLF"
+    if (( ! IS_MARIADB )); then
+      sed -i -e '/^\/\*M!999999\\- enable the sandbox mode \*\//d' \
+             -E -e 's/utf8mb4_uca1400_[a-z_]+/utf8mb4_unicode_ci/g; s/utf8mb3_uca1400_[a-z_]+/utf8mb3_unicode_ci/g; s/utf8mb4_unicode_nopad_ci/utf8mb4_unicode_ci/g' "$SQLF"
+    fi
+    "${IMPORT[@]}" < "$SQLF" || { log "ERROR: import failed"; rm -f "$SQLF"; exit 1; }
+    rm -f "$SQLF"
+  fi
+
+  if (( ! IS_MARIADB )); then
+    MODE=$("${PROBE[@]}" -N -e 'SELECT @@GLOBAL.sql_mode')
+    [[ $MODE == *STRICT_TRANS_TABLES* || $MODE == *ONLY_FULL_GROUP_BY* ]] && \
+      log "WARNING: MySQL sql_mode='$MODE' - FreePBX expects no STRICT_TRANS_TABLES / ONLY_FULL_GROUP_BY"
+  fi
+
+  # FreePBX config
+  cp -a "$SEED/local/freepbx.conf" /etc/freepbx.conf
+  set_amp AMPDBHOST "$DB_HOST"; set_amp AMPDBPORT "$DB_PORT"
+  set_amp AMPDBUSER "$FPBX_DB_USER"; set_amp AMPDBPASS "$FPBX_DB_PASS"
+  if [[ -f $SEED/local/amportal.conf ]]; then
+    cp -a "$SEED/local/amportal.conf" /etc/amportal.conf
+    sed -i -E "/^AMPDB(HOST|PORT|USER|PASS)=/d" /etc/amportal.conf
+    printf 'AMPDBHOST=%s\nAMPDBPORT=%s\nAMPDBUSER=%s\nAMPDBPASS=%s\n' \
+      "$DB_HOST" "$DB_PORT" "$FPBX_DB_USER" "$FPBX_DB_PASS" >> /etc/amportal.conf
+  fi
+  "${APP[@]}" asterisk <<SQL
+UPDATE freepbx_settings SET value='$(sqlq "$DB_HOST")'      WHERE keyword='CDRDBHOST';
+UPDATE freepbx_settings SET value='$(sqlq "$DB_PORT")'      WHERE keyword='CDRDBPORT';
+UPDATE freepbx_settings SET value='$(sqlq "$FPBX_DB_USER")' WHERE keyword='CDRDBUSER';
+UPDATE freepbx_settings SET value='$(sqlq "$FPBX_DB_PASS")' WHERE keyword='CDRDBPASS';
+SQL
+
+  # Asterisk ODBC (CDR/CEL writes)
+  if [[ -f $SEED/local/odbc.ini ]]; then
+    cp -a "$SEED/local/odbc.ini" /etc/odbc.ini
+    sed -i -E "/^\s*[Ss]ocket\s*=/d; /^\s*[Pp]ort\s*=/d; s|^(\s*[Ss]erver\s*=).*|\1 $DB_HOST|" /etc/odbc.ini
+    sed -i -E "/^\[/a Port = $DB_PORT" /etc/odbc.ini
+  fi
+  for f in /etc/asterisk/res_odbc_additional.conf /etc/asterisk/res_odbc.conf; do
+    [[ -f $f ]] || continue
+    sed -i -E "s|^(\s*username\s*=>?).*|\1 $FPBX_DB_USER|; s|^(\s*password\s*=>?).*|\1 $FPBX_DB_PASS|" "$f"
+  done
+
+  umask 077
+  printf '[client]\nhost=%s\nport=%s\nuser=%s\npassword=%s\nskip-ssl-verify-server-cert\n' \
+    "$DB_HOST" "$DB_PORT" "$FPBX_DB_USER" "$FPBX_DB_PASS" > /root/.my.cnf
+  umask 022
+fi
+
+# --- 3. HylaFAX+ / IAXmodem ------------------------------------------------
+HYLAFAX_MODEMS=${HYLAFAX_MODEMS:-4}
+HF=/var/spool/hylafax
+if [[ -x /usr/sbin/faxq && $HYLAFAX_MODEMS =~ ^[0-9]+$ && $HYLAFAX_MODEMS -gt 0 ]]; then
+  log "HylaFAX+: $HYLAFAX_MODEMS IAXmodem line(s)"
+  IAX_BASE_PORT=${IAXMODEM_BASE_PORT:-4570}
+  SECRET_F=/etc/asterisk/.hylafax-iax-secret        # persisted with /etc/asterisk
+  [[ -s $SECRET_F ]] || { head -c 18 /dev/urandom | base64 | tr -dc 'A-Za-z0-9' > "$SECRET_F"; chmod 600 "$SECRET_F"; }
+  SECRET=$(cat "$SECRET_F")
+
+  # Reset unit enablement, then enable exactly N lines
+  rm -f /etc/systemd/system/multi-user.target.wants/iaxmodem@ttyIAX*.service \
+        /etc/systemd/system/multi-user.target.wants/faxgetty@ttyIAX*.service \
+        /etc/iaxmodem/ttyIAX*
+  mkdir -p /etc/iaxmodem
+  PEERS=""; DIALS=""
+  for ((i=0; i<HYLAFAX_MODEMS; i++)); do
+    dev=ttyIAX$i
+    cat > /etc/iaxmodem/$dev <<EOF
+device          /dev/$dev
+owner           uucp:uucp
+mode            660
+port            $((IAX_BASE_PORT + i))
+refresh         300
+server          127.0.0.1
+peername        iaxfax$i
+secret          $SECRET
+cidname         ${FAX_LOCALID:-Fax}
+cidnumber       ${FAX_CIDNUM:-}
+codec           slinear
+EOF
+    systemctl enable "iaxmodem@$dev.service" "faxgetty@$dev.service" >/dev/null 2>&1
+    PEERS+="
+[iaxfax$i]
+type=friend
+host=dynamic
+port=$((IAX_BASE_PORT + i))
+secret=$SECRET
+context=hylafax-out
+requirecalltoken=no
+qualify=yes
+disallow=all
+allow=slinear
+jitterbuffer=no
+transfer=no
+deny=0.0.0.0/0.0.0.0
+permit=127.0.0.1/255.255.255.255
+"
+    DIALS+="${DIALS:+&}IAX2/iaxfax$i"
+
+    # HylaFAX modem config: create once, refresh identity every boot
+    cfg=$HF/etc/config.$dev
+    [[ -f $cfg ]] || install -o uucp -g uucp -m 0644 /etc/hylafax/config.iaxmodem.template "$cfg"
+    [[ -n ${FAX_COUNTRYCODE:-} ]] && sed -i -E "s|^CountryCode:.*|CountryCode:\t\t$FAX_COUNTRYCODE|" "$cfg"
+    [[ -n ${FAX_AREACODE:-}    ]] && sed -i -E "s|^AreaCode:.*|AreaCode:\t\t$FAX_AREACODE|" "$cfg"
+    [[ -n ${FAX_NUMBER:-}      ]] && sed -i -E "s|^FAXNumber:.*|FAXNumber:\t\t$FAX_NUMBER|" "$cfg"
+    [[ -n ${FAX_LOCALID:-}     ]] && sed -i -E "s|^LocalIdentifier:.*|LocalIdentifier:\t\"$FAX_LOCALID\"|" "$cfg"
+  done
+
+  # Asterisk side: generated files + idempotent #includes
+  printf '; Generated by ipbx-entrypoint each start - edit HYLAFAX_* env instead\n%s' "$PEERS" \
+    > /etc/asterisk/iax_hylafax.conf
+  cat > /etc/asterisk/extensions_hylafax.conf <<EOF
+; Generated by ipbx-entrypoint each start
+; Inbound: point a FreePBX Inbound Route at Custom Destination  custom-hylafax,s,1
+[custom-hylafax]
+exten => s,1,NoOp(Inbound fax -> HylaFAX+)
+ same => n,Set(FAXOPT(gateway)=yes,10)   ; T.38 <-> audio gateway (needs res_fax_spandsp)
+ same => n,Dial(${DIALS},60)
+ same => n,Hangup()
+
+; Outbound from the IAXmodems: dial through normal outbound routes
+[hylafax-out]
+exten => _X.,1,NoOp(Outbound fax from \${CALLERID(num)} to \${EXTEN})
+ same => n,Set(FAXOPT(gateway)=yes,10)
+ same => n,Goto(from-internal,\${EXTEN},1)
+EOF
+  for pair in "iax_custom.conf:iax_hylafax.conf" "extensions_custom.conf:extensions_hylafax.conf"; do
+    f=/etc/asterisk/${pair%%:*}; inc=${pair##*:}
+    [[ -f $f ]] || install -m 0664 /dev/null "$f"
+    grep -q "^#include $inc" "$f" || printf '\n#include %s\n' "$inc" >> "$f"
+  done
+  chown asterisk:asterisk /etc/asterisk/iax_hylafax.conf /etc/asterisk/extensions_hylafax.conf \
+    /etc/asterisk/iax_custom.conf /etc/asterisk/extensions_custom.conf 2>/dev/null
+
+  # Inbound fax -> email
+  if [[ -n ${FAX_EMAIL:-} ]]; then
+    printf 'SENDTO=%s\nFILETYPE=pdf\n' "$FAX_EMAIL" > $HF/etc/FaxDispatch
+    chown uucp:uucp $HF/etc/FaxDispatch
+  fi
+  # Who may use hfaxd (port 4559): localhost + HYLAFAX_CLIENTS (space-separated regexes)
+  { echo "localhost"; echo "127.0.0.1"
+    for c in ${HYLAFAX_CLIENTS:-}; do echo "$c"; done; } > $HF/etc/hosts.hfaxd
+  chown uucp:uucp $HF/etc/hosts.hfaxd; chmod 600 $HF/etc/hosts.hfaxd
+
+  systemctl enable hylafax-faxq.service hylafax-hfaxd.service >/dev/null 2>&1
+else
+  log "HylaFAX+: disabled"
+  rm -f /etc/systemd/system/multi-user.target.wants/iaxmodem@*.service \
+        /etc/systemd/system/multi-user.target.wants/faxgetty@*.service
+  systemctl disable hylafax-faxq.service hylafax-hfaxd.service >/dev/null 2>&1
+  : > /etc/asterisk/iax_hylafax.conf 2>/dev/null
+  : > /etc/asterisk/extensions_hylafax.conf 2>/dev/null
+fi
+
+# --- 4. Voicemail email attachments ----------------------------------------
+# VM_ATTACH_FORMAT=mp3 (default): voicemail emails go through sendmail-vm-mp3,
+# which converts the attached recording to MP3. =native: Asterisk's own format.
+VM_ATTACH_FORMAT=${VM_ATTACH_FORMAT:-mp3}
+printf 'VM_MP3_BITRATE=%q\n' "${VM_MP3_BITRATE:-32}" > /etc/ipbx-vm.env
+chmod 644 /etc/ipbx-vm.env
+set_vm_general(){  # key value -> [general] of voicemail.conf (in place, keeps owner)
+  local f=/etc/asterisk/voicemail.conf tmp
+  [[ -f $f ]] || return 0
+  tmp=$(mktemp)
+  awk -v k="$1" -v v="$2" '
+    /^\[/ { if (insec && !done) { print k "=" v; done=1 }
+            insec = ($0 ~ /^\[general\]/); print; next }
+    insec && $0 ~ "^[ \t]*" k "[ \t]*=" { if (!done) { print k "=" v; done=1 }; next }
+    { print }
+    END { if (insec && !done) print k "=" v }' "$f" > "$tmp" && cat "$tmp" > "$f"
+  rm -f "$tmp"
+}
+if [[ $VM_ATTACH_FORMAT == mp3 && -x /usr/local/sbin/sendmail-vm-mp3 ]]; then
+  log "voicemail attachments: MP3 (${VM_MP3_BITRATE:-32} kbit/s)"
+  set_vm_general mailcmd /usr/local/sbin/sendmail-vm-mp3
+else
+  log "voicemail attachments: native Asterisk format"
+  set_vm_general mailcmd "/usr/sbin/sendmail -t"
+fi
+
+# --- 5. host-affecting units ----------------------------------------------
+# With network_mode: host + privileged, these would rewrite the HOST's
+# firewall/sysctls. Off unless explicitly enabled.
+NETUNITS=(netfilter-persistent.service iptables.service fail2ban.service knockd.service
+          openvpn2027.service rc-local.service systemd-sysctl.service)
+if [[ $IPBX_FIREWALL == 1 ]]; then
+  log "IPBX_FIREWALL=1: iptables/fail2ban/knockd/openvpn/rc.local/sysctl ENABLED"
+  systemctl unmask "${NETUNITS[@]}" >/dev/null 2>&1
+else
+  systemctl mask "${NETUNITS[@]}" >/dev/null 2>&1
+fi
+
+log "starting systemd"
+exec "$@"

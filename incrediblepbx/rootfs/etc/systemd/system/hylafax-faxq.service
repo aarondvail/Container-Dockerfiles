@@ -1,0 +1,12 @@
+[Unit]
+Description=HylaFAX+ queue manager (faxq)
+After=network-online.target
+
+[Service]
+Type=forking
+ExecStart=/usr/sbin/faxq
+Restart=on-failure
+RestartSec=5
+
+[Install]
+WantedBy=multi-user.target

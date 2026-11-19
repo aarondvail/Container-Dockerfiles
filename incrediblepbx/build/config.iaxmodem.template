@@ -1,0 +1,43 @@
+# HylaFAX+ modem config for an IAXmodem device.
+# Generated from /etc/hylafax/config.iaxmodem.template. The identity lines
+# (CountryCode/AreaCode/FAXNumber/LocalIdentifier) are rewritten on each
+# container start from FAX_* env vars; everything else is yours to tune.
+CountryCode:		1
+AreaCode:		000
+FAXNumber:		+1.000.000.0000
+LongDistancePrefix:	1
+InternationalPrefix:	011
+DialStringRules:	etc/dialrules
+ServerTracing:		1
+SessionTracing:		11
+RecvFileMode:		0600
+LogFileMode:		0600
+DeviceMode:		0600
+RingsBeforeAnswer:	1
+SpeakerVolume:		off
+LocalIdentifier:	"Incredible PBX"
+TagLineFont:		etc/lutRS18.pcf
+TagLineFormat:		"From %%l|%c|Page %%P of %%T"
+MaxRecvPages:		200
+#
+ModemType:		Class1
+ModemRate:		19200
+ModemFlowControl:	rtscts
+ModemNoFlowCmd:		AT&K0
+ModemSetupDTRCmd:	AT&D3
+ModemSetupDCDCmd:	AT&C1
+ModemResultCodesCmd:	ATQ0X4
+ModemSoftResetCmd:	ATZ
+ModemDialCmd:		ATDT%s
+#
+Class1Cmd:		AT+FCLASS=1.0
+Class1PPMWaitCmd:	AT+FTS=7
+Class1TCFWaitCmd:	AT+FTS=7
+Class1EOPWaitCmd:	AT+FTS=9
+Class1SwitchingCmd:	AT+FRS=7
+Class1RecvAbortOK:	200
+Class1FrameOverhead:	4
+Class1RecvIdentTimer:	40000
+Class1TCFMaxNonZero:	10
+Class1TCFMinRun:	1000
+Class1ECMSupport:	yes

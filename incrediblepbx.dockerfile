@@ -1,0 +1,272 @@
+# syntax=docker/dockerfile:1
+# =============================================================================
+#  Incredible PBX 2026 — container image
+#  Debian 13 "trixie" + FreePBX 17 + Asterisk 22 (or 23) + HylaFAX+ / IAXmodem
+# =============================================================================
+#
+#  WHAT THIS IS
+#  ------------
+#  A "pull and run" image: the upstream Incredible PBX installer runs
+#  unattended at BUILD time, so a container is a working PBX on first start.
+#  systemd runs as PID 1 inside the container (FreePBX, MariaDB, Apache,
+#  fail2ban etc. are all systemd services upstream).
+#
+#  BUILD CONTEXT LAYOUT
+#  --------------------
+#  The Dockerfile sits one level ABOVE the incrediblepbx/ folder, and that
+#  parent directory is the build context:
+#
+#    Dockerfile
+#    incrediblepbx/
+#      compose.yaml                     example deployment
+#      build/                           used only during `docker build` (bind-mounted,
+#        ipbx-build.sh                  not copied into the image)
+#        systemctl-shim                   - runs the installer; stand-in for systemctl
+#        hylafax-build.sh                 - compiles HylaFAX+, installs IAXmodem
+#        config.iaxmodem.template         - HylaFAX modem config template
+#        test-vm-mp3.sh                   - self-test for MP3 voicemail emails
+#      rootfs/                          copied into the image as-is
+#        usr/local/sbin/ipbx-entrypoint   - runs before systemd on every start
+#        usr/local/sbin/ipbx-postboot     - runs under systemd once DB is up
+#        usr/local/sbin/sendmail-vm-mp3   - voicemail mailcmd: WAV -> MP3
+#        etc/systemd/system/*.service     - postboot, hylafax-faxq, hylafax-hfaxd,
+#                                           iaxmodem@, faxgetty@
+#
+#  BUILD
+#  -----
+#    # run from the directory that contains the Dockerfile and incrediblepbx/
+#    docker build -t containerrepo.vail-industries.com/incrediblepbx:2026 .
+#    docker push  containerrepo.vail-industries.com/incrediblepbx:2026
+#
+#  Expect a long build: Asterisk and HylaFAX+ compile from source. The build
+#  FAILS (rather than producing a broken image) if FreePBX, Asterisk, the
+#  asterisk database, or HylaFAX+ didn't come out right. Build log inside the
+#  image: /var/log/ipbx-build.log and /var/log/hylafax-build.log.
+#
+#  Build args (all optional):
+#    ASTERISK_23=n|y       answer to the installer's only question:
+#                          n = Asterisk 22 LTS (default), y = Asterisk 23
+#    IPBX_URL=...          installer script URL
+#    IPBX_SHA256=...       pin the installer. The first build prints the hash;
+#                          pass it back so later builds use the script you vetted.
+#    MAILNAME=pbx.local    Postfix mailname (Postfix dialogs are preseeded)
+#    WITH_HYLAFAX=1|0      include HylaFAX+ + IAXmodem (default 1)
+#    HYLAFAX_VERSION=7.0.11, HYLAFAX_MD5=...   HylaFAX+ source + checksum
+#
+#  HOW THE UNATTENDED INSTALL WORKS
+#  --------------------------------
+#  - There is no systemd during `docker build`, but the installer calls
+#    systemctl ~40 times. build/systemctl-shim stands in for it: it really
+#    starts/stops MariaDB and Asterisk (which the install needs live), passes
+#    enable/disable/mask through to the real systemctl (those work offline),
+#    and skips everything else. It is removed at the end of the build.
+#  - MariaDB is pre-installed below and started before the installer runs.
+#  - The installer has no `set -e`, so ipbx-build.sh verifies the result.
+#  - After install, the asterisk + asteriskcdrdb databases are dumped to
+#    /usr/share/ipbx-seed/ipbx.sql (used to initialise an external DB), and
+#    the persistable directories are MOVED to /usr/share/ipbx-seed/<path>.
+#
+#  RUN
+#  ---
+#    docker run -d --name incrediblepbx --hostname pbx.local \
+#      --privileged --cgroupns=host --network host \
+#      --tmpfs /run --tmpfs /run/lock --tmpfs /tmp \
+#      -v /sys/fs/cgroup:/sys/fs/cgroup:rw \
+#      -v /srv/ipbx/etc-asterisk:/etc/asterisk \
+#      -v /srv/ipbx/lib-asterisk:/var/lib/asterisk \
+#      -v /srv/ipbx/spool-asterisk:/var/spool/asterisk \
+#      -v /srv/ipbx/log-asterisk:/var/log/asterisk \
+#      -v /srv/ipbx/www:/var/www/html \
+#      -v /srv/ipbx/hylafax:/var/spool/hylafax \
+#      -e IPBX_ADMIN_PASSWORD='...' \
+#      -e DB_HOST=127.0.0.1 -e DB_ADMIN_PASS='...' \
+#      -e FPBX_DB_USER=freepbxuser -e FPBX_DB_PASS='...' \
+#      -e FAX_NUMBER=+1.555.555.1212 -e FAX_AREACODE=555 \
+#      -e FAX_LOCALID='Vail Industries' -e FAX_EMAIL=fax@example.com \
+#      --stop-signal SIGRTMIN+3 --restart unless-stopped \
+#      containerrepo.vail-industries.com/incrediblepbx:2026
+#
+#  Why those flags:
+#    --privileged, --cgroupns=host, cgroup mount, tmpfs /run   systemd as PID 1
+#    --network host     SIP + RTP 10000-20000/udp; port-mapping 10k UDP ports
+#                       and SIP NAT through Docker is unreliable
+#    --stop-signal SIGRTMIN+3   clean systemd shutdown
+#
+#  BIND MOUNTS (all optional)
+#  --------------------------
+#  An EMPTY mounted directory is seeded from the image on first start.
+#  A non-empty one is never overwritten.
+#    /etc/asterisk         Asterisk/FreePBX-generated config, *_custom.conf
+#    /var/lib/asterisk     astdb, sounds, MOH, AGI scripts, keys
+#    /var/spool/asterisk   voicemail, call recordings, outgoing call files
+#    /var/log/asterisk     Asterisk logs
+#    /var/www/html         FreePBX + installed modules (must stay in step
+#                          with the database, so persist it with the DB)
+#    /var/spool/hylafax    fax queues, received faxes, HylaFAX config
+#                          (etc/config.ttyIAX*, FaxDispatch, hosts.hfaxd)
+#    /var/lib/mysql        ONLY in local-DB mode (DB_HOST unset)
+#  /etc/freepbx.conf, /etc/amportal.conf and /etc/odbc.ini are NOT mounted;
+#  they are regenerated from env on every start.
+#
+#  RUNTIME ENVIRONMENT
+#  -------------------
+#  FreePBX:
+#    IPBX_ADMIN_PASSWORD   sets the FreePBX GUI 'admin' password each start
+#    TZ                    e.g. America/New_York
+#  Database (omit DB_HOST to use the built-in MariaDB):
+#    DB_HOST, DB_PORT=3306       external MySQL/MariaDB server
+#    DB_ADMIN_USER=root, DB_ADMIN_PASS
+#                                optional; if set, creates the asterisk and
+#                                asteriskcdrdb databases + FreePBX user
+#    FPBX_DB_USER=freepbxuser, FPBX_DB_PASS (required with DB_HOST)
+#    FPBX_DB_CLIENT_HOST=%       host part of the FreePBX user's grants
+#    On first start against an empty server the build-time DB snapshot is
+#    imported (MariaDB-only collations/syntax are rewritten for MySQL).
+#    For MySQL 8: remove STRICT_TRANS_TABLES and ONLY_FULL_GROUP_BY from
+#    sql_mode on the server; the container logs a warning if they are set.
+#  Network / security:
+#    IPBX_FIREWALL=0|1     default 0. With --network host + --privileged the
+#                          installer's iptables, fail2ban, knockd, OpenVPN,
+#                          rc.local and sysctl settings would apply to the
+#                          HOST. 0 masks them. Review /etc/rc.local before
+#                          setting 1.
+#  Fax (HylaFAX+ / IAXmodem):
+#    HYLAFAX_MODEMS=4      number of IAXmodem lines (= concurrent faxes); 0 = off
+#    FAX_NUMBER            your fax number for CSI/TSI, e.g. +1.555.555.1212
+#    FAX_AREACODE, FAX_COUNTRYCODE (default 1)
+#    FAX_LOCALID           name in the fax header line
+#    FAX_CIDNUM            caller ID number the modems present
+#    FAX_EMAIL             received faxes are emailed here as PDF
+#    HYLAFAX_CLIENTS       space-separated regexes allowed to use hfaxd
+#                          (port 4559), e.g. '^192\.168\.1\.'
+#    IAXMODEM_BASE_PORT=4570   modem n listens on base+n (UDP, localhost peers)
+#
+#  Voicemail email:
+#    VM_ATTACH_FORMAT=mp3|native   default mp3. Asterisk can't record MP3, so
+#                          voicemail.conf [general] mailcmd is pointed at
+#                          /usr/local/sbin/sendmail-vm-mp3, which converts the
+#                          attached recording (wav, wav49/GSM, gsm) to MP3 with
+#                          sox and passes the email to Postfix. If conversion
+#                          fails, the original email is sent unchanged.
+#                          'native' restores mailcmd=/usr/sbin/sendmail -t.
+#    VM_MP3_BITRATE=32     kbit/s, mono, resampled to 16 kHz
+#    Attachments themselves are still switched on per mailbox / globally in
+#    FreePBX: Settings > Voicemail Admin (attach=yes, an email address set).
+#
+#  FAX WIRING (generated on every start from the env above)
+#  -------------------------------------------------------
+#    HylaFAX+ faxq/hfaxd -> faxgetty@ttyIAXn -> iaxmodem@ttyIAXn
+#      -> IAX2 peer iaxfaxN (/etc/asterisk/iax_hylafax.conf, localhost only)
+#      -> Asterisk -> FreePBX outbound routes (context hylafax-out)
+#    Inbound: in FreePBX set an Inbound Route destination to the Custom
+#    Destination  custom-hylafax,s,1  (rings all modems; first free answers).
+#    Both directions enable Asterisk's T.38 gateway (FAXOPT(gateway)).
+#    IAX secret: generated once, kept in /etc/asterisk/.hylafax-iax-secret.
+#    Send:   sendfax -n -d 15551234567 file.pdf
+#    Status: faxstat -s ;  asterisk -rx "iax2 show peers"
+#
+#  KNOWN CAVEATS
+#  -------------
+#  - amd64 only (upstream supports Intel/AMD platforms).
+#  - The installer looks up the BUILD host's public IP and bakes it in. Set
+#    External Address in FreePBX > Asterisk SIP Settings after deploying.
+#  - Built-in MariaDB root password is the upstream default 'passw0rd'.
+#    IncrediblePBX add-on scripts (Lenny etc.) hard-code it.
+#  - The installer marks apt sources [trusted=yes] and pulls some files over
+#    plain HTTP. Pin IPBX_SHA256.
+#  - Apache binds 80/443 on the host (host networking): conflicts with a
+#    reverse proxy (SWAG) on the same machine. Move Apache's ports or use
+#    a macvlan network.
+#  - Fax-to-email needs Postfix configured to relay through a mail server
+#    you can send from (run /root/enable-gmail-smarthost-with-postfix, or
+#    point relayhost at your own).
+#
+# =============================================================================
+
+FROM --platform=linux/amd64 debian:trixie
+
+# container=docker tells systemd it is running in a container.
+ENV container=docker \
+    DEBIAN_FRONTEND=noninteractive \
+    LANG=C.UTF-8
+
+# --- Build arguments (see header) -------------------------------------------
+ARG IPBX_URL=https://filedn.com/lBgbGypMOdDm8PWOoOiBR7j/IncrediblePBX2026/IncrediblePBX2026.sh
+ARG IPBX_SHA256=
+ARG ASTERISK_23=n
+ARG MAILNAME=pbx.local
+ARG WITH_HYLAFAX=1
+ARG HYLAFAX_VERSION=7.0.11
+ARG HYLAFAX_MD5=5c69915169456cd37d371470b3d6171f
+
+# --- Base OS ----------------------------------------------------------------
+# systemd (PID 1 at runtime), MariaDB (the installer expects it already
+# running), and preseeded answers for the Postfix and iptables-persistent
+# dialogs so nothing prompts during the build.
+RUN printf '%s\n' \
+      "postfix postfix/main_mailer_type select Internet Site" \
+      "postfix postfix/mailname string ${MAILNAME}" \
+      "iptables-persistent iptables-persistent/autosave_v4 boolean false" \
+      "iptables-persistent iptables-persistent/autosave_v6 boolean false" \
+    | debconf-set-selections \
+ && apt-get update \
+ && apt-get install -y --no-install-recommends \
+      systemd systemd-sysv dbus ca-certificates \
+      wget curl tar nano less procps psmisc iproute2 iputils-ping e2fsprogs \
+      iptables kmod cron rsyslog openssh-server tzdata locales \
+      mariadb-server mariadb-client \
+ && (apt-get install -y --no-install-recommends mariadb-client-compat || true) \
+ && apt-get clean && rm -rf /var/lib/apt/lists/*
+
+# --- systemd units that make no sense in a container -------------------------
+# udev, kernel module loading, kernel filesystems, and gettys.
+RUN systemctl mask \
+      systemd-udevd.service systemd-udevd-kernel.socket systemd-udevd-control.socket \
+      systemd-modules-load.service systemd-remount-fs.service systemd-firstboot.service \
+      sys-kernel-config.mount sys-kernel-debug.mount sys-kernel-tracing.mount \
+      getty.target console-getty.service
+
+# --- Unattended Incredible PBX install (+ HylaFAX+) -------------------------
+# incrediblepbx/build/ is bind-mounted, so the build scripts don't end up in the image.
+# See incrediblepbx/build/ipbx-build.sh for the steps; this is the long one.
+RUN --mount=type=bind,source=incrediblepbx/build,target=/opt/ipbx-build \
+    IPBX_URL="${IPBX_URL}" IPBX_SHA256="${IPBX_SHA256}" ASTERISK_23="${ASTERISK_23}" \
+    WITH_HYLAFAX="${WITH_HYLAFAX}" HYLAFAX_VERSION="${HYLAFAX_VERSION}" HYLAFAX_MD5="${HYLAFAX_MD5}" \
+    bash /opt/ipbx-build/ipbx-build.sh
+
+# --- Runtime pieces ---------------------------------------------------------
+# ipbx-entrypoint: seeds bind mounts, applies DB/fax/firewall settings, execs systemd
+# ipbx-postboot:   sets the FreePBX admin password once the DB is reachable
+# SSH host keys are removed from the image and generated per container.
+COPY incrediblepbx/rootfs/ /
+RUN chmod 0755 /usr/local/sbin/ipbx-entrypoint /usr/local/sbin/ipbx-postboot \
+               /usr/local/sbin/sendmail-vm-mp3 \
+ && systemctl enable ipbx-postboot.service \
+ && rm -f /etc/ssh/ssh_host_* \
+ && (systemctl enable ssh 2>/dev/null || true) \
+ && printf '[Unit]\nDescription=Generate SSH host keys\nBefore=ssh.service\nConditionPathExists=!/etc/ssh/ssh_host_ed25519_key\n[Service]\nType=oneshot\nExecStart=/usr/bin/ssh-keygen -A\n[Install]\nWantedBy=multi-user.target\n' \
+      > /etc/systemd/system/ssh-hostkeys.service \
+ && systemctl enable ssh-hostkeys.service
+
+# --- MP3 voicemail attachments ----------------------------------------------
+# sox + libsox-fmt-mp3 convert the voicemail recording; the self-test feeds
+# sendmail-vm-mp3 Asterisk-style emails (PCM wav and GSM wav49) and fails the
+# build if MP3 doesn't come out or the fallback-to-original path breaks.
+RUN --mount=type=bind,source=incrediblepbx/build,target=/opt/ipbx-build \
+    apt-get update \
+ && apt-get install -y --no-install-recommends sox libsox-fmt-mp3 python3 \
+ && bash /opt/ipbx-build/test-vm-mp3.sh \
+ && apt-get clean && rm -rf /var/lib/apt/lists/*
+
+# --- Ports (documentation only; the intended mode is --network host) --------
+#   80/443 tcp          FreePBX web GUI (Apache)
+#   5060 udp/tcp        SIP            5061 tcp   SIP over TLS
+#   4569 udp            IAX2           10000-20000 udp   RTP media
+#   4559 tcp            HylaFAX+ hfaxd client protocol
+#   4570+ udp           IAXmodem (localhost only; not exposed)
+EXPOSE 80/tcp 443/tcp 5060/udp 5060/tcp 5061/tcp 4569/udp 10000-20000/udp 4559/tcp
+
+# systemd shuts down cleanly on SIGRTMIN+3.
+STOPSIGNAL SIGRTMIN+3
+ENTRYPOINT ["/usr/local/sbin/ipbx-entrypoint"]
+CMD ["/sbin/init"]
