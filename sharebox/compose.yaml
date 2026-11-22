@@ -1,0 +1,100 @@
+# sharebox stack. Settings and secrets come from .env (see .env.example).
+#   cd sharebox && docker compose up -d && docker network connect sharebox swag
+
+networks:
+  sharebox:
+    name: sharebox
+    ipam:
+      config:
+        - subnet: 172.31.77.0/24
+
+services:
+  # One-shot: writes qBittorrent.conf on first run only (never overwrites).
+  sharebox-init:
+    image: containerrepo.vail-industries.com/sharebox:1.0
+    build:
+      context: ..
+      dockerfile: Dockerfile
+    container_name: sharebox-init
+    command: ["init-qbit"]
+    user: "0:0"                        # needs to chown the qBittorrent config
+    environment:
+      QBIT_CONFIG_DIR: /qbit-config
+      QBIT_WEBUI_USER: ${QBIT_WEBUI_USER:-admin}
+      QBIT_WEBUI_PASS: ${QBIT_WEBUI_PASS:?set QBIT_WEBUI_PASS in .env}
+      QBIT_AUTH_BYPASS: 172.31.77.10/32   # sharebox's fixed IP only
+      TORRENT_PORT: ${TORRENT_PORT:-6881}
+      PUID: ${PUID:-1000}
+      PGID: ${PGID:-1000}
+    volumes:
+      - /srv/sharebox/qbittorrent:/qbit-config
+    network_mode: none
+    restart: "no"
+
+  sharebox-tracker:
+    image: torrust/tracker:latest      # pin a tag once you've tested one
+    container_name: sharebox-tracker
+    environment:
+      USER_ID: ${PUID:-1000}
+      TORRUST_TRACKER_CONFIG_TOML_PATH: /etc/torrust/tracker/tracker.toml
+      TORRUST_TRACKER_CONFIG_OVERRIDE_HTTP_API__ACCESS_TOKENS__ADMIN: ${TRACKER_API_TOKEN:?set TRACKER_API_TOKEN in .env}
+    volumes:
+      - ./tracker/tracker.toml:/etc/torrust/tracker/tracker.toml:ro
+      - /srv/sharebox/tracker/lib:/var/lib/torrust/tracker
+      - /srv/sharebox/tracker/log:/var/log/torrust/tracker
+    networks: [sharebox]
+    # No published ports: 7070 is reached via SWAG, 1212 (API) stays internal.
+    restart: unless-stopped
+
+  sharebox-qbittorrent:
+    image: lscr.io/linuxserver/qbittorrent:latest
+    container_name: sharebox-qbittorrent
+    depends_on:
+      sharebox-init:
+        condition: service_completed_successfully
+    environment:
+      PUID: ${PUID:-1000}
+      PGID: ${PGID:-1000}
+      TZ: ${TZ:-America/New_York}
+      WEBUI_PORT: 8080
+      TORRENTING_PORT: ${TORRENT_PORT:-6881}
+    volumes:
+      - /srv/sharebox/qbittorrent:/config
+      # SAME container paths as in the sharebox service, read-only.
+      - ${TV_DIR:?set TV_DIR in .env}:/media/tv:ro
+      - ${MOVIES_DIR:?set MOVIES_DIR in .env}:/media/movies:ro
+    ports:
+      - "${TORRENT_PORT:-6881}:${TORRENT_PORT:-6881}/tcp"   # forward on your router
+      - "${TORRENT_PORT:-6881}:${TORRENT_PORT:-6881}/udp"
+      - "${QBIT_WEBUI_BIND:-127.0.0.1}:${QBIT_WEBUI_HOST_PORT:-8085}:8080"  # web UI for you
+    networks: [sharebox]
+    restart: unless-stopped
+
+  sharebox:
+    image: containerrepo.vail-industries.com/sharebox:1.0
+    container_name: sharebox
+    depends_on: [sharebox-tracker, sharebox-qbittorrent]
+    user: "${PUID:-1000}:${PGID:-1000}"
+    environment:
+      TZ: ${TZ:-America/New_York}
+      SHARE_PATHS: "tv=/media/tv;movies=/media/movies"
+      SHARE_EXISTING: ${SHARE_EXISTING:-true}
+      SHAREBOX_PUBLIC_URL: https://share.${DOMAIN:?set DOMAIN in .env}
+      TRACKER_PUBLIC_URL: https://tracker.${DOMAIN}
+      TRACKER_API_TOKEN: ${TRACKER_API_TOKEN}
+      TRACKER_API_URL: http://sharebox-tracker:1212
+      TRACKER_HTTP_URL: http://sharebox-tracker:7070
+      QBIT_URL: http://sharebox-qbittorrent:8080
+      SEEDER_ANNOUNCE_BASE: http://sharebox:8081
+      SEEDER_PUBLIC_IP: ${SEEDER_PUBLIC_IP:-auto}
+      SCAN_INTERVAL: ${SCAN_INTERVAL:-300}
+      SETTLE_SECONDS: ${SETTLE_SECONDS:-600}
+      HASH_THREADS: ${HASH_THREADS:-2}
+    volumes:
+      - /srv/sharebox/data:/data
+      - ${TV_DIR}:/media/tv:ro
+      - ${MOVIES_DIR}:/media/movies:ro
+    networks:
+      sharebox:
+        ipv4_address: 172.31.77.10     # qBittorrent API auth bypass is for this IP only
+    restart: unless-stopped

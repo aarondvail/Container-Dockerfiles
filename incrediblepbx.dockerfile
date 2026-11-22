@@ -183,7 +183,8 @@
 #
 # =============================================================================
 
-FROM --platform=linux/amd64 debian:trixie
+#FROM --platform=linux/amd64 debian:trixie
+FROM debian:trixie
 
 # container=docker tells systemd it is running in a container.
 ENV container=docker \
