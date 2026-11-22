@@ -1,0 +1,35 @@
+#!/bin/bash
+# =============================================================================
+#  Live traffic feeder for NetworkMiner ("PCAP over IP")
+# =============================================================================
+#  NetworkMiner on Linux has no live-capture driver of its own. Instead it can
+#  listen for a pcap stream: File > Receive PCAP over IP > Start Receiving.
+#  This loop waits for that listener, then streams CAPTURE_INTERFACE into it
+#  with tcpdump. When you stop receiving (or restart NetworkMiner), it waits
+#  for the listener again.
+#
+#  CAPTURE_INTERFACE     NIC on the mirror/SPAN port; unset = feeder off
+#  NM_PCAP_OVER_IP_PORT  default 57013 (NetworkMiner's default)
+#  NM_CAPTURE_FILTER     optional extra BPF filter, e.g. "not port 22"
+# =============================================================================
+[ -n "${CAPTURE_INTERFACE:-}" ] || exit 0
+port="${NM_PCAP_OVER_IP_PORT:-57013}"
+filter="not (tcp port ${port})"
+[ -n "${NM_CAPTURE_FILTER:-}" ] && filter="${filter} and (${NM_CAPTURE_FILTER})"
+
+log() { echo "[nm-feeder] $*"; }
+log "waiting for NetworkMiner to listen on ${port} (File > Receive PCAP over IP > Start Receiving)"
+
+while true; do
+    # Check for the listener without connecting to it (a probe connection
+    # would look like an empty pcap stream to NetworkMiner).
+    if [ -n "$(ss -Hltn "sport = :${port}" 2>/dev/null)" ]; then
+        log "listener found - streaming ${CAPTURE_INTERFACE}"
+        tcpdump -i "$CAPTURE_INTERFACE" -U -w - "$filter" 2>/dev/null \
+            | nc -N 127.0.0.1 "$port"
+        log "stream ended - waiting for the listener again"
+        # Don't reconnect until the old listener is gone or restarted.
+        sleep 5
+    fi
+    sleep 3
+done

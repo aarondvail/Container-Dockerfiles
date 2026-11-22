@@ -13,23 +13,30 @@
 #
 #  BUILD CONTEXT LAYOUT
 #  --------------------
+#  The Dockerfile sits one level ABOVE the incrediblepbx/ folder, and that
+#  parent directory is the build context:
+#
 #    Dockerfile
-#    compose.yaml                     example deployment
-#    build/                           used only during `docker build` (bind-mounted,
-#      ipbx-build.sh                  not copied into the image)
-#      systemctl-shim                   - runs the installer; stand-in for systemctl
-#      hylafax-build.sh                 - compiles HylaFAX+, installs IAXmodem
-#      config.iaxmodem.template         - HylaFAX modem config template
-#      test-vm-mp3.sh                   - self-test for MP3 voicemail emails
-#    rootfs/                          copied into the image as-is
-#      usr/local/sbin/ipbx-entrypoint   - runs before systemd on every start
-#      usr/local/sbin/ipbx-postboot     - runs under systemd once DB is up
-#      usr/local/sbin/sendmail-vm-mp3   - voicemail mailcmd: WAV -> MP3
-#      etc/systemd/system/*.service     - postboot, hylafax-faxq, hylafax-hfaxd,
-#                                         iaxmodem@, faxgetty@
+#    incrediblepbx/
+#      compose.yaml                     example deployment
+#      build/                           used only during `docker build` (bind-mounted,
+#                                       not copied into the image)
+#        ipbx-install.sh                  - step 1: runs the installer, verifies it
+#        hylafax-build.sh                 - step 2: compiles HylaFAX+, installs IAXmodem
+#        ipbx-finalize.sh                 - step 3: DB snapshot, seeding, cleanup
+#        systemctl-shim                   - stand-in for systemctl during the build
+#        config.iaxmodem.template         - HylaFAX modem config template
+#        test-vm-mp3.sh                   - self-test for MP3 voicemail emails
+#      rootfs/                          copied into the image as-is
+#        usr/local/sbin/ipbx-entrypoint   - runs before systemd on every start
+#        usr/local/sbin/ipbx-postboot     - runs under systemd once DB is up
+#        usr/local/sbin/sendmail-vm-mp3   - voicemail mailcmd: WAV -> MP3
+#        etc/systemd/system/*.service     - postboot, hylafax-faxq, hylafax-hfaxd,
+#                                           iaxmodem@, faxgetty@
 #
 #  BUILD
 #  -----
+#    # run from the directory that contains the Dockerfile and incrediblepbx/
 #    docker build -t containerrepo.vail-industries.com/incrediblepbx:2026 .
 #    docker push  containerrepo.vail-industries.com/incrediblepbx:2026
 #
@@ -56,10 +63,20 @@
 #    enable/disable/mask through to the real systemctl (those work offline),
 #    and skips everything else. It is removed at the end of the build.
 #  - MariaDB is pre-installed below and started before the installer runs.
-#  - The installer has no `set -e`, so ipbx-build.sh verifies the result.
+#  - The installer has no `set -e`, so ipbx-install.sh verifies the result.
+#  - The installer's output (several MB) goes to /var/log/ipbx-build.log,
+#    not the build output: BuildKit drops a step's output past 2 MiB, which
+#    would hide any error after it. A progress line prints once a minute.
+#  - Three RUN steps = three cached layers. A HylaFAX+ failure re-runs only
+#    step 2 next time, as long as the build cache is kept (see Jenkins note).
+#  - On failure: "BUILD FAILED (<step>): <reason>" + the last 120 log lines.
 #  - After install, the asterisk + asteriskcdrdb databases are dumped to
 #    /usr/share/ipbx-seed/ipbx.sql (used to initialise an external DB), and
 #    the persistable directories are MOVED to /usr/share/ipbx-seed/<path>.
+#  - The final stage copies the finished filesystem into one layer, so
+#    those moves don't store the data twice.
+#  - Jenkins: `docker buildx prune -f` before every build wipes this cache.
+#    Use `docker buildx prune -f --filter until=168h` to keep a week of it.
 #
 #  RUN
 #  ---
@@ -178,7 +195,9 @@
 #
 # =============================================================================
 
-FROM --platform=linux/amd64 debian:trixie
+# ---------------------------------------------------------------- stage: build
+# Platform comes from the build command (--platform=linux/amd64 in Jenkins).
+FROM debian:trixie AS build
 
 # container=docker tells systemd it is running in a container.
 ENV container=docker \
@@ -221,19 +240,43 @@ RUN systemctl mask \
       sys-kernel-config.mount sys-kernel-debug.mount sys-kernel-tracing.mount \
       getty.target console-getty.service
 
-# --- Unattended Incredible PBX install (+ HylaFAX+) -------------------------
-# build/ is bind-mounted, so the build scripts don't end up in the image.
-# See build/ipbx-build.sh for the steps; this is the long one.
-RUN --mount=type=bind,source=build,target=/opt/ipbx-build \
+# --- Build steps: three separate RUNs = three cached layers -----------------
+# If a later step fails, the next build reuses the earlier ones from cache
+# (the PBX install takes ~15 min; HylaFAX+ a few). Long logs go to files in
+# the image (/var/log/ipbx-build.log, /var/log/hylafax-build.log), not to the
+# build output, and any failure prints "BUILD FAILED (<step>): <reason>"
+# followed by the last 120 log lines. incrediblepbx/build/ is bind-mounted,
+# so the build scripts don't end up in the image.
+
+# 1/3  Incredible PBX (Asterisk, FreePBX, MariaDB data)
+RUN --mount=type=bind,source=incrediblepbx/build,target=/opt/ipbx-build \
     IPBX_URL="${IPBX_URL}" IPBX_SHA256="${IPBX_SHA256}" ASTERISK_23="${ASTERISK_23}" \
+    bash /opt/ipbx-build/ipbx-install.sh
+
+# 2/3  HylaFAX+ (from source) + IAXmodem
+RUN --mount=type=bind,source=incrediblepbx/build,target=/opt/ipbx-build \
     WITH_HYLAFAX="${WITH_HYLAFAX}" HYLAFAX_VERSION="${HYLAFAX_VERSION}" HYLAFAX_MD5="${HYLAFAX_MD5}" \
-    bash /opt/ipbx-build/ipbx-build.sh
+    bash /opt/ipbx-build/hylafax-build.sh
+
+# 3/3  DB snapshot, seed directories for bind mounts, remove build plumbing
+RUN --mount=type=bind,source=incrediblepbx/build,target=/opt/ipbx-build \
+    bash /opt/ipbx-build/ipbx-finalize.sh
+
+# ---------------------------------------------------------------- stage: final
+# Copy the finished filesystem into a fresh image: one layer instead of the
+# build stage's stack, so directories moved in step 3 aren't stored twice.
+FROM scratch
+COPY --from=build / /
+ENV container=docker \
+    DEBIAN_FRONTEND=noninteractive \
+    LANG=C.UTF-8 \
+    PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
 
 # --- Runtime pieces ---------------------------------------------------------
 # ipbx-entrypoint: seeds bind mounts, applies DB/fax/firewall settings, execs systemd
 # ipbx-postboot:   sets the FreePBX admin password once the DB is reachable
 # SSH host keys are removed from the image and generated per container.
-COPY rootfs/ /
+COPY incrediblepbx/rootfs/ /
 RUN chmod 0755 /usr/local/sbin/ipbx-entrypoint /usr/local/sbin/ipbx-postboot \
                /usr/local/sbin/sendmail-vm-mp3 \
  && systemctl enable ipbx-postboot.service \
@@ -247,7 +290,7 @@ RUN chmod 0755 /usr/local/sbin/ipbx-entrypoint /usr/local/sbin/ipbx-postboot \
 # sox + libsox-fmt-mp3 convert the voicemail recording; the self-test feeds
 # sendmail-vm-mp3 Asterisk-style emails (PCM wav and GSM wav49) and fails the
 # build if MP3 doesn't come out or the fallback-to-original path breaks.
-RUN --mount=type=bind,source=build,target=/opt/ipbx-build \
+RUN --mount=type=bind,source=incrediblepbx/build,target=/opt/ipbx-build \
     apt-get update \
  && apt-get install -y --no-install-recommends sox libsox-fmt-mp3 python3 \
  && bash /opt/ipbx-build/test-vm-mp3.sh \

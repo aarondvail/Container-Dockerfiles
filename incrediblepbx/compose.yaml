@@ -1,7 +1,9 @@
 services:
   incrediblepbx:
     image: containerrepo.vail-industries.com/incrediblepbx:2026
-    build: .
+    build:
+      context: ..                     # parent dir holds the Dockerfile + incrediblepbx/
+      dockerfile: Dockerfile
     container_name: incrediblepbx
     hostname: pbx.local                 # your FQDN
     platform: linux/amd64

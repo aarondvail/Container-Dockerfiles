@@ -1,0 +1,6 @@
+#!/bin/bash
+# Launch NetworkMiner under Mono. NM_OPEN_FILE opens a pcap on start.
+cd /opt/NetworkMiner || exit 1
+args=(--noupdatecheck)
+[ -n "${NM_OPEN_FILE:-}" ] && args+=("$NM_OPEN_FILE")
+exec mono NetworkMiner.exe "${args[@]}"
