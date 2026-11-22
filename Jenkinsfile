@@ -1,7 +1,13 @@
+// Branches whose images go to the self-hosted Nexus registry instead of Docker Hub.
+// Add a branch name here to move it (e.g. 'incrediblepbx').
+def NEXUS_BRANCHES = ['sharebox']
+
 pipeline {
     environment {
         registry = "aarondvail/$BRANCH_NAME"
         registryCredential = 'DockerHub'
+        nexusRegistry = 'containerrepo.vail-industries.com'
+        nexusCredential = 'Nexus_Integration'
         dockerImage = ''
     }
     agent any

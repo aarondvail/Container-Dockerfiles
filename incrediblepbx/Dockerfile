@@ -245,21 +245,24 @@ RUN systemctl mask \
 # (the PBX install takes ~15 min; HylaFAX+ a few). Long logs go to files in
 # the image (/var/log/ipbx-build.log, /var/log/hylafax-build.log), not to the
 # build output, and any failure prints "BUILD FAILED (<step>): <reason>"
-# followed by the last 120 log lines. incrediblepbx/build/ is bind-mounted,
-# so the build scripts don't end up in the image.
+# followed by the last 120 log lines. Each step bind-mounts ONLY its own
+# scripts, so editing one step's script doesn't invalidate the cache of the
+# others (and the scripts don't end up in the image).
 
 # 1/3  Incredible PBX (Asterisk, FreePBX, MariaDB data)
-RUN --mount=type=bind,source=incrediblepbx/build,target=/opt/ipbx-build \
+RUN --mount=type=bind,source=incrediblepbx/build/ipbx-install.sh,target=/opt/ipbx-build/ipbx-install.sh \
+    --mount=type=bind,source=incrediblepbx/build/systemctl-shim,target=/opt/ipbx-build/systemctl-shim \
     IPBX_URL="${IPBX_URL}" IPBX_SHA256="${IPBX_SHA256}" ASTERISK_23="${ASTERISK_23}" \
     bash /opt/ipbx-build/ipbx-install.sh
 
 # 2/3  HylaFAX+ (from source) + IAXmodem
-RUN --mount=type=bind,source=incrediblepbx/build,target=/opt/ipbx-build \
+RUN --mount=type=bind,source=incrediblepbx/build/hylafax-build.sh,target=/opt/ipbx-build/hylafax-build.sh \
+    --mount=type=bind,source=incrediblepbx/build/config.iaxmodem.template,target=/opt/ipbx-build/config.iaxmodem.template \
     WITH_HYLAFAX="${WITH_HYLAFAX}" HYLAFAX_VERSION="${HYLAFAX_VERSION}" HYLAFAX_MD5="${HYLAFAX_MD5}" \
     bash /opt/ipbx-build/hylafax-build.sh
 
 # 3/3  DB snapshot, seed directories for bind mounts, remove build plumbing
-RUN --mount=type=bind,source=incrediblepbx/build,target=/opt/ipbx-build \
+RUN --mount=type=bind,source=incrediblepbx/build/ipbx-finalize.sh,target=/opt/ipbx-build/ipbx-finalize.sh \
     bash /opt/ipbx-build/ipbx-finalize.sh
 
 # ---------------------------------------------------------------- stage: final
@@ -290,7 +293,7 @@ RUN chmod 0755 /usr/local/sbin/ipbx-entrypoint /usr/local/sbin/ipbx-postboot \
 # sox + libsox-fmt-mp3 convert the voicemail recording; the self-test feeds
 # sendmail-vm-mp3 Asterisk-style emails (PCM wav and GSM wav49) and fails the
 # build if MP3 doesn't come out or the fallback-to-original path breaks.
-RUN --mount=type=bind,source=incrediblepbx/build,target=/opt/ipbx-build \
+RUN --mount=type=bind,source=incrediblepbx/build/test-vm-mp3.sh,target=/opt/ipbx-build/test-vm-mp3.sh \
     apt-get update \
  && apt-get install -y --no-install-recommends sox libsox-fmt-mp3 python3 \
  && bash /opt/ipbx-build/test-vm-mp3.sh \
