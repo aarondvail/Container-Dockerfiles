@@ -67,7 +67,9 @@ step "configure" ./configure --nointeractive \
   --with-PATH_GSRIP=/usr/bin/gs --with-TIFFBIN=/usr/bin --with-AFM=no --with-AWK=/usr/bin/gawk \
   --with-PATH_GETTY=/sbin/agetty --with-PATH_VGETTY=/bin/false --with-PATH_EGETTY=/bin/false \
   --with-SYSVINIT=no --with-PAGESIZE="North American Letter"
-step "make" make -j"$(nproc)"
+# Serial on purpose: HylaFAX+ makefiles are not parallel-safe (with -jN a
+# program can be linked before libfaxutil.so exists). Takes a few minutes.
+step "make" make
 step "make install" make install
 
 say "faxsetup"
