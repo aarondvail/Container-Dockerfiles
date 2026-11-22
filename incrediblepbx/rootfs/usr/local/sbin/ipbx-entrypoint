@@ -283,6 +283,14 @@ else
   set_vm_general mailcmd "/usr/sbin/sendmail -t"
 fi
 
+# --- Apache (FreePBX web interface) ports ------------------------------------
+# Re-applied every start (Apache's config lives in the image, not a bind mount).
+IPBX_HTTP_PORT=${IPBX_HTTP_PORT:-80}
+IPBX_HTTPS_PORT=${IPBX_HTTPS_PORT:-443}
+if [[ -x /usr/local/sbin/ipbx-apache-ports ]]; then
+  log "$(/usr/local/sbin/ipbx-apache-ports "$IPBX_HTTP_PORT" "$IPBX_HTTPS_PORT" 2>&1)"
+fi
+
 # --- 5. host-affecting units ----------------------------------------------
 # With network_mode: host + privileged, these would rewrite the HOST's
 # firewall/sysctls. Off unless explicitly enabled.

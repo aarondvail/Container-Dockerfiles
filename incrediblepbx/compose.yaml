@@ -32,6 +32,8 @@ services:
 
     environment:
       TZ: America/New_York
+      IPBX_HTTP_PORT: "80"            # FreePBX web UI; e.g. 8080 if SWAG uses 80
+      IPBX_HTTPS_PORT: "443"          # e.g. 8443 if SWAG uses 443
       IPBX_ADMIN_PASSWORD: "change-me"  # FreePBX GUI user 'admin'
       IPBX_FIREWALL: "0"                # 1 = let it manage iptables/fail2ban (host-wide with host networking!)
       # External MySQL/MariaDB (omit DB_HOST to use the built-in MariaDB)

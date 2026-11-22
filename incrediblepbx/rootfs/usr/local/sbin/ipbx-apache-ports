@@ -1,0 +1,97 @@
+#!/usr/bin/env python3
+"""Set Apache's HTTP/HTTPS ports for the FreePBX web interface.
+
+  ipbx-apache-ports <http_port> <https_port> [apache_dir]
+
+Rewrites, in place and idempotently:
+  - Listen lines in ports.conf (inside <IfModule ssl_module|mod_ssl.c|
+    mod_gnutls.c>, or with the "https" protocol tag -> HTTPS port; else HTTP)
+  - <VirtualHost addr:port ...> headers in sites-enabled/* (blocks with
+    "SSLEngine on" -> HTTPS port; else HTTP)
+Run by ipbx-entrypoint before systemd starts Apache.
+"""
+import glob
+import os
+import re
+import sys
+
+SSL_MODULES = {"ssl_module", "mod_ssl.c", "mod_gnutls.c", "gnutls_module"}
+LISTEN = re.compile(r"^(\s*Listen\s+)((?:\S*:)?)(\d+)(.*)$", re.I)
+VHOST_OPEN = re.compile(r"^(\s*<VirtualHost\s+)([^>]*)(>.*)$", re.I)
+VHOST_CLOSE = re.compile(r"^\s*</VirtualHost>", re.I)
+SSL_ON = re.compile(r"^\s*SSLEngine\s+on\b", re.I | re.M)
+
+
+def write_if_changed(path, text):
+    with open(path) as fh:
+        if fh.read() == text:
+            return False
+    with open(path, "w") as fh:     # in place: keeps owner/perms/symlink target
+        fh.write(text)
+    return True
+
+
+def fix_ports_conf(path, http, https):
+    out, stack = [], []
+    for line in open(path):
+        s = line.strip()
+        m = re.match(r"<IfModule\s+!?([^>\s]+)\s*>", s, re.I)
+        if m:
+            stack.append(m.group(1).lower())
+        elif re.match(r"</IfModule>", s, re.I) and stack:
+            stack.pop()
+        lm = LISTEN.match(line.rstrip("\n"))
+        if lm:
+            ssl = any(mod in SSL_MODULES for mod in stack) or "https" in lm.group(4).lower()
+            line = f"{lm.group(1)}{lm.group(2)}{https if ssl else http}{lm.group(4)}\n"
+        out.append(line)
+    return write_if_changed(path, "".join(out))
+
+
+def _retarget(addrs, port):
+    # "*:80 [::]:80" -> "*:8080 [::]:8080"; "_default_:443" too
+    return re.sub(r"(\S*?):(\d+)(?=\s|$)", lambda m: f"{m.group(1)}:{port}", addrs)
+
+
+def fix_vhosts(path, http, https):
+    lines = open(path).readlines()
+    out, i = [], 0
+    while i < len(lines):
+        m = VHOST_OPEN.match(lines[i].rstrip("\n"))
+        if not m:
+            out.append(lines[i])
+            i += 1
+            continue
+        j = i + 1
+        while j < len(lines) and not VHOST_CLOSE.match(lines[j]):
+            j += 1
+        block = "".join(lines[i + 1:j])
+        port = https if SSL_ON.search(block) else http
+        out.append(f"{m.group(1)}{_retarget(m.group(2), port)}{m.group(3)}\n")
+        out.extend(lines[i + 1:j + 1])
+        i = j + 1
+    return write_if_changed(path, "".join(out))
+
+
+def main():
+    if len(sys.argv) < 3:
+        sys.exit(__doc__)
+    http, https = sys.argv[1], sys.argv[2]
+    for p in (http, https):
+        if not p.isdigit() or not 0 < int(p) < 65536:
+            sys.exit(f"invalid port: {p!r}")
+    base = sys.argv[3] if len(sys.argv) > 3 else "/etc/apache2"
+    changed = []
+    ports = os.path.join(base, "ports.conf")
+    if os.path.isfile(ports) and fix_ports_conf(ports, http, https):
+        changed.append(ports)
+    for f in sorted(glob.glob(os.path.join(base, "sites-enabled", "*"))):
+        real = os.path.realpath(f)
+        if os.path.isfile(real) and fix_vhosts(real, http, https):
+            changed.append(real)
+    print(f"apache ports http={http} https={https}"
+          + (f"; updated {', '.join(changed)}" if changed else "; already set"))
+
+
+if __name__ == "__main__":
+    main()

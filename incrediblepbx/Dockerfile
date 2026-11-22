@@ -31,6 +31,7 @@
 #        usr/local/sbin/ipbx-entrypoint   - runs before systemd on every start
 #        usr/local/sbin/ipbx-postboot     - runs under systemd once DB is up
 #        usr/local/sbin/sendmail-vm-mp3   - voicemail mailcmd: WAV -> MP3
+#        usr/local/sbin/ipbx-apache-ports - sets the web interface ports
 #        etc/systemd/system/*.service     - postboot, hylafax-faxq, hylafax-hfaxd,
 #                                           iaxmodem@, faxgetty@
 #
@@ -91,6 +92,7 @@
 #      -v /srv/ipbx/www:/var/www/html \
 #      -v /srv/ipbx/hylafax:/var/spool/hylafax \
 #      -e IPBX_ADMIN_PASSWORD='...' \
+#      -e IPBX_HTTP_PORT=8080 -e IPBX_HTTPS_PORT=8443 \
 #      -e DB_HOST=127.0.0.1 -e DB_ADMIN_PASS='...' \
 #      -e FPBX_DB_USER=freepbxuser -e FPBX_DB_PASS='...' \
 #      -e FAX_NUMBER=+1.555.555.1212 -e FAX_AREACODE=555 \
@@ -125,6 +127,10 @@
 #  FreePBX:
 #    IPBX_ADMIN_PASSWORD   sets the FreePBX GUI 'admin' password each start
 #    TZ                    e.g. America/New_York
+#    IPBX_HTTP_PORT=80     FreePBX web interface (Apache) HTTP port
+#    IPBX_HTTPS_PORT=443   and HTTPS port. With --network host these are host
+#                          ports, so move them off 80/443 if SWAG (or anything
+#                          else) already uses those, e.g. 8080/8443.
 #  Database (omit DB_HOST to use the built-in MariaDB):
 #    DB_HOST, DB_PORT=3306       external MySQL/MariaDB server
 #    DB_ADMIN_USER=root, DB_ADMIN_PASS
@@ -186,9 +192,9 @@
 #    IncrediblePBX add-on scripts (Lenny etc.) hard-code it.
 #  - The installer marks apt sources [trusted=yes] and pulls some files over
 #    plain HTTP. Pin IPBX_SHA256.
-#  - Apache binds 80/443 on the host (host networking): conflicts with a
-#    reverse proxy (SWAG) on the same machine. Move Apache's ports or use
-#    a macvlan network.
+#  - Apache binds 80/443 on the host by default (host networking), which
+#    conflicts with SWAG on the same machine: set IPBX_HTTP_PORT /
+#    IPBX_HTTPS_PORT (e.g. 8080/8443), or use a macvlan network.
 #  - Fax-to-email needs Postfix configured to relay through a mail server
 #    you can send from (run /root/enable-gmail-smarthost-with-postfix, or
 #    point relayhost at your own).
@@ -281,7 +287,7 @@ ENV container=docker \
 # SSH host keys are removed from the image and generated per container.
 COPY incrediblepbx/rootfs/ /
 RUN chmod 0755 /usr/local/sbin/ipbx-entrypoint /usr/local/sbin/ipbx-postboot \
-               /usr/local/sbin/sendmail-vm-mp3 \
+               /usr/local/sbin/sendmail-vm-mp3 /usr/local/sbin/ipbx-apache-ports \
  && systemctl enable ipbx-postboot.service \
  && rm -f /etc/ssh/ssh_host_* \
  && (systemctl enable ssh 2>/dev/null || true) \
@@ -300,7 +306,7 @@ RUN --mount=type=bind,source=incrediblepbx/build/test-vm-mp3.sh,target=/opt/ipbx
  && apt-get clean && rm -rf /var/lib/apt/lists/*
 
 # --- Ports (documentation only; the intended mode is --network host) --------
-#   80/443 tcp          FreePBX web GUI (Apache)
+#   80/443 tcp          FreePBX web GUI (Apache; IPBX_HTTP_PORT/IPBX_HTTPS_PORT)
 #   5060 udp/tcp        SIP            5061 tcp   SIP over TLS
 #   4569 udp            IAX2           10000-20000 udp   RTP media
 #   4559 tcp            HylaFAX+ hfaxd client protocol
