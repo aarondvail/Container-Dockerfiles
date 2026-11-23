@@ -307,16 +307,73 @@ if [[ -x /usr/local/sbin/ipbx-apache-ports ]]; then
   log "$(/usr/local/sbin/ipbx-apache-ports "$IPBX_HTTP_PORT" "$IPBX_HTTPS_PORT" 2>&1)"
 fi
 
-# --- 5. host-affecting units ----------------------------------------------
-# With network_mode: host + privileged, these would rewrite the HOST's
-# firewall/sysctls. Off unless explicitly enabled.
+# --- 5. services that would clash with, or act on, the HOST ----------------
+# With --network host + --privileged, the container shares the host's ports,
+# firewall and sysctls.
+#
+# unit_off/unit_on also work for units whose file lives directly in
+# /etc/systemd/system (Incredible PBX installs several there), where a plain
+# `systemctl mask` fails with "File ... already exists".
+unit_off(){
+  local u f
+  for u in "$@"; do
+    f=/etc/systemd/system/$u
+    systemctl disable "$u" >/dev/null 2>&1
+    if [[ -f $f && ! -L $f ]]; then mv -f "$f" "$f.ipbx-off"; fi
+    systemctl mask "$u" >/dev/null 2>&1 || ln -sfn /dev/null "$f"
+  done
+}
+unit_on(){
+  local u f
+  for u in "$@"; do
+    f=/etc/systemd/system/$u
+    if [[ -L $f && $(readlink "$f") == /dev/null ]]; then rm -f "$f"; fi
+    [[ -f $f.ipbx-off ]] && mv -f "$f.ipbx-off" "$f"
+    systemctl enable "$u" >/dev/null 2>&1 || true
+  done
+}
+
+# Firewall / VPN / sysctl: off unless IPBX_FIREWALL=1
 NETUNITS=(netfilter-persistent.service iptables.service fail2ban.service knockd.service
           openvpn2027.service rc-local.service systemd-sysctl.service)
 if [[ $IPBX_FIREWALL == 1 ]]; then
-  log "IPBX_FIREWALL=1: iptables/fail2ban/knockd/openvpn/rc.local/sysctl ENABLED"
-  systemctl unmask "${NETUNITS[@]}" >/dev/null 2>&1
+  log "IPBX_FIREWALL=1: iptables/fail2ban/knockd/openvpn/rc.local/sysctl ENABLED (acts on the host)"
+  unit_on "${NETUNITS[@]}"
 else
-  systemctl mask "${NETUNITS[@]}" >/dev/null 2>&1
+  unit_off "${NETUNITS[@]}"
+fi
+
+# SSH: the host's sshd already has port 22. Off unless IPBX_SSH_PORT is set
+# (use `docker exec -it <container> bash` instead).
+if [[ ${IPBX_SSH_PORT:-} =~ ^[0-9]+$ ]]; then
+  mkdir -p /etc/ssh/sshd_config.d
+  printf 'Port %s\n' "$IPBX_SSH_PORT" > /etc/ssh/sshd_config.d/ipbx-port.conf
+  unit_on ssh.service ssh-hostkeys.service
+  log "sshd on port $IPBX_SSH_PORT"
+else
+  unit_off ssh.service ssh.socket ssh-hostkeys.service
+fi
+
+# Webmin: Incredible PBX puts it on 9001, often taken on a Docker host
+# (e.g. Portainer agent). Off unless IPBX_WEBMIN_PORT is set.
+if [[ ${IPBX_WEBMIN_PORT:-} =~ ^[0-9]+$ && -f /etc/webmin/miniserv.conf ]]; then
+  sed -i -E "s/^port=.*/port=$IPBX_WEBMIN_PORT/; s/^listen=.*/listen=$IPBX_WEBMIN_PORT/" /etc/webmin/miniserv.conf
+  unit_on webmin.service
+  log "webmin on port $IPBX_WEBMIN_PORT"
+else
+  unit_off webmin.service
+fi
+
+# Postfix: only needs to SEND (voicemail/fax email). Its inbound SMTP listener
+# wants port 25, usually taken on the host, and a failed listener stops
+# Postfix entirely. Listener off unless IPBX_POSTFIX_LISTEN=1; mail submitted
+# locally (sendmail/postdrop) is still delivered.
+if [[ -f /etc/postfix/master.cf ]]; then
+  if [[ ${IPBX_POSTFIX_LISTEN:-0} == 1 ]]; then
+    sed -i -E 's/^#ipbx-off# //' /etc/postfix/master.cf
+  else
+    sed -i -E 's/^(smtp[[:space:]]+inet[[:space:]].*)$/#ipbx-off# \1/' /etc/postfix/master.cf
+  fi
 fi
 
 log "starting systemd"

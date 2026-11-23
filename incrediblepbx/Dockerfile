@@ -32,6 +32,8 @@
 #        usr/local/sbin/ipbx-postboot     - runs under systemd once DB is up
 #        usr/local/sbin/sendmail-vm-mp3   - voicemail mailcmd: WAV -> MP3
 #        usr/local/sbin/ipbx-apache-ports - sets the web interface ports
+#        etc/tmpfiles.d/ipbx-asterisk.conf - creates /run/asterisk at boot (PHP-FPM
+#                                           needs it, or FreePBX gives Apache 503)
 #        etc/systemd/system/*.service     - postboot, hylafax-faxq, hylafax-hfaxd,
 #                                           iaxmodem@, faxgetty@
 #
@@ -142,6 +144,14 @@
 #    imported (MariaDB-only collations/syntax are rewritten for MySQL).
 #    For MySQL 8: remove STRICT_TRANS_TABLES and ONLY_FULL_GROUP_BY from
 #    sql_mode on the server; the container logs a warning if they are set.
+#  Services that clash with the host (--network host shares its ports):
+#    IPBX_SSH_PORT         unset (default) = container sshd off; the host's
+#                          sshd has 22. Use `docker exec -it ... bash`, or set
+#                          a free port, e.g. 2222.
+#    IPBX_WEBMIN_PORT      unset (default) = Webmin off. Incredible PBX puts it
+#                          on 9001 (often Portainer's agent); set a free port.
+#    IPBX_POSTFIX_LISTEN=0 default 0: Postfix only SENDS (voicemail/fax email);
+#                          its inbound listener on port 25 is off. 1 = on.
 #  Network / security:
 #    IPBX_FIREWALL=0|1     default 0. With --network host + --privileged the
 #                          installer's iptables, fail2ban, knockd, OpenVPN,
