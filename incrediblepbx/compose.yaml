@@ -37,6 +37,12 @@ services:
       # IPBX_SSH_PORT: "2222"         # container sshd (off by default; host has 22)
       # IPBX_WEBMIN_PORT: "10443"     # Webmin (off by default)
       IPBX_POSTFIX_LISTEN: "0"        # 0 = send-only Postfix, no port 25 listener
+      # Outbound mail via Google Workspace (voicemail + fax-to-email)
+      SMTP_RELAY_HOST: "smtp.gmail.com"
+      SMTP_RELAY_PORT: "587"
+      SMTP_RELAY_USER: "you@yourdomain.com"
+      SMTP_RELAY_PASS: "app-password"
+      MAIL_FROM: "pbx@yourdomain.com"
       IPBX_ADMIN_PASSWORD: "change-me"  # FreePBX GUI user 'admin'
       IPBX_FIREWALL: "0"                # 1 = let it manage iptables/fail2ban (host-wide with host networking!)
       # External MySQL/MariaDB (omit DB_HOST to use the built-in MariaDB)

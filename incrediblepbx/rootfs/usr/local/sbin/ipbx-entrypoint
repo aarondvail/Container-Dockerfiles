@@ -376,5 +376,57 @@ if [[ -f /etc/postfix/master.cf ]]; then
   fi
 fi
 
+# --- 6. Outbound mail relay (voicemail, fax-to-email, HylaFAX notices) -------
+# Home ISPs block port 25 and big providers reject mail from home IPs, so mail
+# goes through a smarthost. Re-applied every start from env:
+#   SMTP_RELAY_HOST   e.g. smtp.gmail.com (Workspace user + app password)
+#                     or smtp-relay.gmail.com (Workspace SMTP relay, IP-allowed)
+#   SMTP_RELAY_PORT   default 587 (STARTTLS, required)
+#   SMTP_RELAY_USER / SMTP_RELAY_PASS   omit both for IP-based relays
+#   MAIL_FROM         sender for everything the PBX sends, e.g.
+#                     pbx@vail-industries.com (Gmail: must be the login user
+#                     or one of its "Send mail as" aliases)
+if command -v postconf >/dev/null 2>&1; then
+  if [[ -n ${SMTP_RELAY_HOST:-} ]]; then
+    relay="[${SMTP_RELAY_HOST}]:${SMTP_RELAY_PORT:-587}"
+    postconf -e "relayhost = $relay" \
+                "smtp_tls_security_level = encrypt" \
+                "smtp_tls_CAfile = /etc/ssl/certs/ca-certificates.crt" \
+                "smtp_address_preference = ipv4"
+    if [[ -n ${SMTP_RELAY_USER:-} ]]; then
+      umask 077
+      # texthash: no postmap/db needed. Spaces stripped (Google shows app
+      # passwords as "abcd efgh ijkl mnop").
+      printf '%s %s:%s\n' "$relay" "$SMTP_RELAY_USER" "${SMTP_RELAY_PASS// /}" \
+        > /etc/postfix/sasl_passwd
+      umask 022
+      postconf -e "smtp_sasl_auth_enable = yes" \
+                  "smtp_sasl_password_maps = texthash:/etc/postfix/sasl_passwd" \
+                  "smtp_sasl_security_options = noanonymous" \
+                  "smtp_sasl_tls_security_options = noanonymous"
+      log "mail relay: $relay as $SMTP_RELAY_USER"
+    else
+      rm -f /etc/postfix/sasl_passwd
+      postconf -e "smtp_sasl_auth_enable = no"
+      log "mail relay: $relay (no login, IP-based)"
+    fi
+  else
+    rm -f /etc/postfix/sasl_passwd
+    postconf -e "relayhost =" "smtp_sasl_auth_enable = no" "smtp_tls_security_level = may"
+    log "mail relay: none (direct delivery; usually blocked on home ISPs)"
+  fi
+
+  # Rewrite every sender (root@, asterisk@, fax@ ...) to MAIL_FROM, envelope
+  # and From: header, so receiving servers see a real address.
+  if [[ -n ${MAIL_FROM:-} ]]; then
+    printf '/.+/ %s\n' "$MAIL_FROM" > /etc/postfix/sender_canonical
+    postconf -e "sender_canonical_maps = regexp:/etc/postfix/sender_canonical" \
+                "myorigin = ${MAIL_FROM#*@}"
+  else
+    rm -f /etc/postfix/sender_canonical
+    postconf -e "sender_canonical_maps ="
+  fi
+fi
+
 log "starting systemd"
 exec "$@"

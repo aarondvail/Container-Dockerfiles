@@ -99,6 +99,8 @@
 #      -e FPBX_DB_USER=freepbxuser -e FPBX_DB_PASS='...' \
 #      -e FAX_NUMBER=+1.555.555.1212 -e FAX_AREACODE=555 \
 #      -e FAX_LOCALID='Vail Industries' -e FAX_EMAIL=fax@example.com \
+#      -e SMTP_RELAY_HOST=smtp.gmail.com -e SMTP_RELAY_USER=you@yourdomain \
+#      -e SMTP_RELAY_PASS='app password' -e MAIL_FROM=pbx@yourdomain \
 #      --stop-signal SIGRTMIN+3 --restart unless-stopped \
 #      containerrepo.vail-industries.com/incrediblepbx:2026
 #
@@ -144,6 +146,18 @@
 #    imported (MariaDB-only collations/syntax are rewritten for MySQL).
 #    For MySQL 8: remove STRICT_TRANS_TABLES and ONLY_FULL_GROUP_BY from
 #    sql_mode on the server; the container logs a warning if they are set.
+#  Outbound mail (voicemail email, fax-to-email, HylaFAX notices):
+#    SMTP_RELAY_HOST       smarthost; home ISPs block direct port-25 delivery.
+#                          Google Workspace: smtp.gmail.com (user + app
+#                          password) or smtp-relay.gmail.com (admin-console
+#                          SMTP relay allowing your public IP, no login)
+#    SMTP_RELAY_PORT=587   STARTTLS (TLS is required)
+#    SMTP_RELAY_USER, SMTP_RELAY_PASS   omit for IP-based relays
+#    MAIL_FROM             sender for everything the PBX sends, e.g.
+#                          pbx@vail-industries.com. With smtp.gmail.com it
+#                          must be the login user or one of its "Send mail
+#                          as" aliases, or Gmail rewrites it.
+#    Unset SMTP_RELAY_HOST = direct delivery (usually blocked at home).
 #  Services that clash with the host (--network host shares its ports):
 #    IPBX_SSH_PORT         unset (default) = container sshd off; the host's
 #                          sshd has 22. Use `docker exec -it ... bash`, or set
@@ -305,13 +319,14 @@ RUN chmod 0755 /usr/local/sbin/ipbx-entrypoint /usr/local/sbin/ipbx-postboot \
       > /etc/systemd/system/ssh-hostkeys.service \
  && systemctl enable ssh-hostkeys.service
 
-# --- MP3 voicemail attachments ----------------------------------------------
+# --- MP3 voicemail attachments + mail relay login --------------------------
+# libsasl2-modules: lets Postfix log in to a relay (SMTP_RELAY_USER/PASS).
 # sox + libsox-fmt-mp3 convert the voicemail recording; the self-test feeds
 # sendmail-vm-mp3 Asterisk-style emails (PCM wav and GSM wav49) and fails the
 # build if MP3 doesn't come out or the fallback-to-original path breaks.
 RUN --mount=type=bind,source=incrediblepbx/build/test-vm-mp3.sh,target=/opt/ipbx-build/test-vm-mp3.sh \
     apt-get update \
- && apt-get install -y --no-install-recommends sox libsox-fmt-mp3 python3 \
+ && apt-get install -y --no-install-recommends sox libsox-fmt-mp3 python3 libsasl2-modules \
  && bash /opt/ipbx-build/test-vm-mp3.sh \
  && apt-get clean && rm -rf /var/lib/apt/lists/*
 
