@@ -283,6 +283,22 @@ else
   set_vm_general mailcmd "/usr/sbin/sendmail -t"
 fi
 
+# --- PHP-FPM ------------------------------------------------------------------
+# FreePBX 17 runs PHP through PHP-FPM; without it every page is an Apache 503.
+# The installer's `systemctl enable --now php8.2-fpm` doesn't stick at image
+# build time (no systemd), so make sure every installed php*-fpm unit is
+# enabled before systemd starts. Harmless if it already is.
+declare -A _fpm=()
+for u in /usr/lib/systemd/system/php*-fpm.service /lib/systemd/system/php*-fpm.service; do
+  [[ -e $u ]] && _fpm[$(basename "$u")]=1
+done
+for n in "${!_fpm[@]}"; do
+  if ! systemctl is-enabled --quiet "$n" 2>/dev/null; then
+    systemctl enable "$n" >/dev/null 2>&1 && log "enabled $n (FreePBX needs PHP-FPM)"
+  fi
+done
+unset _fpm
+
 # --- Apache (FreePBX web interface) ports ------------------------------------
 # Re-applied every start (Apache's config lives in the image, not a bind mount).
 IPBX_HTTP_PORT=${IPBX_HTTP_PORT:-80}
