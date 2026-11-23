@@ -1,0 +1,44 @@
+# Torrust Tracker config for sharebox (config schema 2.0.0, Torrust Tracker v3).
+# Mounted at /etc/torrust/tracker/tracker.toml.
+# The API admin token is NOT set here: compose passes it as
+# TORRUST_TRACKER_CONFIG_OVERRIDE_HTTP_API__ACCESS_TOKENS__ADMIN.
+
+[metadata]
+app = "torrust-tracker"
+purpose = "configuration"
+schema_version = "2.0.0"
+
+[logging]
+threshold = "info"
+
+# private + listed = "private_listed": every peer needs a key in the announce
+# URL (/announce/<key>) AND only whitelisted infohashes are tracked.
+[core]
+listed = true
+private = true
+
+[core.announce_policy]
+interval = 1800
+interval_min = 900
+
+# Behind SWAG: the peer IP is taken from X-Forwarded-For.
+# (sharebox's announce proxy adds it for the local seeder.)
+[core.net]
+on_reverse_proxy = true
+
+[core.tracker_policy]
+persistent_torrent_completed_stat = true
+
+[core.database]
+path = "/var/lib/torrust/tracker/database/sqlite3.db"
+
+# HTTP only: private-mode keys travel in the announce URL path, which the UDP
+# tracker protocol can't carry.
+[[http_trackers]]
+bind_address = "0.0.0.0:7070"
+
+[http_api]
+bind_address = "0.0.0.0:1212"
+
+[http_api.access_tokens]
+admin = "overridden-by-environment"

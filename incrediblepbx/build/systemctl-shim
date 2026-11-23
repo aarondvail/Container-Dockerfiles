@@ -1,0 +1,68 @@
+#!/usr/bin/env bash
+# Build-time stand-in for systemctl. There is no systemd during `docker build`,
+# but the Incredible PBX installer calls systemctl ~40 times. This shim:
+#   - passes enable/disable/mask/unmask/daemon-reload to the real systemctl
+#     (those work offline: they only edit symlinks under /etc/systemd)
+#   - really starts/stops MariaDB and Asterisk, which the install needs live
+#   - logs and skips start/stop/restart for every other service
+REAL=/usr/bin/systemctl
+log(){ echo "[build-systemctl] $*" >&2; }
+
+args=(); now=0
+for a in "$@"; do
+  case "$a" in --now) now=1 ;; -*) ;; *) args+=("$a") ;; esac
+done
+cmd=${args[0]:-}; units=("${args[@]:1}")
+
+db_up(){ mariadb-admin ping --silent >/dev/null 2>&1; }
+db_start(){
+  db_up && return 0
+  install -d -o mysql -g mysql /run/mysqld
+  local safe; safe=$(command -v mariadbd-safe || command -v mysqld_safe)
+  (setsid "$safe" >>/var/log/mariadb-build.log 2>&1 < /dev/null &)
+  for _ in $(seq 90); do db_up && return 0; sleep 1; done
+  log "MariaDB failed to start"; return 1
+}
+db_stop(){
+  db_up || return 0
+  pkill -TERM -x mariadbd || pkill -TERM -x mysqld
+  for _ in $(seq 90); do db_up || { sleep 1; return 0; }; sleep 1; done
+}
+ast_up(){ asterisk -rx 'core show version' >/dev/null 2>&1; }
+ast_stop(){ ast_up && asterisk -rx 'core stop now' >/dev/null 2>&1; sleep 2; pkill -x asterisk 2>/dev/null; true; }
+ast_start(){
+  ast_up && return 0
+  if id asterisk >/dev/null 2>&1; then asterisk -U asterisk -G asterisk; else asterisk; fi
+  for _ in $(seq 30); do ast_up && return 0; sleep 1; done
+  log "Asterisk failed to start"; return 1
+}
+
+act(){  # action unit
+  local u=${2%.service}
+  case "$u" in
+    mariadb|mysql|mysqld)
+      case $1 in start) db_start ;; stop) db_stop ;; restart|reload|force-reload) db_stop; db_start ;; esac ;;
+    asterisk)
+      case $1 in start) ast_start ;; stop) ast_stop ;; restart|reload|force-reload) ast_stop; ast_start ;; esac ;;
+    *) log "skipping '$1 $2' (no systemd at build time)" ;;
+  esac
+}
+
+case "$cmd" in
+  enable|disable|mask|unmask|daemon-reload|preset|link|reenable)
+    "$REAL" "$cmd" "${units[@]}" 2>/dev/null || log "real systemctl $cmd ${units[*]} returned $?"
+    if (( now )); then
+      for u in "${units[@]}"; do [[ $cmd == disable ]] && act stop "$u" || act start "$u"; done
+    fi
+    exit 0 ;;
+  start|stop|restart|reload|try-restart|reload-or-restart|force-reload)
+    a=$cmd; [[ $a == try-restart || $a == reload-or-restart ]] && a=restart
+    for u in "${units[@]}"; do act "$a" "$u"; done
+    exit 0 ;;
+  is-active|status)
+    u=${units[0]%.service}
+    case "$u" in mariadb|mysql|mysqld) db_up ;; asterisk) ast_up ;; *) false ;; esac
+    exit $? ;;
+  is-enabled) "$REAL" is-enabled "${units[@]}" ; exit $? ;;
+  *) log "ignoring: systemctl $*"; exit 0 ;;
+esac

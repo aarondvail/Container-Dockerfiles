@@ -1,0 +1,60 @@
+services:
+  incrediblepbx:
+    image: containerrepo.vail-industries.com/incrediblepbx:2026
+    build:
+      context: ..                     # parent dir holds the Dockerfile + incrediblepbx/
+      dockerfile: Dockerfile
+    container_name: incrediblepbx
+    hostname: pbx.local                 # your FQDN
+    platform: linux/amd64
+
+    # systemd as PID 1
+    privileged: true
+    cgroup: host
+    tmpfs: [/run, /run/lock, /tmp]
+    stop_signal: SIGRTMIN+3
+    stop_grace_period: 60s
+
+    # SIP + RTP 10000-20000/udp. Apache binds 80/443 on the host: conflicts
+    # with SWAG on the same box (move Apache's ports, or use macvlan).
+    network_mode: host
+
+    volumes:
+      - /sys/fs/cgroup:/sys/fs/cgroup:rw
+      # Empty dirs are seeded from the image on first start.
+      - /srv/ipbx/etc-asterisk:/etc/asterisk
+      - /srv/ipbx/lib-asterisk:/var/lib/asterisk
+      - /srv/ipbx/spool-asterisk:/var/spool/asterisk
+      - /srv/ipbx/log-asterisk:/var/log/asterisk
+      - /srv/ipbx/www:/var/www/html
+      - /srv/ipbx/hylafax:/var/spool/hylafax    # fax queues, received faxes, HylaFAX config
+      # - /srv/ipbx/mysql:/var/lib/mysql   # only when NOT using DB_HOST
+
+    environment:
+      TZ: America/New_York
+      IPBX_HTTP_PORT: "80"            # FreePBX web UI; e.g. 8080 if SWAG uses 80
+      IPBX_HTTPS_PORT: "443"          # e.g. 8443 if SWAG uses 443
+      # IPBX_SSH_PORT: "2222"         # container sshd (off by default; host has 22)
+      # IPBX_WEBMIN_PORT: "10443"     # Webmin (off by default)
+      IPBX_POSTFIX_LISTEN: "0"        # 0 = send-only Postfix, no port 25 listener
+      IPBX_ADMIN_PASSWORD: "change-me"  # FreePBX GUI user 'admin'
+      IPBX_FIREWALL: "0"                # 1 = let it manage iptables/fail2ban (host-wide with host networking!)
+      # External MySQL/MariaDB (omit DB_HOST to use the built-in MariaDB)
+      DB_HOST: "127.0.0.1"
+      DB_PORT: "3306"
+      DB_ADMIN_USER: "root"             # optional: creates DBs + user if given
+      DB_ADMIN_PASS: "change-me"
+      FPBX_DB_USER: "freepbxuser"
+      FPBX_DB_PASS: "change-me-too"
+      # Voicemail email attachments: mp3 (default) or native
+      VM_ATTACH_FORMAT: "mp3"
+      VM_MP3_BITRATE: "32"
+      # HylaFAX+ (set HYLAFAX_MODEMS=0 to disable)
+      HYLAFAX_MODEMS: "4"               # IAXmodem lines = concurrent faxes
+      FAX_NUMBER: "+1.555.555.1212"     # your fax DID (CSI/TSI)
+      FAX_AREACODE: "555"
+      FAX_LOCALID: "Vail Industries"    # header name on sent faxes
+      FAX_EMAIL: "fax@example.com"      # inbound faxes delivered here as PDF
+      HYLAFAX_CLIENTS: ""               # hfaxd access regexes, e.g. "^192\\.168\\.1\\."
+
+    restart: unless-stopped

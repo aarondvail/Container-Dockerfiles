@@ -1,0 +1,13 @@
+[Unit]
+Description=HylaFAX+ client protocol server (hfaxd, port 4559)
+After=hylafax-faxq.service
+Requires=hylafax-faxq.service
+
+[Service]
+Type=forking
+ExecStart=/usr/sbin/hfaxd -i 4559
+Restart=on-failure
+RestartSec=5
+
+[Install]
+WantedBy=multi-user.target

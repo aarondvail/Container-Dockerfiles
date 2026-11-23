@@ -1,0 +1,111 @@
+#!/bin/bash
+# =============================================================================
+#  gui-entrypoint — browser desktop for one X11 app (shared by etherape and
+#  networkminer images)
+# =============================================================================
+#  Xtigervnc  X server + VNC, bound to 127.0.0.1 only
+#  openbox    window manager (app windows open maximized)
+#  noVNC      websockify serves the noVNC page + proxies to the VNC server
+#  gui-app    the image's application (/usr/local/bin/gui-app), restarted
+#             if you close it
+#
+#  Optional per-image hooks (run as root):
+#    /usr/local/bin/gui-prestart   once, before the desktop starts
+#    /usr/local/bin/gui-sidecar    in the background, alongside the app
+#
+#  Environment:
+#    NOVNC_PORT=6080         web port (host port when run with --network host)
+#    NOVNC_LISTEN=0.0.0.0    address noVNC listens on
+#    VNC_PORT=5901           internal VNC port (localhost only)
+#    DISPLAY_NUM=1           X display number
+#    GEOMETRY=1600x900       desktop size
+#    VNC_PASSWORD            password asked by the noVNC page. TigerVNC uses
+#                            only the first 8 characters. Unset = no password.
+# =============================================================================
+set -uo pipefail
+
+: "${NOVNC_PORT:=6080}"
+: "${NOVNC_LISTEN:=0.0.0.0}"
+: "${VNC_PORT:=5901}"
+: "${DISPLAY_NUM:=1}"
+: "${GEOMETRY:=1600x900}"
+: "${VNC_PASSWORD:=}"
+: "${APP_TITLE:=$(hostname)}"
+
+export DISPLAY=":${DISPLAY_NUM}" NO_AT_BRIDGE=1 HOME=/root
+
+log() { echo "[gui-entrypoint] $*"; }
+
+cleanup() {
+    trap '' TERM INT
+    log "stopping"
+    kill -TERM 0 2>/dev/null
+    wait
+    exit 0
+}
+trap cleanup TERM INT
+
+# --- per-image setup -------------------------------------------------------
+if [ -x /usr/local/bin/gui-prestart ]; then
+    /usr/local/bin/gui-prestart || log "WARNING: gui-prestart failed (continuing)"
+fi
+
+# --- X + VNC ----------------------------------------------------------------
+rm -f "/tmp/.X${DISPLAY_NUM}-lock" "/tmp/.X11-unix/X${DISPLAY_NUM}"
+mkdir -p /tmp/.X11-unix && chmod 1777 /tmp/.X11-unix
+
+vnc_auth=()
+if [ -n "$VNC_PASSWORD" ]; then
+    mkdir -p /root/.vnc
+    printf '%s\n' "$VNC_PASSWORD" | tigervncpasswd -f > /root/.vnc/passwd
+    chmod 600 /root/.vnc/passwd
+    vnc_auth=(-SecurityTypes VncAuth -rfbauth /root/.vnc/passwd)
+else
+    log "WARNING: VNC_PASSWORD not set - anyone who can reach port ${NOVNC_PORT} gets the desktop"
+    vnc_auth=(-SecurityTypes None)
+fi
+
+Xtigervnc "$DISPLAY" \
+    -geometry "$GEOMETRY" -depth 24 \
+    -rfbport "$VNC_PORT" -localhost=1 \
+    -AlwaysShared -desktop "$APP_TITLE" \
+    "${vnc_auth[@]}" &
+xvnc_pid=$!
+
+for _ in $(seq 1 50); do
+    [ -S "/tmp/.X11-unix/X${DISPLAY_NUM}" ] && break
+    sleep 0.2
+done
+if [ ! -S "/tmp/.X11-unix/X${DISPLAY_NUM}" ]; then
+    log "ERROR: X server did not start"
+    exit 1
+fi
+
+openbox &
+
+# --- noVNC ------------------------------------------------------------------
+python3 -m websockify --web /usr/share/novnc \
+    "${NOVNC_LISTEN}:${NOVNC_PORT}" "127.0.0.1:${VNC_PORT}" &
+ws_pid=$!
+log "desktop ready: http://<host>:${NOVNC_PORT}/"
+
+# --- optional sidecar -------------------------------------------------------
+if [ -x /usr/local/bin/gui-sidecar ]; then
+    /usr/local/bin/gui-sidecar &
+fi
+
+# --- the app, restarted when closed -----------------------------------------
+(
+    while true; do
+        /usr/local/bin/gui-app
+        log "app exited ($?); restarting in 2s"
+        sleep 2
+    done
+) &
+
+# If the X server or noVNC dies, exit so Docker's restart policy kicks in.
+wait -n "$xvnc_pid" "$ws_pid"
+log "ERROR: X server or noVNC exited - stopping container"
+kill -TERM 0 2>/dev/null
+wait
+exit 1

@@ -1,0 +1,99 @@
+#!/usr/bin/env python3
+"""
+Asterisk voicemail `mailcmd`: re-encode voicemail audio attachments as MP3,
+then hand the message to sendmail.
+
+Asterisk writes the notification email (with the recording attached as
+wav / WAV(wav49=GSM) / gsm) to this program's stdin. Every audio/* attachment
+is converted with sox (libsox-fmt-mp3) and replaced by audio/mpeg *.mp3.
+
+Safety: if anything fails, the ORIGINAL message is sent unchanged, so a
+voicemail notification is never lost because of the conversion.
+
+Settings (from /etc/ipbx-vm.env, written by ipbx-entrypoint, or the environment):
+  VM_MP3_BITRATE  kbit/s, default 32 (mono voice)
+  VM_SENDMAIL     delivery command, default "/usr/sbin/sendmail -t"
+"""
+import base64
+import email
+import os
+import shlex
+import subprocess
+import sys
+import syslog
+import tempfile
+from email.generator import BytesGenerator
+from email.policy import compat32
+from io import BytesIO
+
+
+def settings():
+    conf = {"VM_MP3_BITRATE": "32", "VM_SENDMAIL": "/usr/sbin/sendmail -t"}
+    try:
+        with open("/etc/ipbx-vm.env") as fh:
+            for line in fh:
+                k, sep, v = line.strip().partition("=")
+                if sep and k in conf:
+                    conf[k] = shlex.split(v)[0] if v else ""
+    except OSError:
+        pass
+    for k in conf:
+        conf[k] = os.environ.get(k, conf[k])
+    return conf
+
+
+def to_mp3(audio: bytes, ext: str, bitrate: str) -> bytes:
+    with tempfile.TemporaryDirectory() as td:
+        src = os.path.join(td, "in." + (ext or "wav").lower())
+        dst = os.path.join(td, "out.mp3")
+        with open(src, "wb") as fh:
+            fh.write(audio)
+        subprocess.run(
+            ["sox", "-q", src, "-c", "1", "-C", str(bitrate), dst, "rate", "16k"],
+            check=True, timeout=120, capture_output=True,
+        )
+        with open(dst, "rb") as fh:
+            data = fh.read()
+    if len(data) < 128:
+        raise ValueError("sox produced an empty MP3")
+    return data
+
+
+def convert(raw: bytes, bitrate: str) -> bytes:
+    msg = email.message_from_bytes(raw, policy=compat32)
+    changed = 0
+    for part in msg.walk():
+        if part.is_multipart() or part.get_content_maintype() != "audio":
+            continue
+        name = part.get_filename() or part.get_param("name") or "message.wav"
+        stem, _, ext = name.rpartition(".")
+        stem = stem or name
+        mp3 = to_mp3(part.get_payload(decode=True), ext, bitrate)
+        newname = f"{stem}.mp3"
+        for h in ("Content-Type", "Content-Disposition", "Content-Transfer-Encoding"):
+            del part[h]
+        part["Content-Type"] = f'audio/mpeg; name="{newname}"'
+        part["Content-Transfer-Encoding"] = "base64"
+        part["Content-Disposition"] = f'attachment; filename="{newname}"'
+        part.set_payload(base64.encodebytes(mp3).decode("ascii"))
+        changed += 1
+    if not changed:
+        return raw
+    out = BytesIO()
+    BytesGenerator(out, mangle_from_=False, policy=compat32).flatten(msg)
+    return out.getvalue()
+
+
+def main() -> int:
+    conf = settings()
+    raw = sys.stdin.buffer.read()
+    try:
+        body = convert(raw, conf["VM_MP3_BITRATE"])
+    except Exception as exc:  # never lose the voicemail email
+        syslog.syslog(syslog.LOG_WARNING, f"sendmail-vm-mp3: sending original, conversion failed: {exc!r}")
+        body = raw
+    return subprocess.run(shlex.split(conf["VM_SENDMAIL"]), input=body).returncode
+
+
+if __name__ == "__main__":
+    sys.exit(main())

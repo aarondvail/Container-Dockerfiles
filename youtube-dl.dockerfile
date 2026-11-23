@@ -1,7 +1,8 @@
 #Setting ARCH type argument
 #ARG ARCH
 # Dockerfile YouTube-DL install (run from /port/docker/file)
-FROM debian:bullseye-slim
+FROM debian:trixie-slim
+#FROM debian:bullseye-slim
 #FROM debian:buster-slim
 
 #Set Language and Location
@@ -24,10 +25,11 @@ RUN apt-get update -y && apt-get install -y --allow-unauthenticated build-essent
 #ENV PATH="/root/.cargo/bin:${PATH}"
 
 #Get YouTube-DL
-RUN curl -L https://yt-dl.org/downloads/latest/youtube-dl -o /usr/local/bin/youtube-dl && chmod a+rx /usr/local/bin/youtube-dl 
+#RUN curl -L https://yt-dl.org/downloads/latest/youtube-dl -o /usr/local/bin/youtube-dl && chmod a+rx /usr/local/bin/youtube-dl 
 
 #Get yt-dlp
 RUN curl -L https://github.com/yt-dlp/yt-dlp/releases/latest/download/yt-dlp -o /usr/local/bin/yt-dlp && chmod a+rx /usr/local/bin/yt-dlp
+#RUN curl -L https://github.com/yt-dlp/yt-dlp/releases/latest/download/yt-dlp -o /usr/local/bin/yt-dlp
 
 ##Get UDemy-DL
 #RUN git clone https://github.com/r0oth3x49/udemy-dl.git && cd udemy-dl && pip3 install -r requirements.txt

@@ -1,0 +1,5 @@
+# Keep secrets out of every build context (all images build from the repo root)
+**/.env
+**/*.env
+**/config.yaml
+.git

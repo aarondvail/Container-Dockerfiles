@@ -1,0 +1,15 @@
+[Unit]
+Description=Incredible PBX per-container settings
+After=network-online.target mariadb.service
+Wants=network-online.target
+Before=freepbx.service asterisk.service
+
+[Service]
+Type=oneshot
+ExecStart=/usr/local/sbin/ipbx-postboot
+RemainAfterExit=yes
+StandardOutput=journal+console
+StandardError=journal+console
+
+[Install]
+WantedBy=multi-user.target

@@ -1,0 +1,12 @@
+[Unit]
+Description=IAXmodem virtual fax modem %i
+After=network-online.target asterisk.service freepbx.service
+Wants=network-online.target
+
+[Service]
+ExecStart=iaxmodem %i
+Restart=always
+RestartSec=5
+
+[Install]
+WantedBy=multi-user.target

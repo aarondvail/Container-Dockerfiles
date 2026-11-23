@@ -1,0 +1,15 @@
+#!/bin/bash
+# Bring the capture NIC up in promiscuous mode (it has no IP address).
+# Needs --cap-add NET_ADMIN and --network host.
+if [ -n "${CAPTURE_INTERFACE:-}" ]; then
+    if ip link show "$CAPTURE_INTERFACE" >/dev/null 2>&1; then
+        ip link set "$CAPTURE_INTERFACE" up promisc on \
+            || echo "[gui-prestart] WARNING: could not set $CAPTURE_INTERFACE up/promisc (missing NET_ADMIN?)"
+    else
+        echo "[gui-prestart] WARNING: interface $CAPTURE_INTERFACE not found (run with --network host?)"
+    fi
+fi
+
+# NetworkMiner writes extracted files and its own captures inside its install
+# folder; the image points those folders at /data (bind-mount it).
+mkdir -p /data/AssembledFiles /data/Captures

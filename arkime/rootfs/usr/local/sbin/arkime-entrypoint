@@ -1,0 +1,166 @@
+#!/bin/bash
+# =============================================================================
+#  arkime-entrypoint — one container running Arkime capture + viewer
+# =============================================================================
+#  On every start:
+#   1. maps the friendly env vars below onto Arkime's ARKIME__<setting>
+#      overrides (so no ES credentials are written to disk)
+#   2. creates /opt/arkime/etc/config.ini from the packaged sample if the
+#      mounted etc/ has none (a random passwordSecret is generated once)
+#   3. tunes the capture NIC (up, promiscuous, offloads off)
+#   4. waits for Elasticsearch/OpenSearch, then runs
+#      db.pl initorupgradenoprompt --ifneeded   (no-op when already current)
+#   5. creates the admin user if it doesn't exist yet
+#   6. runs capture and viewer, restarting either one if it exits, plus a
+#      daily "db.pl expire" to keep ARKIME_EXPIRE_DAYS of session indices
+#  See arkime.dockerfile for the environment variables.
+# =============================================================================
+set -uo pipefail
+
+A=/opt/arkime
+CFG=$A/etc/config.ini
+
+: "${ES_URL:=http://127.0.0.1:9200}"
+: "${ES_USER:=}"
+: "${ES_PASS:=}"
+: "${ES_INSECURE:=0}"
+: "${CAPTURE_INTERFACE:=}"
+: "${ARKIME_CAPTURE:=1}"
+: "${ARKIME_NODE:=arkime}"
+: "${ARKIME_PREFIX:=arkime_}"
+: "${ARKIME_VIEW_PORT:=8005}"
+: "${ARKIME_FREESPACE:=5%}"
+: "${ARKIME_EXPIRE_DAYS:=30}"
+: "${ARKIME_ADMIN_USER:=admin}"
+: "${ARKIME_ADMIN_PASSWORD:=}"
+: "${ARKIME_TUNE_INTERFACE:=1}"
+
+log() { echo "[arkime-entrypoint] $*"; }
+
+STOPPING=0
+cleanup() {
+    STOPPING=1
+    trap '' TERM INT
+    log "stopping capture and viewer (capture flushes open sessions first)"
+    kill -TERM 0 2>/dev/null
+    wait
+    exit 0
+}
+trap cleanup TERM INT
+
+# --- 1. settings -> Arkime env overrides ------------------------------------
+# ARKIME__<key> overrides <key> in [default] for capture, viewer, db.pl and
+# addUser.js alike.
+export ARKIME__elasticsearch="$ES_URL"
+export ARKIME__usersElasticsearch="$ES_URL"
+export ARKIME__prefix="$ARKIME_PREFIX"
+export ARKIME__usersPrefix="$ARKIME_PREFIX"
+export ARKIME__viewPort="$ARKIME_VIEW_PORT"
+export ARKIME__freeSpaceG="$ARKIME_FREESPACE"
+export ARKIME__pcapDir="$A/raw"
+if [ -n "$ES_USER" ]; then
+    export ARKIME__elasticsearchBasicAuth="${ES_USER}:${ES_PASS}"
+    export ARKIME__usersElasticsearchBasicAuth="$ARKIME__elasticsearchBasicAuth"
+fi
+[ -n "$CAPTURE_INTERFACE" ] && export ARKIME__interface="$CAPTURE_INTERFACE"
+
+insecure=()
+curl_opts=(-sf --max-time 40)
+if [ "$ES_INSECURE" = "1" ]; then
+    log "WARNING: ES_INSECURE=1 - TLS certificates of $ES_URL are not verified"
+    insecure=(--insecure)
+    curl_opts+=(-k)
+fi
+[ -n "$ES_USER" ] && curl_opts+=(-u "${ES_USER}:${ES_PASS}")
+
+# --- 2. config.ini ----------------------------------------------------------
+mkdir -p "$A/etc" "$A/raw"
+for f in ipv4-address-space.csv oui.txt; do
+    [ -f "$A/etc/$f" ] || cp "$A/samples/$f" "$A/etc/$f" 2>/dev/null || true
+done
+if [ ! -f "$CFG" ]; then
+    log "no config.ini in $A/etc - creating one from the packaged sample"
+    secret=$(tr -dc 'A-Za-z0-9' < /dev/urandom | head -c 40)
+    sed -e "s|ARKIME_ELASTICSEARCH|http://127.0.0.1:9200|" \
+        -e "s|ARKIME_PASSWORD|${secret}|" \
+        -e "s|ARKIME_INTERFACE|${CAPTURE_INTERFACE:-eth1}|" \
+        -e "s|ARKIME_INSTALL_DIR|${A}|g" \
+        "$A/samples/config.ini.sample" > "$CFG"
+    log "  elasticsearch, interface, prefix, viewPort and freeSpaceG in that file"
+    log "  are overridden by the container environment; edit the rest freely"
+fi
+chown root:daemon "$CFG" && chmod 0640 "$CFG"
+# capture drops to nobody:daemon (dropUser/dropGroup) after opening the NIC
+chown nobody:daemon "$A/raw"
+
+# --- 3. capture NIC ---------------------------------------------------------
+if [ "$ARKIME_CAPTURE" = "1" ] && [ -z "$CAPTURE_INTERFACE" ]; then
+    log "WARNING: CAPTURE_INTERFACE not set - running the viewer only"
+    ARKIME_CAPTURE=0
+fi
+if [ "$ARKIME_CAPTURE" = "1" ] && [ "$ARKIME_TUNE_INTERFACE" = "1" ]; then
+    # up + promiscuous, ring buffers up, offloads (gro/lro/tso...) off so
+    # Arkime sees real packets. Changes the HOST NIC (host networking) -
+    # meant for a dedicated mirror-port NIC. ARKIME_TUNE_INTERFACE=0 skips it.
+    "$A/bin/arkime_config_interfaces.sh" -c "$CFG" -n default 2>&1 \
+        | grep -v -e '^$' -e 'Operation not supported' || true
+fi
+
+# --- 4. database ------------------------------------------------------------
+log "waiting for Elasticsearch/OpenSearch at $ES_URL"
+until curl "${curl_opts[@]}" "$ES_URL/_cluster/health?wait_for_status=yellow&timeout=30s" >/dev/null; do
+    [ "$STOPPING" = 1 ] && exit 0
+    log "  not ready yet - retrying in 5s"
+    sleep 5
+done
+log "Elasticsearch/OpenSearch is up"
+
+if ! "$A/db/db.pl" "${insecure[@]}" "$ES_URL" initorupgradenoprompt --ifneeded; then
+    log "ERROR: db.pl init/upgrade failed (Elasticsearch 7.10+/8.x or OpenSearch is required)"
+    exit 1
+fi
+
+# --- 5. admin user ----------------------------------------------------------
+if [ -n "$ARKIME_ADMIN_PASSWORD" ]; then
+    # Password goes in on stdin ("-") so it never shows in the process list.
+    # --createOnly: an existing user (and a password changed in the UI) is kept.
+    (cd "$A/viewer" && printf '%s\n' "$ARKIME_ADMIN_PASSWORD" \
+        | "$A/bin/node" addUser.js "$ARKIME_ADMIN_USER" "Admin" - --admin --createOnly "${insecure[@]}") \
+        || log "WARNING: could not create user $ARKIME_ADMIN_USER"
+else
+    log "ARKIME_ADMIN_PASSWORD not set - skipping admin user creation"
+fi
+
+# --- 6. run -----------------------------------------------------------------
+run_loop() {
+    local name=$1 dir=$2
+    shift 2
+    while [ "$STOPPING" = 0 ]; do
+        (cd "$dir" && exec "$@")
+        rc=$?
+        [ "$STOPPING" = 1 ] && break
+        log "$name exited ($rc) - restarting in 5s"
+        sleep 5
+    done
+}
+
+if [ "$ARKIME_CAPTURE" = "1" ]; then
+    log "starting capture on $CAPTURE_INTERFACE (node $ARKIME_NODE)"
+    run_loop capture "$A/bin" ./capture -c "$CFG" -n "$ARKIME_NODE" "${insecure[@]}" &
+fi
+
+log "starting viewer on port $ARKIME_VIEW_PORT"
+run_loop viewer "$A/viewer" "$A/bin/node" viewer.js -c "$CFG" -n "$ARKIME_NODE" "${insecure[@]}" &
+
+if [ "$ARKIME_EXPIRE_DAYS" -gt 0 ] 2>/dev/null; then
+    (
+        sleep 3600
+        while [ "$STOPPING" = 0 ]; do
+            log "expire: keeping $ARKIME_EXPIRE_DAYS daily session indices"
+            "$A/db/db.pl" "${insecure[@]}" "$ES_URL" expire daily "$ARKIME_EXPIRE_DAYS" || true
+            sleep 86400
+        done
+    ) &
+fi
+
+wait
